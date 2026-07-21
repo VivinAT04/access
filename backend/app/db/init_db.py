@@ -1,7 +1,11 @@
 from app.db.base import Base
 from app.db.database import engine
 
-from app.models import AccessibilityPreference, User  # noqa: F401
+from app.models import (  # noqa: F401
+    AccessibilityPreference,
+    Task,
+    User,
+)
 
 
 def create_database_tables() -> None:

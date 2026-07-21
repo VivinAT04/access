@@ -53,7 +53,12 @@ export default async function DashboardPage() {
               Organise tasks into manageable, realistic
               steps.
             </p>
-            <span className="status-pill">Coming next</span>
+            <Link
+              className="status-pill feature-card-link"
+              href="/tasks"
+            >
+              Open task manager
+            </Link>
           </article>
 
           <article className="feature-card">

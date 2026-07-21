@@ -64,3 +64,43 @@ export type AccessibilityPreferenceUpdate = Pick<
   | "simplified_interface"
   | "screen_reader_optimised"
 >;
+
+export type TaskPriority =
+  | "low"
+  | "medium"
+  | "high"
+  | "urgent";
+
+export type TaskStatus =
+  | "pending"
+  | "in-progress"
+  | "completed";
+
+export interface Task {
+  id: string;
+  user_id: string;
+  title: string;
+  description: string | null;
+  priority: TaskPriority;
+  status: TaskStatus;
+  due_date: string | null;
+  is_completed: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TaskInput {
+  title: string;
+  description: string | null;
+  priority: TaskPriority;
+  status: TaskStatus;
+  due_date: string | null;
+}
+
+export interface TaskSummary {
+  total: number;
+  pending: number;
+  in_progress: number;
+  completed: number;
+  overdue: number;
+}
