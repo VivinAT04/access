@@ -1,3 +1,9 @@
+from app.models.accessibility_preference import (
+    AccessibilityPreference,
+)
 from app.models.user import User
 
-__all__ = ["User"]
+__all__ = [
+    "AccessibilityPreference",
+    "User",
+]

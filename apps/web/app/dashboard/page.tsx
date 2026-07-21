@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { Logo } from "@/components/layout/logo";
@@ -81,7 +82,12 @@ export default async function DashboardPage() {
               Personalise text, motion, contrast and sensory
               settings.
             </p>
-            <span className="status-pill">Coming soon</span>
+            <Link
+              className="status-pill feature-card-link"
+              href="/settings/accessibility"
+            >
+              Open settings
+            </Link>
           </article>
         </div>
 
