@@ -67,7 +67,12 @@ export default async function DashboardPage() {
             <p>
               Create a calm environment for focused work.
             </p>
-            <span className="status-pill">Planned</span>
+            <Link
+              className="status-pill feature-card-link"
+              href="/focus"
+            >
+              Start focus
+            </Link>
           </article>
 
           <article className="feature-card">

@@ -104,3 +104,28 @@ export interface TaskSummary {
   completed: number;
   overdue: number;
 }
+
+export type FocusSessionStatus =
+  | "completed"
+  | "cancelled";
+
+export interface FocusSession {
+  id: string;
+  user_id: string;
+  task_id: string | null;
+  intention: string;
+  notes: string | null;
+  planned_minutes: number;
+  completed_minutes: number;
+  status: FocusSessionStatus;
+  started_at: string;
+  completed_at: string | null;
+  created_at: string;
+}
+
+export interface FocusSummary {
+  sessions_today: number;
+  minutes_today: number;
+  completed_sessions: number;
+  total_minutes: number;
+}
