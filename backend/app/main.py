@@ -1,22 +1,27 @@
-from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.router import api_router
 from app.core.config import settings
 from app.db.init_db import create_database_tables
 
 
 @asynccontextmanager
-async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+async def lifespan(
+    _: FastAPI,
+) -> AsyncIterator[None]:
     create_database_tables()
     yield
 
 
 app = FastAPI(
     title=settings.app_name,
-    description="Backend API for the Aksess wellbeing platform",
+    description=(
+        "Backend API for the Aksess wellbeing platform"
+    ),
     version="0.1.0",
     debug=settings.debug,
     lifespan=lifespan,
@@ -33,6 +38,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(api_router)
 
 
 @app.get("/")
