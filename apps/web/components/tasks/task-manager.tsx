@@ -103,6 +103,29 @@ function isOverdue(task: Task): boolean {
 }
 
 
+async function readJsonResponse(
+  response: Response,
+): Promise<unknown> {
+  const responseText =
+    await response.text();
+
+  if (!responseText) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(responseText);
+  } catch {
+    return {
+      message:
+        response.ok
+          ? "The server returned an invalid response."
+          : `Request failed with status ${response.status}.`,
+    };
+  }
+}
+
+
 function getErrorMessage(
   data: unknown,
   fallback: string,
@@ -231,10 +254,14 @@ export function TaskManager() {
         ]);
 
         const tasksData =
-          (await tasksResponse.json()) as unknown;
+          (await readJsonResponse(
+            tasksResponse,
+          )) as unknown;
 
         const summaryData =
-          (await summaryResponse.json()) as unknown;
+          (await readJsonResponse(
+            summaryResponse,
+          )) as unknown;
 
         if (!tasksResponse.ok) {
           throw new Error(
