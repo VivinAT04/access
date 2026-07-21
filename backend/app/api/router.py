@@ -9,6 +9,9 @@ from app.auth.router import (
 from app.focus_sessions.router import (
     router as focus_sessions_router,
 )
+from app.mood_checkins.router import (
+    router as mood_checkins_router,
+)
 from app.tasks.router import (
     router as tasks_router,
 )
@@ -29,4 +32,7 @@ api_router.include_router(
 )
 api_router.include_router(
     focus_sessions_router
+)
+api_router.include_router(
+    mood_checkins_router
 )

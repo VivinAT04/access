@@ -129,3 +129,22 @@ export interface FocusSummary {
   completed_sessions: number;
   total_minutes: number;
 }
+
+export interface MoodCheckin {
+  id: string;
+  user_id: string;
+  mood_score: number;
+  energy_level: number;
+  stress_level: number;
+  emotions: string[];
+  note: string | null;
+  created_at: string;
+}
+
+export interface MoodSummary {
+  entries_today: number;
+  total_entries: number;
+  average_mood: number;
+  average_energy: number;
+  average_stress: number;
+}

@@ -82,7 +82,12 @@ export default async function DashboardPage() {
               Record how you feel without pressure or
               judgement.
             </p>
-            <span className="status-pill">Planned</span>
+            <Link
+              className="status-pill feature-card-link"
+              href="/mood"
+            >
+              Check in now
+            </Link>
           </article>
 
           <article className="feature-card">

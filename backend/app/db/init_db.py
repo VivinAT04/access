@@ -4,6 +4,7 @@ from app.db.database import engine
 from app.models import (  # noqa: F401
     AccessibilityPreference,
     FocusSession,
+    MoodCheckin,
     Task,
     User,
 )
