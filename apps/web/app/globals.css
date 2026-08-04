@@ -2823,3 +2823,336 @@ html.accessibility-simplified * {
     width: 100%;
   }
 }
+
+/* =========================================================
+   Aksess theme system
+   ========================================================= */
+
+:root,
+html[data-theme="light"] {
+  --background: #f7f5ef;
+  --surface: #ffffff;
+  --surface-soft: #f0eee7;
+  --surface-raised: #ffffff;
+
+  --text: #15231f;
+  --muted: #61706b;
+
+  --primary: #315f56;
+  --primary-hover: #264c45;
+  --primary-soft: #e4efeb;
+
+  --border: #d9dedb;
+  --border-strong: #bfc9c5;
+
+  --danger: #a83939;
+  --danger-background: #fceaea;
+
+  --success: #27664f;
+  --success-background: #e5f4ee;
+
+  --warning: #8a641d;
+  --warning-background: #fbf1d8;
+
+  --overlay:
+    rgba(21, 35, 31, 0.48);
+
+  --shadow:
+    0 18px 45px
+    rgba(38, 58, 51, 0.08);
+
+  color-scheme: light;
+}
+
+
+html[data-theme="dark"] {
+  --background: #101714;
+  --surface: #18211e;
+  --surface-soft: #202b27;
+  --surface-raised: #222e2a;
+
+  --text: #edf4f1;
+  --muted: #aebcb7;
+
+  --primary: #8bc8b7;
+  --primary-hover: #a5d8ca;
+  --primary-soft: #203c34;
+
+  --border: #33413c;
+  --border-strong: #52645d;
+
+  --danger: #ff9f9f;
+  --danger-background: #462525;
+
+  --success: #95d7bd;
+  --success-background: #203c32;
+
+  --warning: #f0ca79;
+  --warning-background: #41371f;
+
+  --overlay:
+    rgba(0, 0, 0, 0.7);
+
+  --shadow:
+    0 18px 45px
+    rgba(0, 0, 0, 0.28);
+
+  color-scheme: dark;
+}
+
+
+html,
+body {
+  background:
+    var(--background);
+  color:
+    var(--text);
+}
+
+
+body,
+button,
+input,
+textarea,
+select {
+  color:
+    var(--text);
+}
+
+
+input,
+textarea,
+select {
+  background:
+    var(--surface);
+  border-color:
+    var(--border);
+}
+
+
+::placeholder {
+  color:
+    var(--muted);
+  opacity: 0.8;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+html[data-theme="dark"]
+.quick-calm-page {
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      #1a3029 0,
+      var(--background) 58%
+    );
+}
+
+
+html[data-theme="dark"]
+.quick-calm-circle {
+  background:
+    rgba(
+      139,
+      200,
+      183,
+      0.13
+    );
+}
+
+
+html[data-theme="dark"]
+.breathing-inhale {
+  background:
+    #244139;
+}
+
+
+html[data-theme="dark"]
+.feature-card,
+html[data-theme="dark"]
+.dashboard-hero,
+html[data-theme="dark"]
+.profile-card,
+html[data-theme="dark"]
+.tasks-panel,
+html[data-theme="dark"]
+.task-card,
+html[data-theme="dark"]
+.reflection-form-card,
+html[data-theme="dark"]
+.reflection-support-card,
+html[data-theme="dark"]
+.reflection-history-card,
+html[data-theme="dark"]
+.anxiety-breathing-card,
+html[data-theme="dark"]
+.grounding-card,
+html[data-theme="dark"]
+.soundscape-card,
+html[data-theme="dark"]
+.anxiety-history-card,
+html[data-theme="dark"]
+.routine-create-card,
+html[data-theme="dark"]
+.routine-template-card,
+html[data-theme="dark"]
+.routine-runs-card {
+  box-shadow:
+    var(--shadow);
+}
+
+
+.theme-settings-card {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 24px;
+  border: 1px solid
+    var(--border);
+  border-radius:
+    var(--radius-large);
+  background:
+    var(--surface);
+  padding:
+    clamp(
+      24px,
+      4vw,
+      44px
+    );
+}
+
+
+.theme-settings-card h2 {
+  margin: 0;
+  font-size:
+    clamp(
+      2rem,
+      4vw,
+      3rem
+    );
+  letter-spacing:
+    -0.05em;
+}
+
+
+.theme-settings-description {
+  max-width: 680px;
+  margin:
+    12px 0 0;
+  color:
+    var(--muted);
+  line-height: 1.65;
+}
+
+
+.theme-options {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+  gap: 12px;
+}
+
+
+.theme-option {
+  display: grid;
+  grid-template-columns:
+    48px
+    minmax(0, 1fr)
+    30px;
+  align-items: center;
+  gap: 13px;
+  min-height: 100px;
+  border: 1px solid
+    var(--border);
+  border-radius: 18px;
+  background:
+    var(--surface);
+  color:
+    var(--text);
+  cursor: pointer;
+  padding: 18px;
+  text-align: left;
+}
+
+
+.theme-option:hover {
+  border-color:
+    var(--border-strong);
+}
+
+
+.theme-option-selected {
+  border-color:
+    var(--primary);
+  background:
+    var(--primary-soft);
+  box-shadow:
+    0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--primary) 20%,
+      transparent
+    );
+}
+
+
+.theme-option-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 14px;
+  background:
+    var(--surface-soft);
+  font-size: 1.45rem;
+}
+
+
+.theme-option > span:nth-child(2) {
+  display: grid;
+  gap: 5px;
+}
+
+
+.theme-option small {
+  color:
+    var(--muted);
+  line-height: 1.4;
+}
+
+
+.theme-option-check {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    var(--primary);
+  color: #ffffff;
+  font-weight: 900;
+}
+
+
+.theme-current-value {
+  margin: 0;
+  color:
+    var(--muted);
+}
+
+
+@media (
+  max-width: 760px
+) {
+  .theme-options {
+    grid-template-columns:
+      1fr;
+  }
+}

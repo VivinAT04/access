@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeSelector } from "@/components/theme/theme-selector";
 import { redirect } from "next/navigation";
 
 import { AccessibilityForm } from "@/components/accessibility/accessibility-form";
@@ -38,6 +39,8 @@ export default async function AccessibilitySettingsPage() {
           are saved to your account.
         </p>
       </section>
+
+      <ThemeSelector />
 
       <AccessibilityForm />
     </main>

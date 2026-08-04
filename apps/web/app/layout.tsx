@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { AccessibilityProvider } from "@/components/accessibility/accessibility-provider";
+import { ThemeProvider } from "@/components/theme/theme-provider";
+import { ThemeScript } from "@/components/theme/theme-script";
 
 import "./globals.css";
+
 
 export const metadata: Metadata = {
   title: {
@@ -14,17 +17,27 @@ export const metadata: Metadata = {
     "An accessible platform for planning, focus and wellbeing support.",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
+      <head>
+        <ThemeScript />
+      </head>
+
       <body>
-        <AccessibilityProvider>
-          {children}
-        </AccessibilityProvider>
+        <ThemeProvider>
+          <AccessibilityProvider>
+            {children}
+          </AccessibilityProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
