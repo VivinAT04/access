@@ -372,10 +372,17 @@ export function ReminderManager() {
             );
 
           notification.onclick = () => {
-            window.focus();
-            window.location.href =
-              "/reminders";
-            notification.close();
+            void fetch(
+              `/api/reminders/${reminder.id}/dismiss`,
+              {
+                method: "PATCH",
+              },
+            ).finally(() => {
+              notification.close();
+              window.focus();
+              window.location.href =
+                "/reminders";
+            });
           };
 
           void fetch(
