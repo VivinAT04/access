@@ -282,3 +282,26 @@ export interface RoutineSummary {
   completed_runs_today: number;
   total_completed_runs: number;
 }
+
+export interface Reminder {
+  id: string;
+  user_id: string;
+  task_id: string | null;
+  routine_id: string | null;
+  title: string;
+  message: string | null;
+  remind_at: string;
+  is_enabled: boolean;
+  is_dismissed: boolean;
+  notified_at: string | null;
+  created_at: string;
+  updated_at: string;
+  is_overdue: boolean;
+}
+
+export interface ReminderSummary {
+  total_active: number;
+  upcoming: number;
+  overdue: number;
+  due_today: number;
+}

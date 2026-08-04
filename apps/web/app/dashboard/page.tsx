@@ -164,6 +164,21 @@ export default async function DashboardPage() {
               Open routines
             </Link>
           </article>
+
+          <article className="feature-card">
+            <span className="feature-number">09</span>
+            <h2>Reminders</h2>
+            <p>
+              Set optional reminders for tasks, routines
+              and important personal prompts.
+            </p>
+            <Link
+              className="status-pill feature-card-link"
+              href="/reminders"
+            >
+              View reminders
+            </Link>
+          </article>
         </div>
 
         <section className="account-card">

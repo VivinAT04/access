@@ -39,7 +39,7 @@ const ThemeContext =
   >(undefined);
 
 
-function systemTheme(): ResolvedTheme {
+function getSystemTheme(): ResolvedTheme {
   if (
     typeof window !== "undefined" &&
     window.matchMedia(
@@ -53,24 +53,24 @@ function systemTheme(): ResolvedTheme {
 }
 
 
-function storedTheme(): ThemePreference {
+function getStoredTheme(): ThemePreference {
   if (
     typeof window === "undefined"
   ) {
     return "system";
   }
 
-  const value =
+  const stored =
     window.localStorage.getItem(
       STORAGE_KEY,
     );
 
   if (
-    value === "light" ||
-    value === "dark" ||
-    value === "system"
+    stored === "light" ||
+    stored === "dark" ||
+    stored === "system"
   ) {
-    return value;
+    return stored;
   }
 
   return "system";
@@ -80,8 +80,10 @@ function storedTheme(): ThemePreference {
 function resolveTheme(
   preference: ThemePreference,
 ): ResolvedTheme {
-  if (preference === "system") {
-    return systemTheme();
+  if (
+    preference === "system"
+  ) {
+    return getSystemTheme();
   }
 
   return preference;
@@ -90,7 +92,7 @@ function resolveTheme(
 
 function applyTheme(
   preference: ThemePreference,
-) {
+): ResolvedTheme {
   const resolved =
     resolveTheme(preference);
 
@@ -110,6 +112,8 @@ function applyTheme(
     STORAGE_KEY,
     preference,
   );
+
+  return resolved;
 }
 
 
@@ -118,18 +122,21 @@ export function ThemeProvider({
 }: {
   children: ReactNode;
 }) {
+  /*
+   * These values must be identical during
+   * server rendering and initial client
+   * hydration.
+   */
   const [theme, setThemeState] =
     useState<ThemePreference>(
-      storedTheme,
+      "system",
     );
 
   const [
     resolvedTheme,
     setResolvedTheme,
   ] = useState<ResolvedTheme>(
-    () => resolveTheme(
-      storedTheme(),
-    ),
+    "light",
   );
 
 
@@ -138,29 +145,60 @@ export function ThemeProvider({
       preference:
         ThemePreference,
     ) => {
+      const resolved =
+        applyTheme(
+          preference,
+        );
+
       setThemeState(
         preference,
       );
 
       setResolvedTheme(
-        resolveTheme(
-          preference,
-        ),
-      );
-
-      applyTheme(
-        preference,
+        resolved,
       );
     },
     [],
   );
 
 
+  /*
+   * Read localStorage only after hydration.
+   * The timeout callback avoids a synchronous
+   * state update directly inside the effect.
+   */
   useEffect(() => {
-    applyTheme(theme);
-  }, [theme]);
+    const timeoutId =
+      window.setTimeout(() => {
+        const preference =
+          getStoredTheme();
+
+        const resolved =
+          applyTheme(
+            preference,
+          );
+
+        setThemeState(
+          preference,
+        );
+
+        setResolvedTheme(
+          resolved,
+        );
+      }, 0);
+
+    return () => {
+      window.clearTimeout(
+        timeoutId,
+      );
+    };
+  }, []);
 
 
+  /*
+   * Update System mode when the operating
+   * system appearance changes.
+   */
   useEffect(() => {
     const mediaQuery =
       window.matchMedia(
@@ -175,11 +213,7 @@ export function ThemeProvider({
       }
 
       const resolved =
-        systemTheme();
-
-      setResolvedTheme(
-        resolved,
-      );
+        getSystemTheme();
 
       document.documentElement
         .dataset.theme =
@@ -188,6 +222,10 @@ export function ThemeProvider({
       document.documentElement
         .style.colorScheme =
         resolved;
+
+      setResolvedTheme(
+        resolved,
+      );
     }
 
     mediaQuery.addEventListener(
