@@ -18,6 +18,9 @@ from app.mood_checkins.router import (
 from app.reflections.router import (
     router as reflections_router,
 )
+from app.subtasks.router import (
+    router as subtasks_router,
+)
 from app.tasks.router import (
     router as tasks_router,
 )
@@ -49,4 +52,8 @@ api_router.include_router(
 
 api_router.include_router(
     anxiety_sessions_router
+)
+
+api_router.include_router(
+    subtasks_router
 )

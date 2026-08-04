@@ -189,3 +189,30 @@ export interface AnxietySummary {
   total_minutes: number;
   favourite_exercise: string | null;
 }
+
+export interface Subtask {
+  id: string;
+  user_id: string;
+  task_id: string;
+  title: string;
+  description: string | null;
+  position: number;
+  is_completed: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SubtaskInput {
+  task_id: string;
+  title: string;
+  description: string | null;
+  position?: number | null;
+}
+
+export interface TaskProgress {
+  task_id: string;
+  total_subtasks: number;
+  completed_subtasks: number;
+  progress_percentage: number;
+  is_completed: boolean;
+}

@@ -7,6 +7,7 @@ from app.models import (  # noqa: F401
     FocusSession,
     MoodCheckin,
     Reflection,
+    Subtask,
     Task,
     User,
 )

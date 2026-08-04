@@ -9,6 +9,7 @@ from app.models.mood_checkin import (
     MoodCheckin,
 )
 from app.models.reflection import Reflection
+from app.models.subtask import Subtask
 from app.models.task import Task
 from app.models.user import User
 
@@ -18,6 +19,7 @@ __all__ = [
     "FocusSession",
     "MoodCheckin",
     "Reflection",
+    "Subtask",
     "Task",
     "User",
 ]
