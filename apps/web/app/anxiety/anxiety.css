@@ -1,0 +1,475 @@
+.anxiety-page {
+  min-height: 100vh;
+  padding: 28px clamp(24px, 6vw, 90px) 80px;
+}
+
+.anxiety-heading {
+  max-width: 980px;
+  margin: 80px 0 48px;
+}
+
+.anxiety-heading h1 {
+  margin: 0;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+}
+
+.anxiety-heading > p:last-child {
+  max-width: 790px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.anxiety-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.anxiety-summary-grid article {
+  display: grid;
+  min-height: 130px;
+  align-content: space-between;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
+  background: var(--surface);
+  padding: 22px;
+}
+
+.anxiety-summary-grid span {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.anxiety-summary-grid strong {
+  font-size: 2.6rem;
+  letter-spacing: -0.06em;
+}
+
+.anxiety-summary-grid .anxiety-favourite {
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+}
+
+.anxiety-breathing-card,
+.grounding-card,
+.soundscape-card,
+.anxiety-history-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  background: var(--surface);
+  padding: clamp(24px, 4vw, 44px);
+}
+
+.anxiety-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.anxiety-card-heading h2,
+.soundscape-card h2,
+.anxiety-history-card h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.05em;
+}
+
+.anxiety-card-heading p:last-child,
+.soundscape-card > div:first-child > p:last-child {
+  max-width: 700px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.anxiety-exercise-selector {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 30px 0;
+}
+
+.anxiety-exercise-option {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 20px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.anxiety-exercise-option span {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.anxiety-exercise-active {
+  border-color: var(--primary);
+  background: var(--surface-soft);
+  box-shadow: 0 0 0 3px rgba(49, 95, 86, 0.13);
+}
+
+.anxiety-breathing-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(280px, 0.9fr);
+  gap: 34px;
+  align-items: center;
+}
+
+.breathing-guide {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.breathing-circle {
+  display: grid;
+  width: min(100%, 340px);
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface-soft);
+  border: 18px solid rgba(49, 95, 86, 0.15);
+  transition:
+    transform var(--breathing-duration) ease-in-out,
+    background-color 300ms ease;
+}
+
+.breathing-circle > div {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+}
+
+.breathing-circle strong {
+  font-size: 2rem;
+}
+
+.breathing-circle span {
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+.breathing-inhale {
+  transform: scale(1.08);
+  background: #e8f3ef;
+}
+
+.breathing-exhale {
+  transform: scale(0.88);
+}
+
+.breathing-hold {
+  transform: scale(1);
+}
+
+.breathing-guide h3 {
+  max-width: 500px;
+  margin: 24px 0 8px;
+}
+
+.breathing-guide p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 750;
+}
+
+.breathing-controls-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.breathing-controls-panel label {
+  display: grid;
+  gap: 8px;
+}
+
+.breathing-controls-panel label span {
+  font-weight: 800;
+}
+
+.breathing-controls-panel select {
+  min-height: 50px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 0 14px;
+}
+
+.breathing-pattern-list {
+  display: grid;
+  gap: 8px;
+}
+
+.breathing-pattern-list div {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.breathing-pattern-list div > span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface-soft);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.breathing-pattern-list small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.breathing-pattern-active {
+  background: var(--surface-soft);
+}
+
+.breathing-active-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.grounding-card,
+.soundscape-card,
+.anxiety-history-card {
+  margin-top: 24px;
+}
+
+.grounding-progress {
+  display: grid;
+  min-width: 130px;
+  justify-items: end;
+}
+
+.grounding-progress strong {
+  font-size: 2rem;
+}
+
+.grounding-progress span {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.grounding-steps {
+  display: grid;
+  gap: 12px;
+  margin: 30px 0;
+}
+
+.grounding-step {
+  display: grid;
+  grid-template-columns: 54px minmax(220px, 0.7fr) minmax(260px, 1fr);
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.grounding-number {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.grounding-prompt {
+  display: grid;
+  gap: 5px;
+}
+
+.grounding-prompt small {
+  color: var(--muted);
+}
+
+.grounding-step input {
+  min-height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 0 14px;
+}
+
+.grounding-complete-button {
+  width: 100%;
+}
+
+.soundscape-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.soundscape-option {
+  display: grid;
+  min-height: 190px;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  padding: 20px;
+  text-align: center;
+}
+
+.soundscape-icon {
+  font-size: 2.4rem;
+}
+
+.soundscape-option small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.soundscape-action {
+  margin-top: 8px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  padding: 7px 11px;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.soundscape-active {
+  border-color: var(--primary);
+  background: var(--surface-soft);
+}
+
+.anxiety-history-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.anxiety-history-list article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.anxiety-history-list h3 {
+  margin: 0;
+}
+
+.anxiety-history-list p {
+  margin: 7px 0;
+  color: var(--muted);
+}
+
+.anxiety-history-list small {
+  color: var(--muted);
+}
+
+.anxiety-history-list button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--danger);
+  cursor: pointer;
+  padding: 8px 12px;
+  font-weight: 800;
+}
+
+.anxiety-empty-state {
+  margin-top: 28px;
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+}
+
+.anxiety-empty-state h3 {
+  margin: 0;
+}
+
+.anxiety-empty-state p {
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breathing-circle {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .anxiety-breathing-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .anxiety-summary-grid,
+  .soundscape-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grounding-step {
+    grid-template-columns: 54px 1fr;
+  }
+
+  .grounding-step input {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 680px) {
+  .anxiety-page {
+    padding-inline: 18px;
+  }
+
+  .anxiety-summary-grid,
+  .anxiety-exercise-selector,
+  .soundscape-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .anxiety-card-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .grounding-progress {
+    justify-items: start;
+  }
+
+  .grounding-step {
+    grid-template-columns: 48px 1fr;
+  }
+
+  .anxiety-history-list article {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

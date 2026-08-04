@@ -166,3 +166,26 @@ export interface ReflectionSummary {
   reflected_today: boolean;
   current_streak: number;
 }
+
+export type AnxietyExerciseType =
+  | "box_breathing"
+  | "four_seven_eight"
+  | "grounding_54321"
+  | "quick_calm";
+
+export interface AnxietySession {
+  id: string;
+  user_id: string;
+  exercise_type: AnxietyExerciseType;
+  duration_seconds: number;
+  completed: boolean;
+  created_at: string;
+}
+
+export interface AnxietySummary {
+  sessions_today: number;
+  minutes_today: number;
+  total_sessions: number;
+  total_minutes: number;
+  favourite_exercise: string | null;
+}

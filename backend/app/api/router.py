@@ -1,3 +1,6 @@
+from app.anxiety_sessions.router import (
+    router as anxiety_sessions_router,
+)
 from fastapi import APIRouter
 
 from app.accessibility.router import (
@@ -42,4 +45,8 @@ api_router.include_router(
 
 api_router.include_router(
     reflections_router
+)
+
+api_router.include_router(
+    anxiety_sessions_router
 )

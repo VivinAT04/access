@@ -119,6 +119,36 @@ export default async function DashboardPage() {
               Reflect on today
             </Link>
           </article>
+
+          <article className="feature-card">
+            <span className="feature-number">06</span>
+            <h2>Calm and grounding</h2>
+            <p>
+              Use breathing, grounding and calming sounds
+              during anxious or overwhelming moments.
+            </p>
+            <Link
+              className="status-pill feature-card-link"
+              href="/anxiety"
+            >
+              Open calm tools
+            </Link>
+          </article>
+
+          <article className="feature-card">
+            <span className="feature-number">07</span>
+            <h2>Quick Calm</h2>
+            <p>
+              Open a low-distraction calming screen in one
+              step.
+            </p>
+            <Link
+              className="status-pill feature-card-link"
+              href="/calm"
+            >
+              Calm now
+            </Link>
+          </article>
         </div>
 
         <section className="account-card">
