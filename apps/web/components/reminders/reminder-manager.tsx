@@ -102,6 +102,26 @@ function initialReminderTime() {
 }
 
 
+function parseBackendDate(
+  value: string,
+): Date {
+  /*
+   * SQLite may return a UTC timestamp
+   * without "Z" or an offset. In that
+   * case, explicitly interpret it as UTC.
+   */
+  const hasTimezone =
+    value.endsWith("Z") ||
+    /[+-]\\d{2}:?\\d{2}$/.test(value);
+
+  return new Date(
+    hasTimezone
+      ? value
+      : `${value}Z`,
+  );
+}
+
+
 function formatDateTime(
   value: string,
 ): string {
@@ -114,13 +134,9 @@ function formatDateTime(
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
-      timeZone:
-        Intl.DateTimeFormat()
-          .resolvedOptions()
-          .timeZone,
     },
   ).format(
-    new Date(value)
+    parseBackendDate(value),
   );
 }
 
@@ -333,7 +349,7 @@ export function ReminderManager() {
           }
 
           const reminderTime =
-            new Date(
+            parseBackendDate(
               reminder.remind_at
             ).getTime();
 
@@ -343,16 +359,24 @@ export function ReminderManager() {
             continue;
           }
 
-          new Notification(
-            reminder.title,
-            {
-              body:
-                reminder.message
-                ?? "You have an Aksess reminder.",
-              tag:
-                `aksess-reminder-${reminder.id}`,
-            },
-          );
+          const notification =
+            new Notification(
+              reminder.title,
+              {
+                body:
+                  reminder.message
+                  ?? "You have an Aksess reminder.",
+                tag:
+                  `aksess-reminder-${reminder.id}`,
+              },
+            );
+
+          notification.onclick = () => {
+            window.focus();
+            window.location.href =
+              "/reminders";
+            notification.close();
+          };
 
           void fetch(
             `/api/reminders/${reminder.id}/notified`,
