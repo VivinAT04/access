@@ -2562,3 +2562,264 @@ html.accessibility-simplified * {
     flex: 1;
   }
 }
+
+/* Task breakdown and subtasks */
+
+.task-breakdown {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+
+.task-breakdown-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.task-breakdown-heading > div {
+  display: grid;
+  gap: 4px;
+}
+
+.task-breakdown-heading span {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.task-breakdown-toggle {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  padding: 8px 12px;
+  font-weight: 800;
+}
+
+.subtask-progress-track {
+  height: 9px;
+  overflow: hidden;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+}
+
+.subtask-progress-value {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary);
+  transition: width 220ms ease;
+}
+
+.subtask-progress-label {
+  display: flex;
+  min-height: 24px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.subtask-progress-label strong {
+  color: var(--primary);
+}
+
+.task-breakdown-body {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.subtask-form {
+  display: grid;
+  gap: 10px;
+  border-radius: 16px;
+  background: var(--surface-soft);
+  padding: 16px;
+}
+
+.subtask-form-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.subtask-form-heading button {
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.subtask-form input,
+.subtask-form textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 12px;
+}
+
+.subtask-form textarea {
+  resize: vertical;
+}
+
+.subtask-message {
+  margin: 0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+}
+
+.subtask-success {
+  background: var(--success-background);
+}
+
+.subtask-error {
+  background: var(--danger-background);
+  color: var(--danger);
+}
+
+.subtask-loading,
+.subtask-empty {
+  margin: 0;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+}
+
+.subtask-empty p {
+  margin: 7px 0 0;
+  color: var(--muted);
+}
+
+.subtask-list {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.subtask-item {
+  display: grid;
+  grid-template-columns:
+    38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 12px;
+}
+
+.subtask-complete {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.subtask-content {
+  min-width: 0;
+}
+
+.subtask-content > strong {
+  display: block;
+}
+
+.subtask-content p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.subtask-item-completed
+.subtask-content {
+  opacity: 0.62;
+}
+
+.subtask-item-completed
+.subtask-content > strong {
+  text-decoration: line-through;
+}
+
+.subtask-item-completed
+.subtask-complete {
+  background: var(--primary);
+  color: white;
+}
+
+.subtask-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.subtask-actions button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  padding: 6px 9px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.subtask-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.subtask-actions
+.subtask-delete {
+  color: var(--danger);
+}
+
+.subtask-focus-link {
+  justify-self: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subtask-progress-value {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .task-breakdown-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .subtask-item {
+    grid-template-columns:
+      38px minmax(0, 1fr);
+  }
+
+  .subtask-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  .subtask-focus-link {
+    width: 100%;
+  }
+}

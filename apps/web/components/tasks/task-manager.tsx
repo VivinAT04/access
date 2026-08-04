@@ -16,6 +16,8 @@ import type {
   TaskSummary,
 } from "@/lib/types";
 
+import { SubtaskPanel } from "@/components/tasks/subtask-panel";
+
 
 type StatusFilter =
   | "all"
@@ -857,6 +859,11 @@ export function TaskManager() {
                       task.due_date,
                     )}
                   </small>
+
+                  <SubtaskPanel
+                    onTaskChanged={loadTasks}
+                    task={task}
+                  />
                 </div>
               </article>
             ))}
