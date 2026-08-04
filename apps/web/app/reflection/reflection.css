@@ -1,0 +1,342 @@
+.reflection-page {
+  min-height: 100vh;
+  padding: 28px clamp(24px, 6vw, 90px) 80px;
+}
+
+.reflection-page .tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.reflection-heading {
+  max-width: 920px;
+  margin: 80px 0 48px;
+}
+
+.reflection-heading h1 {
+  margin: 0;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+}
+
+.reflection-heading > p:last-child {
+  max-width: 780px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.reflection-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.reflection-summary-grid article {
+  display: grid;
+  min-height: 130px;
+  align-content: space-between;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
+  background: var(--surface);
+  padding: 22px;
+}
+
+.reflection-summary-grid span {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.reflection-summary-grid strong {
+  font-size: 2.6rem;
+  letter-spacing: -0.06em;
+}
+
+.reflection-summary-grid .reflection-today-status {
+  font-size: 1.7rem;
+}
+
+.reflection-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.2fr)
+    minmax(300px, 0.8fr);
+  gap: 24px;
+}
+
+.reflection-form-card,
+.reflection-support-card,
+.reflection-history-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  background: var(--surface);
+  padding: clamp(24px, 4vw, 44px);
+}
+
+.reflection-form-card {
+  display: grid;
+  gap: 24px;
+}
+
+.reflection-form-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.reflection-form-card h2,
+.reflection-support-card h2,
+.reflection-history-card h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.05em;
+}
+
+.reflection-form-heading p:last-child {
+  max-width: 620px;
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.reflection-field {
+  display: grid;
+  gap: 9px;
+}
+
+.reflection-field > span {
+  font-weight: 800;
+}
+
+.reflection-field input,
+.reflection-field textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 14px;
+}
+
+.reflection-field input {
+  min-height: 54px;
+}
+
+.reflection-field textarea {
+  resize: vertical;
+}
+
+.reflection-field input:focus-visible,
+.reflection-field textarea:focus-visible {
+  outline: 3px solid rgba(49, 95, 86, 0.25);
+  outline-offset: 2px;
+}
+
+.reflection-save-button {
+  width: 100%;
+}
+
+.reflection-support-card {
+  display: grid;
+  align-content: start;
+  gap: 22px;
+}
+
+.reflection-support-card > p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.reflection-date-card,
+.reflection-support-note {
+  border-radius: 18px;
+  background: var(--surface-soft);
+  padding: 20px;
+}
+
+.reflection-date-card {
+  display: grid;
+  gap: 8px;
+}
+
+.reflection-date-card span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.reflection-support-note p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.reflection-history-card {
+  margin-top: 24px;
+}
+
+.reflection-history-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.reflection-history-list article {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.reflection-history-date {
+  display: grid;
+  width: 58px;
+  height: 64px;
+  flex: 0 0 auto;
+  place-items: center;
+  align-content: center;
+  border-radius: 16px;
+  background: var(--surface-soft);
+}
+
+.reflection-history-date span {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.reflection-history-date small {
+  color: var(--muted);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.reflection-history-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.reflection-history-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.reflection-history-heading h3 {
+  margin: 0;
+}
+
+.reflection-history-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.reflection-history-actions button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  padding: 8px 12px;
+  font-weight: 800;
+}
+
+.reflection-history-actions .reflection-delete-button {
+  color: var(--danger);
+}
+
+.reflection-responses {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 20px 0 0;
+}
+
+.reflection-responses div {
+  border-radius: 14px;
+  background: var(--surface-soft);
+  padding: 14px;
+}
+
+.reflection-responses dt {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.reflection-responses dd {
+  margin: 8px 0 0;
+  line-height: 1.55;
+}
+
+.reflection-history-note {
+  margin: 16px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.reflection-empty-state {
+  margin-top: 28px;
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+}
+
+.reflection-empty-state h3 {
+  margin: 0;
+}
+
+.reflection-empty-state p {
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
+@media (max-width: 950px) {
+  .reflection-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .reflection-responses {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .reflection-page {
+    padding-inline: 18px;
+  }
+
+  .reflection-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reflection-form-heading,
+  .reflection-history-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .reflection-history-list article {
+    flex-direction: column;
+  }
+
+  .reflection-history-actions {
+    width: 100%;
+  }
+
+  .reflection-history-actions button {
+    flex: 1;
+  }
+}
