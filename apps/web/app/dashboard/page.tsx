@@ -104,6 +104,21 @@ export default async function DashboardPage() {
               Open settings
             </Link>
           </article>
+
+          <article className="feature-card">
+            <span className="feature-number">05</span>
+            <h2>Daily reflection</h2>
+            <p>
+              Notice one positive moment, one challenge and
+              one accomplishment.
+            </p>
+            <Link
+              className="status-pill feature-card-link"
+              href="/reflection"
+            >
+              Reflect on today
+            </Link>
+          </article>
         </div>
 
         <section className="account-card">

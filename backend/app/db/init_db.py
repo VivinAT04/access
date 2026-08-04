@@ -5,6 +5,7 @@ from app.models import (  # noqa: F401
     AccessibilityPreference,
     FocusSession,
     MoodCheckin,
+    Reflection,
     Task,
     User,
 )

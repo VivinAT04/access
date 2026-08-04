@@ -148,3 +148,21 @@ export interface MoodSummary {
   average_energy: number;
   average_stress: number;
 }
+
+export interface Reflection {
+  id: string;
+  user_id: string;
+  reflection_date: string;
+  good_thing: string;
+  challenge: string;
+  accomplishment: string;
+  note: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ReflectionSummary {
+  total_reflections: number;
+  reflected_today: boolean;
+  current_streak: number;
+}
