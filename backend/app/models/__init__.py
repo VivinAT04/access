@@ -1,3 +1,9 @@
+from app.models.routine import (
+    Routine,
+    RoutineRun,
+    RoutineRunStep,
+    RoutineStep,
+)
 from app.models.anxiety_session import AnxietySession
 from app.models.accessibility_preference import (
     AccessibilityPreference,
@@ -14,6 +20,10 @@ from app.models.task import Task
 from app.models.user import User
 
 __all__ = [
+    "RoutineStep",
+    "RoutineRunStep",
+    "RoutineRun",
+    "Routine",
     "AnxietySession",
     "AccessibilityPreference",
     "FocusSession",

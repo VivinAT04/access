@@ -216,3 +216,69 @@ export interface TaskProgress {
   progress_percentage: number;
   is_completed: boolean;
 }
+
+export type RoutineCategory =
+  | "morning"
+  | "study"
+  | "work"
+  | "evening"
+  | "custom";
+
+export interface RoutineStep {
+  id: string;
+  routine_id: string;
+  user_id: string;
+  title: string;
+  description: string | null;
+  position: number;
+  estimated_minutes: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Routine {
+  id: string;
+  user_id: string;
+  title: string;
+  description: string | null;
+  category: RoutineCategory;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  steps: RoutineStep[];
+}
+
+export interface RoutineRunStep {
+  id: string;
+  run_id: string;
+  routine_step_id: string | null;
+  user_id: string;
+  title: string;
+  position: number;
+  is_completed: boolean;
+  completed_at: string | null;
+}
+
+export interface RoutineRun {
+  id: string;
+  routine_id: string;
+  user_id: string;
+  run_date: string;
+  status:
+    | "in-progress"
+    | "completed";
+  started_at: string;
+  completed_at: string | null;
+  routine_title: string;
+  progress_percentage: number;
+  completed_steps: number;
+  total_steps: number;
+  steps: RoutineRunStep[];
+}
+
+export interface RoutineSummary {
+  total_routines: number;
+  active_runs_today: number;
+  completed_runs_today: number;
+  total_completed_runs: number;
+}

@@ -1,0 +1,259 @@
+.routines-page {
+  min-height: 100vh;
+  padding: 28px clamp(24px, 6vw, 90px) 80px;
+}
+
+.routines-heading {
+  max-width: 900px;
+  margin: 80px 0 48px;
+}
+
+.routines-heading h1 {
+  margin: 0;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+}
+
+.routines-heading > p:last-child {
+  max-width: 750px;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.routine-summary-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.routine-summary-grid article,
+.routine-create-card,
+.routine-template-card,
+.routine-runs-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  background: var(--surface);
+  padding: 24px;
+}
+
+.routine-summary-grid article {
+  display: grid;
+  min-height: 125px;
+  align-content: space-between;
+}
+
+.routine-summary-grid span {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.routine-summary-grid strong {
+  font-size: 2.6rem;
+}
+
+.routine-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(320px, 0.8fr)
+    minmax(0, 1.2fr);
+  gap: 24px;
+}
+
+.routine-create-card {
+  display: grid;
+  align-content: start;
+  gap: 17px;
+}
+
+.routine-create-card h2,
+.routine-template-card h2,
+.routine-runs-card h2 {
+  margin: 0;
+  font-size: 2.3rem;
+}
+
+.routine-create-card label {
+  display: grid;
+  gap: 8px;
+}
+
+.routine-create-card input,
+.routine-create-card textarea,
+.routine-create-card select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 12px;
+}
+
+.routine-draft-steps {
+  display: grid;
+  gap: 10px;
+}
+
+.routine-draft-step {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    100px
+    auto;
+  gap: 8px;
+}
+
+.routine-draft-step button,
+.routine-template-heading button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  cursor: pointer;
+  padding: 7px 11px;
+  font-weight: 800;
+}
+
+.routine-template-list,
+.routine-run-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.routine-template-list article,
+.routine-run-list article {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.routine-template-heading,
+.routine-run-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.routine-template-heading h3,
+.routine-run-heading h3 {
+  margin: 5px 0;
+}
+
+.routine-template-heading > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.routine-template-heading
+.routine-delete {
+  color: var(--danger);
+}
+
+.routine-template-list ol {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding-left: 22px;
+}
+
+.routine-template-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.routine-runs-card {
+  margin-top: 24px;
+}
+
+.routine-progress-track {
+  height: 10px;
+  overflow: hidden;
+  margin: 14px 0;
+  border-radius: 999px;
+  background: var(--surface-soft);
+}
+
+.routine-progress-track > div {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary);
+}
+
+.routine-run-steps {
+  display: grid;
+  gap: 8px;
+}
+
+.routine-run-step {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  cursor: pointer;
+  padding: 11px;
+  text-align: left;
+}
+
+.routine-run-step > span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+}
+
+.routine-run-step-completed {
+  opacity: 0.65;
+}
+
+.routine-run-step-completed strong {
+  text-decoration: line-through;
+}
+
+.routine-run-step-completed > span {
+  background: var(--primary);
+  color: white;
+}
+
+@media (max-width: 950px) {
+  .routine-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .routine-summary-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .routines-page {
+    padding-inline: 18px;
+  }
+
+  .routine-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .routine-draft-step {
+    grid-template-columns: 1fr;
+  }
+
+  .routine-template-heading,
+  .routine-run-heading {
+    flex-direction: column;
+  }
+
+  .routine-template-heading > div:last-child {
+    justify-content: flex-start;
+  }
+}

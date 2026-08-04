@@ -1,3 +1,6 @@
+from app.routines.router import (
+    router as routines_router,
+)
 from app.anxiety_sessions.router import (
     router as anxiety_sessions_router,
 )
@@ -56,4 +59,8 @@ api_router.include_router(
 
 api_router.include_router(
     subtasks_router
+)
+
+api_router.include_router(
+    routines_router
 )
