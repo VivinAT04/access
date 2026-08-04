@@ -1,17 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 
 export function QuickCalmActions() {
-  const router = useRouter();
-
   function openGuidedTools() {
-    router.push("/anxiety");
+    window.location.href = "/anxiety";
   }
 
   function returnToDashboard() {
-    router.push("/dashboard");
+    window.location.href = "/dashboard";
   }
 
   return (
