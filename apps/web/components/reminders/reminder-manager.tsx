@@ -108,8 +108,16 @@ function formatDateTime(
   return new Intl.DateTimeFormat(
     "en-GB",
     {
-      dateStyle: "medium",
-      timeStyle: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone:
+        Intl.DateTimeFormat()
+          .resolvedOptions()
+          .timeZone,
     },
   ).format(
     new Date(value)
