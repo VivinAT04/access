@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { QuickCalmActions } from "@/components/anxiety/quick-calm-actions";
 import { getCurrentUser } from "@/lib/server-auth";
 
 
@@ -38,21 +38,7 @@ export default async function CalmPage() {
           are here, in this moment.
         </p>
 
-        <div className="quick-calm-actions">
-          <Link
-            className="button button-primary"
-            href="/anxiety"
-          >
-            Open guided tools
-          </Link>
-
-          <Link
-            className="button button-secondary"
-            href="/dashboard"
-          >
-            Return to dashboard
-          </Link>
-        </div>
+        <QuickCalmActions />
 
         <p className="quick-calm-safety">
           Aksess supports grounding and
