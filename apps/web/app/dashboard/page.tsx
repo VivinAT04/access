@@ -149,6 +149,21 @@ export default async function DashboardPage() {
               Calm now
             </Link>
           </article>
+
+          <article className="feature-card">
+            <span className="feature-number">08</span>
+            <h2>Daily routines</h2>
+            <p>
+              Build reusable morning, study, work and
+              evening routines from manageable steps.
+            </p>
+            <Link
+              className="status-pill feature-card-link"
+              href="/routines"
+            >
+              Open routines
+            </Link>
+          </article>
         </div>
 
         <section className="account-card">
@@ -185,22 +200,7 @@ export default async function DashboardPage() {
             </div>
           </dl>
         </section>
-      
-          <article className="feature-card">
-            <span className="feature-number">08</span>
-            <h2>Daily routines</h2>
-            <p>
-              Build reusable morning, study, work and
-              evening routines from manageable steps.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/routines"
-            >
-              Open routines
-            </Link>
-          </article>
-</section>
+      </section>
     </main>
   );
 }
