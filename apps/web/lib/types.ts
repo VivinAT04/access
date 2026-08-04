@@ -296,6 +296,7 @@ export interface Reminder {
   notified_at: string | null;
   created_at: string;
   updated_at: string;
+  is_due_now: boolean;
   is_overdue: boolean;
 }
 

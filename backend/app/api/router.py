@@ -1,3 +1,6 @@
+from app.reminders.router import (
+    router as reminders_router,
+)
 from app.routines.router import (
     router as routines_router,
 )
@@ -63,4 +66,8 @@ api_router.include_router(
 
 api_router.include_router(
     routines_router
+)
+
+api_router.include_router(
+    reminders_router
 )

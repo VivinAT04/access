@@ -944,7 +944,9 @@ export function ReminderManager() {
                     className={
                       reminder.is_overdue
                         ? "reminder-item reminder-item-overdue"
-                        : "reminder-item"
+                        : reminder.is_due_now
+                          ? "reminder-item reminder-item-due-now"
+                          : "reminder-item"
                     }
                     key={
                       reminder.id
@@ -969,14 +971,18 @@ export function ReminderManager() {
                         className={
                           reminder.is_overdue
                             ? "status-pill reminder-overdue-pill"
-                            : "status-pill"
+                            : reminder.is_due_now
+                              ? "status-pill reminder-due-now-pill"
+                              : "status-pill"
                         }
                       >
                         {reminder.is_overdue
                           ? "Overdue"
-                          : reminder.is_enabled
-                            ? "Active"
-                            : "Paused"}
+                          : reminder.is_due_now
+                            ? "Due now"
+                            : reminder.is_enabled
+                              ? "Upcoming"
+                              : "Paused"}
                       </span>
                     </div>
 

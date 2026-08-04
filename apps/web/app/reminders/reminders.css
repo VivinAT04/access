@@ -266,3 +266,17 @@
     flex-direction: column;
   }
 }
+
+.reminder-item-due-now {
+  border-color:
+    var(--warning);
+  background:
+    var(--warning-background);
+}
+
+.reminder-due-now-pill {
+  background:
+    var(--warning-background);
+  color:
+    var(--warning);
+}

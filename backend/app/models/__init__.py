@@ -1,3 +1,4 @@
+from app.models.reminder import Reminder
 from app.models.routine import (
     Routine,
     RoutineRun,
@@ -20,6 +21,7 @@ from app.models.task import Task
 from app.models.user import User
 
 __all__ = [
+    "Reminder",
     "RoutineStep",
     "RoutineRunStep",
     "RoutineRun",
