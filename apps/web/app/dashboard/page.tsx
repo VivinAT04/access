@@ -1,281 +1,40 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { Logo } from "@/components/layout/logo";
-import { LogoutButton } from "@/components/layout/logout-button";
-import { getCurrentUser } from "@/lib/server-auth";
+import {
+  DashboardContent,
+} from "@/components/dashboard/dashboard-content";
+import {
+  getCurrentUser,
+} from "@/lib/server-auth";
+
 
 export default async function DashboardPage() {
-  const user = await getCurrentUser();
+  const user =
+    await getCurrentUser();
 
   if (!user) {
     redirect("/login");
   }
 
   const firstName =
-    user.full_name.trim().split(/\s+/)[0] || "there";
+    user.full_name
+      .trim()
+      .split(/\s+/)[0]
+    || "there";
 
   return (
-    <main className="dashboard-page">
-      <header className="dashboard-header">
-        <Logo />
-
-        <div className="dashboard-user-area">
-          <span>{user.email}</span>
-          <LogoutButton />
-        </div>
-      </header>
-
-      <section className="dashboard-content">
-        <div className="welcome-card">
-          <div>
-            <p className="eyebrow">Your Aksess space</p>
-            <h1>Welcome, {firstName}.</h1>
-            <p>
-              Your wellbeing dashboard is ready. The next
-              features will be added here.
-            </p>
-          </div>
-
-          <div
-            className="welcome-symbol"
-            aria-hidden="true"
-          >
-            A
-          </div>
-        </div>
-
-        <div className="dashboard-grid">
-          <article className="feature-card">
-            <span className="feature-number">01</span>
-            <h2>Plan my day</h2>
-            <p>
-              Organise tasks into manageable, realistic
-              steps.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/tasks"
-            >
-              Open task manager
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">02</span>
-            <h2>Focus session</h2>
-            <p>
-              Create a calm environment for focused work.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/focus"
-            >
-              Start focus
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">03</span>
-            <h2>Mood check-in</h2>
-            <p>
-              Record how you feel without pressure or
-              judgement.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/mood"
-            >
-              Check in now
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">04</span>
-            <h2>Accessibility</h2>
-            <p>
-              Personalise text, motion, contrast and sensory
-              settings.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/settings/accessibility"
-            >
-              Open settings
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">05</span>
-            <h2>Daily reflection</h2>
-            <p>
-              Notice one positive moment, one challenge and
-              one accomplishment.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/reflection"
-            >
-              Reflect on today
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">06</span>
-            <h2>Calm and grounding</h2>
-            <p>
-              Use breathing, grounding and calming sounds
-              during anxious or overwhelming moments.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/anxiety"
-            >
-              Open calm tools
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">07</span>
-            <h2>Quick Calm</h2>
-            <p>
-              Open a low-distraction calming screen in one
-              step.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/calm"
-            >
-              Calm now
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">08</span>
-            <h2>Daily routines</h2>
-            <p>
-              Build reusable morning, study, work and
-              evening routines from manageable steps.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/routines"
-            >
-              Open routines
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">09</span>
-            <h2>Reminders</h2>
-            <p>
-              Set optional reminders for tasks, routines
-              and important personal prompts.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/reminders"
-            >
-              View reminders
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">10</span>
-            <h2>Focus companion</h2>
-            <p>
-              Choose a gentle body-doubling companion
-              that grows alongside your focused minutes.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/companion"
-            >
-              Meet companion
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">11</span>
-            <h2>Sensory support</h2>
-            <p>
-              Adjust sound, brightness, spacing and visual
-              intensity for a calmer experience.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/sensory"
-            >
-              Open sensory tools
-            </Link>
-          </article>
-
-          <article className="feature-card">
-            <span className="feature-number">12</span>
-            <h2>Reflection insights</h2>
-            <p>
-              Notice weekly patterns in mood, energy,
-              stress, focus and reflection activity.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/insights"
-            >
-              View insights
-            </Link>
-          </article>
-          <article className="feature-card">
-            <span className="feature-number">13</span>
-            <h2>Language and reading</h2>
-            <p>
-              Choose your language, text direction and
-              reading-support preferences.
-            </p>
-            <Link
-              className="status-pill feature-card-link"
-              href="/settings/language-reading"
-            >
-              Open language settings
-            </Link>
-          </article>
-
-        </div>
-
-        <section className="account-card">
-          <div>
-            <p className="eyebrow">Account</p>
-            <h2>Your profile</h2>
-          </div>
-
-          <dl className="profile-details">
-            <div>
-              <dt>Full name</dt>
-              <dd>{user.full_name}</dd>
-            </div>
-
-            <div>
-              <dt>Email</dt>
-              <dd>{user.email}</dd>
-            </div>
-
-            <div>
-              <dt>Account status</dt>
-              <dd>
-                {user.is_active ? "Active" : "Inactive"}
-              </dd>
-            </div>
-
-            <div>
-              <dt>Email verification</dt>
-              <dd>
-                {user.is_verified
-                  ? "Verified"
-                  : "Not verified"}
-              </dd>
-            </div>
-          </dl>
-        </section>
-      </section>
-    </main>
+    <DashboardContent
+      user={{
+        email:
+          user.email,
+        fullName:
+          user.full_name,
+        firstName,
+        isActive:
+          user.is_active,
+        isVerified:
+          user.is_verified,
+      }}
+    />
   );
 }

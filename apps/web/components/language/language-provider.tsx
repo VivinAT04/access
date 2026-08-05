@@ -13,6 +13,11 @@ import {
   getDirection,
 } from "@/components/language/language-options";
 
+import {
+  getDictionary,
+  type TranslationKey,
+} from "@/components/i18n/translations";
+
 import type {
   LanguagePreference,
 } from "@/lib/types";
@@ -38,6 +43,11 @@ interface LanguageContextValue {
     value: number,
     options?:
       Intl.NumberFormatOptions,
+  ) => string;
+
+  t: (
+    key: TranslationKey,
+    values?: Record<string, string | number>,
   ) => string;
 }
 
@@ -187,6 +197,36 @@ export function LanguageProvider({
   }
 
 
+  function t(
+    key: TranslationKey,
+    values: Record<
+      string,
+      string | number
+    > = {},
+  ): string {
+    const dictionary =
+      getDictionary(locale);
+
+    let result =
+      dictionary[key] ?? key;
+
+    for (
+      const [
+        placeholder,
+        value,
+      ]
+      of Object.entries(values)
+    ) {
+      result = result.replaceAll(
+        `{${placeholder}}`,
+        String(value),
+      );
+    }
+
+    return result;
+  }
+
+
   return (
     <LanguageContext.Provider
       value={{
@@ -194,6 +234,7 @@ export function LanguageProvider({
         setPreference,
         formatDate,
         formatNumber,
+        t,
       }}
     >
       {children}
