@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { ThemeScript } from "@/components/theme/theme-script";
 
 import "./globals.css";
+import { LanguageProvider } from "@/components/language/language-provider";
 
 
 export const metadata: Metadata = {
@@ -35,7 +36,9 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <AccessibilityProvider>
+            <LanguageProvider>
             {children}
+                      </LanguageProvider>
           </AccessibilityProvider>
         </ThemeProvider>
       </body>

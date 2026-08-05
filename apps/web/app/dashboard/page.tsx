@@ -224,6 +224,21 @@ export default async function DashboardPage() {
               View insights
             </Link>
           </article>
+          <article className="feature-card">
+            <span className="feature-number">13</span>
+            <h2>Language and reading</h2>
+            <p>
+              Choose your language, text direction and
+              reading-support preferences.
+            </p>
+            <Link
+              className="status-pill feature-card-link"
+              href="/settings/language-reading"
+            >
+              Open language settings
+            </Link>
+          </article>
+
         </div>
 
         <section className="account-card">

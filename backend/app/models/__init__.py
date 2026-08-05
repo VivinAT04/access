@@ -1,3 +1,6 @@
+from app.models.language_preference import (
+    LanguagePreference,
+)
 from app.models.companion import (
     CompanionProfile,
     CompanionReward,
@@ -25,6 +28,7 @@ from app.models.task import Task
 from app.models.user import User
 
 __all__ = [
+    "LanguagePreference",
     "CompanionReward",
     "CompanionProfile",
     "Reminder",

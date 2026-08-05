@@ -1,3 +1,6 @@
+from app.language_preferences.router import (
+    router as language_preferences_router,
+)
 from app.insights.router import (
     router as insights_router,
 )
@@ -84,4 +87,8 @@ api_router.include_router(
 
 api_router.include_router(
     insights_router
+)
+
+api_router.include_router(
+    language_preferences_router
 )

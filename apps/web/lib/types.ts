@@ -374,3 +374,25 @@ export interface ReflectionInsights {
   summary: InsightSummary;
   suggestions: string[];
 }
+
+export type TextDirection =
+  | "auto"
+  | "ltr"
+  | "rtl";
+
+export type ReadingLetterSpacing =
+  | "normal"
+  | "relaxed"
+  | "wide";
+
+export interface LanguagePreference {
+  id: string;
+  user_id: string;
+  locale: string;
+  direction: TextDirection;
+  letter_spacing: ReadingLetterSpacing;
+  dyslexia_friendly: boolean;
+  reading_guide: boolean;
+  created_at: string;
+  updated_at: string;
+}
