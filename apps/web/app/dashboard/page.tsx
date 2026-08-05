@@ -179,6 +179,21 @@ export default async function DashboardPage() {
               View reminders
             </Link>
           </article>
+
+          <article className="feature-card">
+            <span className="feature-number">10</span>
+            <h2>Focus companion</h2>
+            <p>
+              Choose a gentle body-doubling companion
+              that grows alongside your focused minutes.
+            </p>
+            <Link
+              className="status-pill feature-card-link"
+              href="/companion"
+            >
+              Meet companion
+            </Link>
+          </article>
         </div>
 
         <section className="account-card">

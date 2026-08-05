@@ -1,3 +1,7 @@
+from app.models.companion import (
+    CompanionProfile,
+    CompanionReward,
+)
 from app.models.reminder import Reminder
 from app.models.routine import (
     Routine,
@@ -21,6 +25,8 @@ from app.models.task import Task
 from app.models.user import User
 
 __all__ = [
+    "CompanionReward",
+    "CompanionProfile",
     "Reminder",
     "RoutineStep",
     "RoutineRunStep",

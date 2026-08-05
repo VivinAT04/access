@@ -306,3 +306,34 @@ export interface ReminderSummary {
   overdue: number;
   due_today: number;
 }
+
+export type CompanionType =
+  | "sprout"
+  | "owl"
+  | "cloud"
+  | "fox";
+
+export interface CompanionProfile {
+  id: string;
+  user_id: string;
+  companion_type: CompanionType;
+  companion_name: string;
+  total_xp: number;
+  current_level: number;
+  completed_sessions: number;
+  total_focus_minutes: number;
+  xp_for_current_level: number;
+  xp_for_next_level: number;
+  level_progress_percentage: number;
+  break_recommendation: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CompanionReward {
+  id: string;
+  focus_session_id: string;
+  xp_awarded: number;
+  focus_minutes: number;
+  created_at: string;
+}

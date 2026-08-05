@@ -1,3 +1,6 @@
+from app.companion.router import (
+    router as companion_router,
+)
 from app.reminders.router import (
     router as reminders_router,
 )
@@ -70,4 +73,8 @@ api_router.include_router(
 
 api_router.include_router(
     reminders_router
+)
+
+api_router.include_router(
+    companion_router
 )
