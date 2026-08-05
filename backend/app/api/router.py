@@ -1,3 +1,6 @@
+from app.insights.router import (
+    router as insights_router,
+)
 from app.companion.router import (
     router as companion_router,
 )
@@ -77,4 +80,8 @@ api_router.include_router(
 
 api_router.include_router(
     companion_router
+)
+
+api_router.include_router(
+    insights_router
 )

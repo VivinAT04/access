@@ -337,3 +337,40 @@ export interface CompanionReward {
   focus_minutes: number;
   created_at: string;
 }
+
+export interface DailyInsightPoint {
+  date: string;
+  day_label: string;
+
+  mood_average: number | null;
+  energy_average: number | null;
+  stress_average: number | null;
+
+  mood_checkins: number;
+  focus_minutes: number;
+  focus_sessions: number;
+  reflections: number;
+}
+
+export interface InsightSummary {
+  period_start: string;
+  period_end: string;
+
+  total_focus_minutes: number;
+  total_focus_sessions: number;
+  total_mood_checkins: number;
+  total_reflections: number;
+
+  average_mood: number | null;
+  average_energy: number | null;
+  average_stress: number | null;
+
+  most_focused_day: string | null;
+  most_focused_minutes: number;
+}
+
+export interface ReflectionInsights {
+  days: DailyInsightPoint[];
+  summary: InsightSummary;
+  suggestions: string[];
+}

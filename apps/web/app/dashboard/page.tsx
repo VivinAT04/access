@@ -209,6 +209,21 @@ export default async function DashboardPage() {
               Open sensory tools
             </Link>
           </article>
+
+          <article className="feature-card">
+            <span className="feature-number">12</span>
+            <h2>Reflection insights</h2>
+            <p>
+              Notice weekly patterns in mood, energy,
+              stress, focus and reflection activity.
+            </p>
+            <Link
+              className="status-pill feature-card-link"
+              href="/insights"
+            >
+              View insights
+            </Link>
+          </article>
         </div>
 
         <section className="account-card">
