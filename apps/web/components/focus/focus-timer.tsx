@@ -8,6 +8,13 @@ import {
   useState,
 } from "react";
 
+import {
+  focusText,
+} from "@/components/i18n/focus-translations";
+import {
+  useLanguage,
+} from "@/components/language/language-provider";
+
 import type {
   CompanionProfile,
   FocusSession,
@@ -57,20 +64,38 @@ function companionSymbol(
 
 function companionStateLabel(
   timerState: TimerState,
+  text: (
+    key:
+      Parameters<
+        typeof focusText
+      >[1],
+    values?: Record<
+      string,
+      string | number
+    >,
+  ) => string,
 ): string {
   if (timerState === "running") {
-    return "Focusing with you";
+    return text(
+      "focus.state.running",
+    );
   }
 
   if (timerState === "paused") {
-    return "Taking a pause";
+    return text(
+      "focus.state.paused",
+    );
   }
 
   if (timerState === "finished") {
-    return "Session complete";
+    return text(
+      "focus.state.finished",
+    );
   }
 
-  return "Ready when you are";
+  return text(
+    "focus.state.idle",
+  );
 }
 
 
@@ -78,38 +103,47 @@ function companionMessage(
   timerState: TimerState,
   companionName: string,
   duration: number,
+  text: (
+    key:
+      Parameters<
+        typeof focusText
+      >[1],
+    values?: Record<
+      string,
+      string | number
+    >,
+  ) => string,
 ): string {
   if (timerState === "running") {
-    return (
-      `${companionName} is staying beside you. ` +
-      "You only need to focus on the next small step."
+    return text(
+      "focus.message.running",
+      {
+        name: companionName,
+      },
     );
   }
 
   if (timerState === "paused") {
-    return (
-      "Pausing is allowed. Take a breath, stretch, " +
-      "or return whenever you feel ready."
+    return text(
+      "focus.message.paused",
     );
   }
 
   if (timerState === "finished") {
-    if (duration >= 45) {
-      return (
-        "You completed a longer session. " +
-        "A proper screen break may help now."
-      );
-    }
-
-    return (
-      "You finished the session. " +
-      "Take a moment to notice what you achieved."
-    );
+    return duration >= 45
+      ? text(
+          "focus.message.finishedLong",
+        )
+      : text(
+          "focus.message.finished",
+        );
   }
 
-  return (
-    `${companionName} is ready to work alongside you. ` +
-    "Short sessions count too."
+  return text(
+    "focus.message.idle",
+    {
+      name: companionName,
+    },
   );
 }
 
@@ -137,9 +171,10 @@ function formatTimer(
 
 function formatDate(
   value: string,
+  locale: string,
 ): string {
   return new Intl.DateTimeFormat(
-    "en-GB",
+    locale,
     {
       dateStyle: "medium",
       timeStyle: "short",
@@ -198,6 +233,25 @@ function getMessage(
 
 
 export function FocusTimer() {
+  const {
+    locale,
+  } = useLanguage();
+
+  const text = (
+    key:
+      Parameters<
+        typeof focusText
+      >[1],
+    values: Record<
+      string,
+      string | number
+    > = {},
+  ) => focusText(
+    locale,
+    key,
+    values,
+  );
+
   const [duration, setDuration] =
     useState(25);
 
@@ -351,7 +405,7 @@ export function FocusTimer() {
           throw new Error(
             getMessage(
               sessionsData,
-              "Sessions could not be loaded.",
+              text("focus.sessionsLoadFailed"),
             ),
           );
         }
@@ -360,7 +414,7 @@ export function FocusTimer() {
           throw new Error(
             getMessage(
               summaryData,
-              "Statistics could not be loaded.",
+              text("focus.statisticsLoadFailed"),
             ),
           );
         }
@@ -369,7 +423,7 @@ export function FocusTimer() {
           throw new Error(
             getMessage(
               tasksData,
-              "Tasks could not be loaded.",
+              text("focus.tasksLoadFailed"),
             ),
           );
         }
@@ -378,7 +432,7 @@ export function FocusTimer() {
           throw new Error(
             getMessage(
               companionData,
-              "Companion could not be loaded.",
+              text("focus.companionLoadFailed"),
             ),
           );
         }
@@ -402,7 +456,7 @@ export function FocusTimer() {
         setError(
           caughtError instanceof Error
             ? caughtError.message
-            : "Focus data could not be loaded.",
+            : text("focus.dataLoadFailed"),
         );
       } finally {
         setIsLoading(false);
@@ -484,7 +538,7 @@ export function FocusTimer() {
 
     if (!cleanedIntention) {
       setError(
-        "Enter what you want to focus on."
+        text("focus.enterIntention")
       );
 
       return;
@@ -538,7 +592,7 @@ export function FocusTimer() {
   ) {
     if (!startedAtRef.current) {
       setError(
-        "Start the timer before saving the session."
+        text("focus.startBeforeSaving")
       );
 
       return;
@@ -604,7 +658,7 @@ export function FocusTimer() {
         throw new Error(
           getMessage(
             data,
-            "The session could not be saved.",
+            text("focus.saveFailed"),
           ),
         );
       }
@@ -647,22 +701,28 @@ export function FocusTimer() {
             reward.already_awarded
               ? reward.message
               : (
-                  `+${reward.xp_awarded} XP — ` +
-                  `${reward.profile.companion_name} ` +
-                  "completed this session with you."
+                  text(
+                    "focus.reward",
+                    {
+                      xp:
+                        reward.xp_awarded,
+                      name:
+                        reward.profile.companion_name,
+                    },
+                  )
                 ),
           );
         } else {
           setCompanionRewardMessage(
-            "The session was saved, but companion XP could not be updated.",
+            text("focus.rewardFailed"),
           );
         }
       }
 
       setMessage(
         completed
-          ? "Focus session completed."
-          : "Focus session saved as cancelled.",
+          ? text("focus.completedMessage")
+          : text("focus.cancelledMessage"),
       );
 
       setTimerState(
@@ -687,7 +747,7 @@ export function FocusTimer() {
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "The session could not be saved.",
+          : text("focus.saveFailed"),
       );
     } finally {
       setIsSaving(false);
@@ -700,7 +760,13 @@ export function FocusTimer() {
   ) {
     const confirmed =
       window.confirm(
-        `Delete "${session.intention}"?`,
+        text(
+          "focus.deleteConfirm",
+          {
+            title:
+              session.intention,
+          },
+        ),
       );
 
     if (!confirmed) {
@@ -725,13 +791,13 @@ export function FocusTimer() {
         throw new Error(
           getMessage(
             data,
-            "The session could not be deleted.",
+            text("focus.deleteFailed"),
           ),
         );
       }
 
       setMessage(
-        "Focus session deleted."
+        text("focus.deleted")
       );
 
       await loadData();
@@ -739,7 +805,7 @@ export function FocusTimer() {
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "The session could not be deleted.",
+          : text("focus.deleteFailed"),
       );
     }
   }
@@ -749,28 +815,28 @@ export function FocusTimer() {
     <>
       <section className="focus-summary-grid">
         <article>
-          <span>Sessions today</span>
+          <span>{text("focus.sessionsToday")}</span>
           <strong>
             {summary.sessions_today}
           </strong>
         </article>
 
         <article>
-          <span>Minutes today</span>
+          <span>{text("focus.minutesToday")}</span>
           <strong>
             {summary.minutes_today}
           </strong>
         </article>
 
         <article>
-          <span>All sessions</span>
+          <span>{text("focus.allSessions")}</span>
           <strong>
             {summary.completed_sessions}
           </strong>
         </article>
 
         <article>
-          <span>Total minutes</span>
+          <span>{text("focus.totalMinutes")}</span>
           <strong>
             {summary.total_minutes}
           </strong>
@@ -781,8 +847,15 @@ export function FocusTimer() {
         <section className="focus-companion-panel">
           <div
             aria-label={
-              `${companion.companion_name}, ` +
-              `${companion.companion_type} companion`
+              text(
+                "focus.companionAria",
+                {
+                  name:
+                    companion.companion_name,
+                  type:
+                    companion.companion_type,
+                },
+              )
             }
             className={
               `focus-companion-character ` +
@@ -799,7 +872,7 @@ export function FocusTimer() {
             <div className="focus-companion-heading">
               <div>
                 <p className="eyebrow">
-                  Body-doubling companion
+                  {text("focus.companion")}
                 </p>
 
                 <h2>
@@ -808,13 +881,20 @@ export function FocusTimer() {
               </div>
 
               <span className="status-pill">
-                Level {companion.current_level}
+                {text(
+                  "focus.level",
+                  {
+                    level:
+                      companion.current_level,
+                  },
+                )}
               </span>
             </div>
 
             <strong className="focus-companion-state">
               {companionStateLabel(
                 timerState,
+                text,
               )}
             </strong>
 
@@ -823,6 +903,7 @@ export function FocusTimer() {
                 timerState,
                 companion.companion_name,
                 duration,
+                text,
               )}
             </p>
 
@@ -835,7 +916,13 @@ export function FocusTimer() {
                 <small>
                   {
                     companion.level_progress_percentage
-                  }% through this level
+                  }{text(
+                    "focus.xpProgress",
+                    {
+                      percentage:
+                        companion.level_progress_percentage,
+                    },
+                  )}
                 </small>
               </div>
 
@@ -867,15 +954,15 @@ export function FocusTimer() {
 
           {duration >= 45 ? (
             <p>
-              You completed a longer session.
-              Consider stepping away from the
-              screen for a few minutes.
+              {text(
+                "focus.longBreak",
+              )}
             </p>
           ) : (
             <p>
-              A drink of water, stretch or
-              quiet pause can help before the
-              next session.
+              {text(
+                "focus.shortBreak",
+              )}
             </p>
           )}
         </section>
@@ -885,11 +972,11 @@ export function FocusTimer() {
         <article className="focus-timer-card">
           <div>
             <p className="eyebrow">
-              Focus timer
+              {text("focus.timer")}
             </p>
 
             <h2>
-              One step at a time
+              {text("focus.oneStep")}
             </h2>
           </div>
 
@@ -916,7 +1003,12 @@ export function FocusTimer() {
                   }
                   type="button"
                 >
-                  {minutes} min
+                  {text(
+                    "focus.minutesShort",
+                    {
+                      minutes,
+                    },
+                  )}
                 </button>
               ),
             )}
@@ -924,7 +1016,7 @@ export function FocusTimer() {
 
           <label className="focus-custom-duration">
             <span>
-              Custom duration
+              {text("focus.customDuration")}
             </span>
 
             <input
@@ -949,9 +1041,15 @@ export function FocusTimer() {
           </label>
 
           <div
-            aria-label={`${formatTimer(
-              remainingSeconds,
-            )} remaining`}
+            aria-label={text(
+              "focus.remaining",
+              {
+                time:
+                  formatTimer(
+                    remainingSeconds,
+                  ),
+              },
+            )}
             className="focus-clock"
           >
             <div
@@ -971,14 +1069,14 @@ export function FocusTimer() {
 
                 <span>
                   {timerState === "idle"
-                    ? "Ready"
+                    ? text("focus.ready")
                     : timerState ===
                         "running"
-                      ? "Focusing"
+                      ? text("focus.focusing")
                       : timerState ===
                           "paused"
-                        ? "Paused"
-                        : "Complete"}
+                        ? text("focus.paused")
+                        : text("focus.complete")}
                 </span>
               </div>
             </div>
@@ -994,8 +1092,8 @@ export function FocusTimer() {
               >
                 {timerState ===
                 "paused"
-                  ? "Resume"
-                  : "Start focus"}
+                  ? text("focus.resume")
+                  : text("focus.start")}
               </button>
             ) : (
               <button
@@ -1028,8 +1126,8 @@ export function FocusTimer() {
                 type="button"
               >
                 {isSaving
-                  ? "Saving..."
-                  : "Save completed session"}
+                  ? text("common.saving")
+                  : text("focus.saveCompleted")}
               </button>
             ) : (
               <button
@@ -1037,7 +1135,7 @@ export function FocusTimer() {
                 onClick={resetTimer}
                 type="button"
               >
-                Begin another session
+                {text("focus.beginAnother")}
               </button>
             )
           ) : null}
@@ -1054,23 +1152,23 @@ export function FocusTimer() {
               }
               type="button"
             >
-              End session early
+              {text("focus.endEarly")}
             </button>
           ) : null}
         </article>
 
         <article className="focus-plan-card">
           <p className="eyebrow">
-            Session plan
+            {text("focus.plan")}
           </p>
 
           <h2>
-            What will you focus on?
+            {text("focus.planQuestion")}
           </h2>
 
           <label>
             <span>
-              Focus intention
+              {text("focus.intention")}
             </span>
 
             <input
@@ -1084,14 +1182,14 @@ export function FocusTimer() {
                   event.target.value,
                 )
               }
-              placeholder="Example: Finish the results section"
+              placeholder={text("focus.intentionPlaceholder")}
               value={intention}
             />
           </label>
 
           <label>
             <span>
-              Link a task
+              {text("focus.linkTask")}
             </span>
 
             <select
@@ -1107,7 +1205,7 @@ export function FocusTimer() {
               value={taskId}
             >
               <option value="">
-                No linked task
+                {text("focus.noLinkedTask")}
               </option>
 
               {tasks.map((task) => (
@@ -1123,7 +1221,7 @@ export function FocusTimer() {
 
           <label>
             <span>
-              Session notes
+              {text("focus.notes")}
             </span>
 
             <textarea
@@ -1133,7 +1231,7 @@ export function FocusTimer() {
                   event.target.value,
                 )
               }
-              placeholder="Write the next small step or remove distractions"
+              placeholder={text("focus.notesPlaceholder")}
               rows={6}
               value={notes}
             />
@@ -1141,13 +1239,11 @@ export function FocusTimer() {
 
           <div className="focus-tip">
             <strong>
-              Gentle focus tip
+              {text("focus.tipTitle")}
             </strong>
 
             <p>
-              Choose one clear outcome.
-              You can always start another
-              session afterwards.
+              {text("focus.tipDescription")}
             </p>
           </div>
         </article>
@@ -1174,17 +1270,17 @@ export function FocusTimer() {
       <section className="focus-history-card">
         <div>
           <p className="eyebrow">
-            Session history
+            {text("focus.history")}
           </p>
 
           <h2>
-            Recent focus sessions
+            {text("focus.recentSessions")}
           </h2>
         </div>
 
         {isLoading ? (
           <p>
-            Loading sessions...
+            {text("focus.loadingSessions")}
           </p>
         ) : null}
 
@@ -1192,13 +1288,11 @@ export function FocusTimer() {
         sessions.length === 0 ? (
           <div className="focus-empty-history">
             <h3>
-              No focus sessions yet
+              {text("focus.emptyTitle")}
             </h3>
 
             <p>
-              Complete your first timer
-              session and it will appear
-              here.
+              {text("focus.emptyDescription")}
             </p>
           </div>
         ) : null}
@@ -1216,19 +1310,21 @@ export function FocusTimer() {
                     </h3>
 
                     <p>
-                      {
-                        session.completed_minutes
-                      }{" "}
-                      of{" "}
-                      {
-                        session.planned_minutes
-                      }{" "}
-                      minutes
+                      {text(
+                        "focus.minutesProgress",
+                        {
+                          completed:
+                            session.completed_minutes,
+                          planned:
+                            session.planned_minutes,
+                        },
+                      )}
                     </p>
 
                     <small>
                       {formatDate(
                         session.created_at,
+                        locale,
                       )}
                     </small>
                   </div>
@@ -1242,7 +1338,14 @@ export function FocusTimer() {
                           : "focus-session-cancelled"
                       }
                     >
-                      {session.status}
+                      {session.status ===
+                      "completed"
+                        ? text(
+                            "focus.status.completed",
+                          )
+                        : text(
+                            "focus.status.cancelled",
+                          )}
                     </span>
 
                     <button
