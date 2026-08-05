@@ -9,6 +9,7 @@ import {
 } from "react";
 
 import type {
+  CompanionProfile,
   FocusSession,
   FocusSummary,
   Task,
@@ -22,12 +23,95 @@ type TimerState =
   | "finished";
 
 
+interface CompanionRewardResponse {
+  already_awarded: boolean;
+  xp_awarded: number;
+  focus_minutes: number;
+  message: string;
+  profile: CompanionProfile;
+}
+
+
 const defaultSummary: FocusSummary = {
   sessions_today: 0,
   minutes_today: 0,
   completed_sessions: 0,
   total_minutes: 0,
 };
+
+
+function companionSymbol(
+  companionType:
+    CompanionProfile["companion_type"],
+): string {
+  const symbols = {
+    sprout: "🌱",
+    owl: "🦉",
+    cloud: "☁️",
+    fox: "🦊",
+  };
+
+  return symbols[companionType];
+}
+
+
+function companionStateLabel(
+  timerState: TimerState,
+): string {
+  if (timerState === "running") {
+    return "Focusing with you";
+  }
+
+  if (timerState === "paused") {
+    return "Taking a pause";
+  }
+
+  if (timerState === "finished") {
+    return "Session complete";
+  }
+
+  return "Ready when you are";
+}
+
+
+function companionMessage(
+  timerState: TimerState,
+  companionName: string,
+  duration: number,
+): string {
+  if (timerState === "running") {
+    return (
+      `${companionName} is staying beside you. ` +
+      "You only need to focus on the next small step."
+    );
+  }
+
+  if (timerState === "paused") {
+    return (
+      "Pausing is allowed. Take a breath, stretch, " +
+      "or return whenever you feel ready."
+    );
+  }
+
+  if (timerState === "finished") {
+    if (duration >= 45) {
+      return (
+        "You completed a longer session. " +
+        "A proper screen break may help now."
+      );
+    }
+
+    return (
+      "You finished the session. " +
+      "Take a moment to notice what you achieved."
+    );
+  }
+
+  return (
+    `${companionName} is ready to work alongside you. ` +
+    "Short sessions count too."
+  );
+}
 
 
 function formatTimer(
@@ -137,6 +221,18 @@ export function FocusTimer() {
   const [tasks, setTasks] =
     useState<Task[]>([]);
 
+  const [
+    companion,
+    setCompanion,
+  ] = useState<
+    CompanionProfile | null
+  >(null);
+
+  const [
+    companionRewardMessage,
+    setCompanionRewardMessage,
+  ] = useState("");
+
   const [sessions, setSessions] =
     useState<FocusSession[]>([]);
 
@@ -156,6 +252,11 @@ export function FocusTimer() {
 
   const [isSaving, setIsSaving] =
     useState(false);
+
+  const [
+    hasSavedFinishedSession,
+    setHasSavedFinishedSession,
+  ] = useState(false);
 
   const startedAtRef =
     useRef<string | null>(null);
@@ -198,6 +299,7 @@ export function FocusTimer() {
           sessionsResponse,
           summaryResponse,
           tasksResponse,
+          companionResponse,
         ] = await Promise.all([
           fetch(
             "/api/focus-sessions",
@@ -217,6 +319,12 @@ export function FocusTimer() {
               cache: "no-store",
             },
           ),
+          fetch(
+            "/api/companion/profile",
+            {
+              cache: "no-store",
+            },
+          ),
         ]);
 
         const sessionsData =
@@ -232,6 +340,11 @@ export function FocusTimer() {
         const tasksData =
           await readJson(
             tasksResponse,
+          );
+
+        const companionData =
+          await readJson(
+            companionResponse,
           );
 
         if (!sessionsResponse.ok) {
@@ -261,6 +374,15 @@ export function FocusTimer() {
           );
         }
 
+        if (!companionResponse.ok) {
+          throw new Error(
+            getMessage(
+              companionData,
+              "Companion could not be loaded.",
+            ),
+          );
+        }
+
         setSessions(
           sessionsData as FocusSession[],
         );
@@ -271,6 +393,10 @@ export function FocusTimer() {
 
         setTasks(
           tasksData as Task[],
+        );
+
+        setCompanion(
+          companionData as CompanionProfile,
         );
       } catch (caughtError) {
         setError(
@@ -370,10 +496,15 @@ export function FocusTimer() {
     ) {
       startedAtRef.current =
         new Date().toISOString();
+
+      setHasSavedFinishedSession(
+        false,
+      );
     }
 
     setError("");
     setMessage("");
+    setCompanionRewardMessage("");
     setTimerState("running");
   }
 
@@ -392,8 +523,13 @@ export function FocusTimer() {
 
     startedAtRef.current = null;
 
+    setHasSavedFinishedSession(
+      false,
+    );
+
     setMessage("");
     setError("");
+    setCompanionRewardMessage("");
   }
 
 
@@ -473,16 +609,72 @@ export function FocusTimer() {
         );
       }
 
+      const savedSession =
+        data as FocusSession;
+
+      if (completed) {
+        const rewardResponse =
+          await fetch(
+            "/api/companion/reward",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+              body: JSON.stringify({
+                focus_session_id:
+                  savedSession.id,
+              }),
+            },
+          );
+
+        const rewardData =
+          await readJson(
+            rewardResponse,
+          );
+
+        if (rewardResponse.ok) {
+          const reward =
+            rewardData as
+              CompanionRewardResponse;
+
+          setCompanion(
+            reward.profile,
+          );
+
+          setCompanionRewardMessage(
+            reward.already_awarded
+              ? reward.message
+              : (
+                  `+${reward.xp_awarded} XP — ` +
+                  `${reward.profile.companion_name} ` +
+                  "completed this session with you."
+                ),
+          );
+        } else {
+          setCompanionRewardMessage(
+            "The session was saved, but companion XP could not be updated.",
+          );
+        }
+      }
+
       setMessage(
         completed
           ? "Focus session completed."
           : "Focus session saved as cancelled.",
       );
 
-      setTimerState("idle");
-      setRemainingSeconds(
-        duration * 60,
+      setTimerState(
+        completed
+          ? "finished"
+          : "idle",
       );
+      if (!completed) {
+        setRemainingSeconds(
+          duration * 60,
+        );
+      }
 
       setIntention("");
       setNotes("");
@@ -584,6 +776,110 @@ export function FocusTimer() {
           </strong>
         </article>
       </section>
+
+      {companion ? (
+        <section className="focus-companion-panel">
+          <div
+            aria-label={
+              `${companion.companion_name}, ` +
+              `${companion.companion_type} companion`
+            }
+            className={
+              `focus-companion-character ` +
+              `focus-companion-${timerState}`
+            }
+            role="img"
+          >
+            {companionSymbol(
+              companion.companion_type,
+            )}
+          </div>
+
+          <div className="focus-companion-copy">
+            <div className="focus-companion-heading">
+              <div>
+                <p className="eyebrow">
+                  Body-doubling companion
+                </p>
+
+                <h2>
+                  {companion.companion_name}
+                </h2>
+              </div>
+
+              <span className="status-pill">
+                Level {companion.current_level}
+              </span>
+            </div>
+
+            <strong className="focus-companion-state">
+              {companionStateLabel(
+                timerState,
+              )}
+            </strong>
+
+            <p>
+              {companionMessage(
+                timerState,
+                companion.companion_name,
+                duration,
+              )}
+            </p>
+
+            <div className="focus-companion-xp">
+              <div>
+                <span>
+                  {companion.total_xp} XP
+                </span>
+
+                <small>
+                  {
+                    companion.level_progress_percentage
+                  }% through this level
+                </small>
+              </div>
+
+              <div className="focus-companion-xp-track">
+                <div
+                  style={{
+                    width:
+                      `${companion.level_progress_percentage}%`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {companionRewardMessage ? (
+        <section
+          className="focus-companion-reward"
+          role="status"
+        >
+          <span aria-hidden="true">
+            ✨
+          </span>
+
+          <strong>
+            {companionRewardMessage}
+          </strong>
+
+          {duration >= 45 ? (
+            <p>
+              You completed a longer session.
+              Consider stepping away from the
+              screen for a few minutes.
+            </p>
+          ) : (
+            <p>
+              A drink of water, stretch or
+              quiet pause can help before the
+              next session.
+            </p>
+          )}
+        </section>
+      ) : null}
 
       <section className="focus-layout">
         <article className="focus-timer-card">
@@ -722,18 +1018,28 @@ export function FocusTimer() {
 
           {timerState ===
           "finished" ? (
-            <button
-              className="button button-primary focus-save-button"
-              disabled={isSaving}
-              onClick={() =>
-                void saveSession(true)
-              }
-              type="button"
-            >
-              {isSaving
-                ? "Saving..."
-                : "Save completed session"}
-            </button>
+            !hasSavedFinishedSession ? (
+              <button
+                className="button button-primary focus-save-button"
+                disabled={isSaving}
+                onClick={() =>
+                  void saveSession(true)
+                }
+                type="button"
+              >
+                {isSaving
+                  ? "Saving..."
+                  : "Save completed session"}
+              </button>
+            ) : (
+              <button
+                className="button button-primary focus-save-button"
+                onClick={resetTimer}
+                type="button"
+              >
+                Begin another session
+              </button>
+            )
           ) : null}
 
           {(
