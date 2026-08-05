@@ -1,0 +1,280 @@
+.sensory-page {
+  min-height: 100vh;
+  padding:
+    28px
+    clamp(24px, 6vw, 90px)
+    80px;
+}
+
+.sensory-page-heading {
+  max-width: 980px;
+  margin: 80px 0 48px;
+}
+
+.sensory-page-heading h1 {
+  margin: 0;
+  font-size:
+    clamp(3.2rem, 7vw, 6.7rem);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+}
+
+.sensory-page-heading > p:last-child {
+  max-width: 740px;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.sensory-section,
+.sensory-setting-card,
+.reduced-stimulation-card,
+.sensory-preview {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  background: var(--surface);
+}
+
+.sensory-section {
+  padding:
+    clamp(24px, 4vw, 42px);
+}
+
+.sensory-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content:
+    space-between;
+  gap: 28px;
+}
+
+.sensory-section-heading h2,
+.reduced-stimulation-card h2,
+.sensory-preview h2 {
+  margin: 0;
+  font-size:
+    clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.045em;
+}
+
+.sensory-section-heading p,
+.reduced-stimulation-card p,
+.sensory-preview p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.soundscape-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.soundscape-card {
+  display: grid;
+  min-height: 190px;
+  align-content: center;
+  gap: 9px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  padding: 22px;
+  text-align: center;
+}
+
+.soundscape-card > span {
+  font-size: 3rem;
+}
+
+.soundscape-card small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.soundscape-card em {
+  color: var(--primary);
+  font-style: normal;
+  font-weight: 800;
+}
+
+.soundscape-card-selected {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.sensory-volume-control {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+  font-weight: 800;
+}
+
+.sensory-volume-control input {
+  width: 100%;
+}
+
+.sensory-setting-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.sensory-setting-card {
+  padding:
+    clamp(22px, 3vw, 32px);
+}
+
+.sensory-setting-card h2 {
+  margin: 0;
+  font-size: 1.7rem;
+}
+
+.sensory-setting-card > p {
+  color: var(--muted);
+}
+
+.sensory-option-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.sensory-option-row button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--text);
+  cursor: pointer;
+  padding: 10px 15px;
+  font-weight: 800;
+}
+
+.sensory-option-row
+  .sensory-option-selected {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: white;
+}
+
+.reduced-stimulation-card {
+  display: flex;
+  align-items: center;
+  justify-content:
+    space-between;
+  gap: 30px;
+  margin-top: 24px;
+  padding:
+    clamp(24px, 4vw, 42px);
+}
+
+.sensory-preview {
+  max-width: 860px;
+  margin: 24px auto 0;
+  padding:
+    clamp(26px, 5vw, 54px);
+}
+
+html[data-brightness="soft"] {
+  filter: brightness(0.92);
+}
+
+html[data-brightness="bright"] {
+  filter: brightness(1.06);
+}
+
+html[data-interface-preset="calm"] {
+  --shadow: none;
+  --radius-large: 28px;
+}
+
+html[data-interface-preset="high-clarity"] {
+  --border:
+    color-mix(
+      in srgb,
+      var(--text) 35%,
+      transparent
+    );
+}
+
+html[data-interface-preset="high-clarity"]
+  button,
+html[data-interface-preset="high-clarity"]
+  input,
+html[data-interface-preset="high-clarity"]
+  select,
+html[data-interface-preset="high-clarity"]
+  textarea {
+  border-width: 2px;
+}
+
+html[data-reading-width="narrow"]
+  main {
+  max-width: 980px;
+  margin-inline: auto;
+}
+
+html[data-reading-width="comfortable"]
+  main {
+  max-width: 1540px;
+  margin-inline: auto;
+}
+
+html[data-reading-width="wide"]
+  main {
+  max-width: 1900px;
+  margin-inline: auto;
+}
+
+html[data-line-spacing="relaxed"] {
+  line-height: 1.65;
+}
+
+html[data-line-spacing="spacious"] {
+  line-height: 1.85;
+}
+
+html[data-reduced-stimulation="true"] *,
+html[data-reduced-stimulation="true"] *::before,
+html[data-reduced-stimulation="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-reduced-stimulation="true"] {
+  --shadow: none;
+}
+
+@media (max-width: 900px) {
+  .soundscape-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .sensory-setting-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .sensory-page {
+    padding-inline: 18px;
+  }
+
+  .sensory-section-heading,
+  .reduced-stimulation-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .soundscape-grid {
+    grid-template-columns: 1fr;
+  }
+}

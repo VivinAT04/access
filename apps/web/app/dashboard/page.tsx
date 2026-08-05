@@ -194,6 +194,21 @@ export default async function DashboardPage() {
               Meet companion
             </Link>
           </article>
+
+          <article className="feature-card">
+            <span className="feature-number">11</span>
+            <h2>Sensory support</h2>
+            <p>
+              Adjust sound, brightness, spacing and visual
+              intensity for a calmer experience.
+            </p>
+            <Link
+              className="status-pill feature-card-link"
+              href="/sensory"
+            >
+              Open sensory tools
+            </Link>
+          </article>
         </div>
 
         <section className="account-card">
