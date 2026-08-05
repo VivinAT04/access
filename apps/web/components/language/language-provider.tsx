@@ -132,9 +132,8 @@ export function LanguageProvider({
               return;
             }
 
-            const data =
-              (await response.json())
-              as LanguagePreference;
+            const data: LanguagePreference =
+              await response.json();
 
             setPreference(data);
           } catch {
