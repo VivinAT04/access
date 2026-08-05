@@ -8,6 +8,13 @@ import {
   useState,
 } from "react";
 
+import {
+  taskText,
+} from "@/components/i18n/task-translations";
+import {
+  useLanguage,
+} from "@/components/language/language-provider";
+
 import type {
   Task,
   TaskInput,
@@ -75,13 +82,15 @@ function toApiDate(
 
 function formatDate(
   value: string | null,
+  locale: string,
+  noDueDate: string,
 ): string {
   if (!value) {
-    return "No due date";
+    return noDueDate;
   }
 
   return new Intl.DateTimeFormat(
-    "en-GB",
+    locale,
     {
       dateStyle: "medium",
       timeStyle: "short",
@@ -174,6 +183,25 @@ function getErrorMessage(
 
 
 export function TaskManager() {
+  const {
+    locale,
+  } = useLanguage();
+
+  const text = (
+    key:
+      Parameters<
+        typeof taskText
+      >[1],
+    values: Record<
+      string,
+      string | number
+    > = {},
+  ) => taskText(
+    locale,
+    key,
+    values,
+  );
+
   const [tasks, setTasks] =
     useState<Task[]>([]);
 
@@ -269,7 +297,7 @@ export function TaskManager() {
           throw new Error(
             getErrorMessage(
               tasksData,
-              "Tasks could not be loaded.",
+              text("task.loadFailed"),
             ),
           );
         }
@@ -278,7 +306,7 @@ export function TaskManager() {
           throw new Error(
             getErrorMessage(
               summaryData,
-              "Task summary could not be loaded.",
+              text("task.summaryFailed"),
             ),
           );
         }
@@ -289,7 +317,7 @@ export function TaskManager() {
         setError(
           caughtError instanceof Error
             ? caughtError.message
-            : "Tasks could not be loaded.",
+            : text("task.loadFailed"),
         );
       } finally {
         setIsLoading(false);
@@ -406,7 +434,7 @@ export function TaskManager() {
 
     if (!cleanedTitle) {
       setError(
-        "Enter a title for the task.",
+        text("task.enterTitle"),
       );
 
       return;
@@ -455,15 +483,15 @@ export function TaskManager() {
         throw new Error(
           getErrorMessage(
             data,
-            "The task could not be saved.",
+            text("task.saveFailed"),
           ),
         );
       }
 
       setMessage(
         editingTaskId
-          ? "Task updated."
-          : "Task created.",
+          ? text("task.updated")
+          : text("task.created"),
       );
 
       setIsFormOpen(false);
@@ -475,7 +503,7 @@ export function TaskManager() {
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "The task could not be saved.",
+          : text("task.saveFailed"),
       );
     } finally {
       setIsSaving(false);
@@ -507,15 +535,15 @@ export function TaskManager() {
         throw new Error(
           getErrorMessage(
             data,
-            "The task could not be updated.",
+            text("task.updateFailed"),
           ),
         );
       }
 
       setMessage(
         completed
-          ? "Task completed."
-          : "Task reopened.",
+          ? text("task.completedMessage")
+          : text("task.reopenedMessage"),
       );
 
       await loadTasks();
@@ -523,7 +551,7 @@ export function TaskManager() {
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "The task could not be updated.",
+          : text("task.updateFailed"),
       );
     }
   }
@@ -533,7 +561,12 @@ export function TaskManager() {
     task: Task,
   ) {
     const confirmed = window.confirm(
-      `Delete "${task.title}"?`,
+      text(
+        "task.deleteConfirm",
+        {
+          title: task.title,
+        },
+      ),
     );
 
     if (!confirmed) {
@@ -558,19 +591,19 @@ export function TaskManager() {
         throw new Error(
           getErrorMessage(
             data,
-            "The task could not be deleted.",
+            text("task.deleteFailed"),
           ),
         );
       }
 
-      setMessage("Task deleted.");
+      setMessage(text("task.deleted"));
 
       await loadTasks();
     } catch (caughtError) {
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "The task could not be deleted.",
+          : text("task.deleteFailed"),
       );
     }
   }
@@ -580,24 +613,24 @@ export function TaskManager() {
     <>
       <section className="task-summary-grid">
         <article>
-          <span>Total tasks</span>
+          <span>{text("task.total")}</span>
           <strong>{summary.total}</strong>
         </article>
 
         <article>
-          <span>To do</span>
+          <span>{text("task.todo")}</span>
           <strong>{summary.pending}</strong>
         </article>
 
         <article>
-          <span>In progress</span>
+          <span>{text("task.inProgress")}</span>
           <strong>
             {summary.in_progress}
           </strong>
         </article>
 
         <article>
-          <span>Completed</span>
+          <span>{text("task.completed")}</span>
           <strong>
             {summary.completed}
           </strong>
@@ -610,7 +643,7 @@ export function TaskManager() {
               : ""
           }
         >
-          <span>Overdue</span>
+          <span>{text("task.overdue")}</span>
           <strong>{summary.overdue}</strong>
         </article>
       </section>
@@ -619,10 +652,10 @@ export function TaskManager() {
         <div className="task-toolbar">
           <div>
             <p className="eyebrow">
-              Executive-function planner
+              {text("task.planner")}
             </p>
 
-            <h2>Your tasks</h2>
+            <h2>{text("task.yourTasks")}</h2>
           </div>
 
           <button
@@ -636,7 +669,7 @@ export function TaskManager() {
 
         <div className="task-filters">
           <label>
-            <span>Search</span>
+            <span>{text("task.search")}</span>
 
             <input
               onChange={(event) =>
@@ -644,14 +677,14 @@ export function TaskManager() {
                   event.target.value,
                 )
               }
-              placeholder="Search tasks"
+              placeholder={text("task.searchPlaceholder")}
               type="search"
               value={search}
             />
           </label>
 
           <label>
-            <span>Status</span>
+            <span>{text("task.status")}</span>
 
             <select
               onChange={(event) =>
@@ -663,7 +696,7 @@ export function TaskManager() {
               value={statusFilter}
             >
               <option value="all">
-                All statuses
+                {text("task.allStatuses")}
               </option>
 
               <option value="pending">
@@ -681,7 +714,7 @@ export function TaskManager() {
           </label>
 
           <label>
-            <span>Priority</span>
+            <span>{text("task.priority")}</span>
 
             <select
               onChange={(event) =>
@@ -693,7 +726,7 @@ export function TaskManager() {
               value={priorityFilter}
             >
               <option value="all">
-                All priorities
+                {text("task.allPriorities")}
               </option>
 
               <option value="low">
@@ -738,7 +771,7 @@ export function TaskManager() {
             className="task-empty-state"
             role="status"
           >
-            Loading your tasks...
+            {text("task.loading")}
           </div>
         ) : null}
 
@@ -749,11 +782,10 @@ export function TaskManager() {
               ✓
             </span>
 
-            <h3>No tasks found</h3>
+            <h3>{text("task.emptyTitle")}</h3>
 
             <p>
-              Add your first task or adjust
-              the current filters.
+              {text("task.emptyDescription")}
             </p>
 
             <button
@@ -761,7 +793,7 @@ export function TaskManager() {
               onClick={openCreateForm}
               type="button"
             >
-              Create a task
+              {text("task.create")}
             </button>
           </div>
         ) : null}
@@ -781,8 +813,20 @@ export function TaskManager() {
                 <button
                   aria-label={
                     task.is_completed
-                      ? `Reopen ${task.title}`
-                      : `Complete ${task.title}`
+                      ? text(
+                          "task.reopenLabel",
+                          {
+                            title:
+                              task.title,
+                          },
+                        )
+                      : text(
+                          "task.completeLabel",
+                          {
+                            title:
+                              task.title,
+                          },
+                        )
                   }
                   className="task-complete-button"
                   onClick={() =>
@@ -804,22 +848,33 @@ export function TaskManager() {
                         <span
                           className={`task-priority task-priority-${task.priority}`}
                         >
-                          {task.priority}
+                          {text(
+                            `task.${task.priority}` as
+                              Parameters<
+                                typeof taskText
+                              >[1],
+                          )}
                         </span>
 
                         <span className="task-status">
                           {task.status ===
                           "in-progress"
-                            ? "In progress"
+                            ? text(
+                                "task.inProgress",
+                              )
                             : task.status ===
                                 "pending"
-                              ? "To do"
-                              : "Completed"}
+                              ? text(
+                                  "task.todo",
+                                )
+                              : text(
+                                  "task.completed",
+                                )}
                         </span>
 
                         {isOverdue(task) ? (
                           <span className="task-overdue">
-                            Overdue
+                            {text("task.overdue")}
                           </span>
                         ) : null}
                       </div>
@@ -854,9 +909,13 @@ export function TaskManager() {
                   ) : null}
 
                   <small>
-                    Due:{" "}
+                    {text("task.due")}:{" "}
                     {formatDate(
                       task.due_date,
+                      locale,
+                      text(
+                        "task.noDueDate",
+                      ),
                     )}
                   </small>
 
@@ -886,19 +945,19 @@ export function TaskManager() {
               <div>
                 <p className="eyebrow">
                   {editingTaskId
-                    ? "Update task"
-                    : "New task"}
+                    ? text("task.updateEyebrow")
+                    : text("task.newEyebrow")}
                 </p>
 
                 <h2 id="task-form-title">
                   {editingTaskId
-                    ? "Edit task"
-                    : "Add a task"}
+                    ? text("task.editTitle")
+                    : text("task.addTitle")}
                 </h2>
               </div>
 
               <button
-                aria-label="Close task form"
+                aria-label={text("task.closeForm")}
                 className="task-modal-close"
                 onClick={closeForm}
                 type="button"
@@ -908,7 +967,7 @@ export function TaskManager() {
             </div>
 
             <label className="task-form-field">
-              <span>Task title</span>
+              <span>{text("task.titleLabel")}</span>
 
               <input
                 autoFocus
@@ -919,7 +978,7 @@ export function TaskManager() {
                     event.target.value,
                   )
                 }
-                placeholder="What needs to be done?"
+                placeholder={text("task.titlePlaceholder")}
                 required
                 type="text"
                 value={form.title}
@@ -927,7 +986,7 @@ export function TaskManager() {
             </label>
 
             <label className="task-form-field">
-              <span>Description</span>
+              <span>{text("task.descriptionLabel")}</span>
 
               <textarea
                 maxLength={5000}
@@ -937,7 +996,7 @@ export function TaskManager() {
                     event.target.value,
                   )
                 }
-                placeholder="Add helpful notes or the next small step"
+                placeholder={text("task.descriptionPlaceholder")}
                 rows={5}
                 value={
                   form.description ?? ""
@@ -947,7 +1006,7 @@ export function TaskManager() {
 
             <div className="task-form-row">
               <label className="task-form-field">
-                <span>Priority</span>
+                <span>{text("task.priority")}</span>
 
                 <select
                   onChange={(event) =>
@@ -978,7 +1037,7 @@ export function TaskManager() {
               </label>
 
               <label className="task-form-field">
-                <span>Status</span>
+                <span>{text("task.status")}</span>
 
                 <select
                   onChange={(event) =>
@@ -1006,7 +1065,7 @@ export function TaskManager() {
             </div>
 
             <label className="task-form-field">
-              <span>Due date</span>
+              <span>{text("task.dueDate")}</span>
 
               <input
                 onChange={(event) =>
@@ -1039,10 +1098,10 @@ export function TaskManager() {
                 type="submit"
               >
                 {isSaving
-                  ? "Saving..."
+                  ? text("common.saving")
                   : editingTaskId
-                    ? "Save changes"
-                    : "Create task"}
+                    ? text("task.saveChanges")
+                    : text("task.create")}
               </button>
             </div>
           </form>

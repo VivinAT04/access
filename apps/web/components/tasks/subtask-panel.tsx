@@ -9,6 +9,13 @@ import {
   useState,
 } from "react";
 
+import {
+  taskText,
+} from "@/components/i18n/task-translations";
+import {
+  useLanguage,
+} from "@/components/language/language-provider";
+
 import type {
   Subtask,
   Task,
@@ -93,6 +100,25 @@ export function SubtaskPanel({
   task,
   onTaskChanged,
 }: SubtaskPanelProps) {
+  const {
+    locale,
+  } = useLanguage();
+
+  const text = (
+    key:
+      Parameters<
+        typeof taskText
+      >[1],
+    values: Record<
+      string,
+      string | number
+    > = {},
+  ) => taskText(
+    locale,
+    key,
+    values,
+  );
+
   const [isOpen, setIsOpen] =
     useState(false);
 
@@ -168,7 +194,7 @@ export function SubtaskPanel({
           throw new Error(
             getMessage(
               subtasksData,
-              "Subtasks could not be loaded.",
+              text("subtask.loadFailed"),
             ),
           );
         }
@@ -177,7 +203,7 @@ export function SubtaskPanel({
           throw new Error(
             getMessage(
               progressData,
-              "Task progress could not be loaded.",
+              text("subtask.progressFailed"),
             ),
           );
         }
@@ -193,7 +219,7 @@ export function SubtaskPanel({
         setError(
           caughtError instanceof Error
             ? caughtError.message
-            : "Subtasks could not be loaded.",
+            : text("subtask.loadFailed"),
         );
       } finally {
         setIsLoading(false);
@@ -229,15 +255,25 @@ export function SubtaskPanel({
       if (
         progress.total_subtasks === 0
       ) {
-        return "No subtasks yet";
+        return text(
+          "subtask.none",
+        );
       }
 
-      return (
-        `${progress.completed_subtasks} of ` +
-        `${progress.total_subtasks} completed`
+      return text(
+        "subtask.progress",
+        {
+          completed:
+            progress.completed_subtasks,
+          total:
+            progress.total_subtasks,
+        },
       );
     },
-    [progress],
+    [
+      progress,
+      locale,
+    ],
   );
 
 
@@ -283,7 +319,7 @@ export function SubtaskPanel({
 
     if (!title) {
       setError(
-        "Enter a title for the subtask."
+        text("subtask.enterTitle")
       );
 
       return;
@@ -341,15 +377,15 @@ export function SubtaskPanel({
         throw new Error(
           getMessage(
             data,
-            "The subtask could not be saved.",
+            text("subtask.saveFailed"),
           ),
         );
       }
 
       setMessage(
         editingSubtaskId
-          ? "Subtask updated."
-          : "Subtask added.",
+          ? text("subtask.updated")
+          : text("subtask.added"),
       );
 
       resetForm();
@@ -359,7 +395,7 @@ export function SubtaskPanel({
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "The subtask could not be saved.",
+          : text("subtask.saveFailed"),
       );
     } finally {
       setIsSaving(false);
@@ -391,15 +427,15 @@ export function SubtaskPanel({
         throw new Error(
           getMessage(
             data,
-            "The subtask could not be updated.",
+            text("subtask.updateFailed"),
           ),
         );
       }
 
       setMessage(
         completed
-          ? "Subtask completed."
-          : "Subtask reopened.",
+          ? text("subtask.completedMessage")
+          : text("subtask.reopenedMessage"),
       );
 
       await refreshEverything();
@@ -407,7 +443,7 @@ export function SubtaskPanel({
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "The subtask could not be updated.",
+          : text("subtask.updateFailed"),
       );
     }
   }
@@ -418,7 +454,13 @@ export function SubtaskPanel({
   ) {
     const confirmed =
       window.confirm(
-        `Delete "${subtask.title}"?`,
+        text(
+          "subtask.deleteConfirm",
+          {
+            title:
+              subtask.title,
+          },
+        ),
       );
 
     if (!confirmed) {
@@ -443,7 +485,7 @@ export function SubtaskPanel({
         throw new Error(
           getMessage(
             data,
-            "The subtask could not be deleted.",
+            text("subtask.deleteFailed"),
           ),
         );
       }
@@ -456,7 +498,7 @@ export function SubtaskPanel({
       }
 
       setMessage(
-        "Subtask deleted."
+        text("subtask.deleted")
       );
 
       await refreshEverything();
@@ -464,7 +506,7 @@ export function SubtaskPanel({
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "The subtask could not be deleted.",
+          : text("subtask.deleteFailed"),
       );
     }
   }
@@ -546,7 +588,7 @@ export function SubtaskPanel({
         throw new Error(
           getMessage(
             data,
-            "Subtasks could not be reordered.",
+            text("subtask.reorderFailed"),
           ),
         );
       }
@@ -556,13 +598,13 @@ export function SubtaskPanel({
       );
 
       setMessage(
-        "Subtask order updated."
+        text("subtask.orderUpdated")
       );
     } catch (caughtError) {
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "Subtasks could not be reordered.",
+          : text("subtask.reorderFailed"),
       );
     }
   }
@@ -573,7 +615,7 @@ export function SubtaskPanel({
       <div className="task-breakdown-heading">
         <div>
           <strong>
-            Task breakdown
+            {text("subtask.breakdown")}
           </strong>
 
           <span>
@@ -592,13 +634,19 @@ export function SubtaskPanel({
           type="button"
         >
           {isOpen
-            ? "Hide steps"
-            : "Break into steps"}
+            ? text("subtask.hide")
+            : text("subtask.breakIntoSteps")}
         </button>
       </div>
 
       <div
-        aria-label={`${progress.progress_percentage}% complete`}
+        aria-label={text(
+          "subtask.percentComplete",
+          {
+            percentage:
+              progress.progress_percentage,
+          },
+        )}
         className="subtask-progress-track"
       >
         <div
@@ -617,7 +665,7 @@ export function SubtaskPanel({
 
         {progress.is_completed ? (
           <strong>
-            All steps complete
+            {text("subtask.allComplete")}
           </strong>
         ) : null}
       </div>
@@ -649,8 +697,8 @@ export function SubtaskPanel({
             <div className="subtask-form-heading">
               <strong>
                 {editingSubtaskId
-                  ? "Edit step"
-                  : "Add a small step"}
+                  ? text("subtask.editStep")
+                  : text("subtask.addSmallStep")}
               </strong>
 
               {editingSubtaskId ? (
@@ -658,7 +706,7 @@ export function SubtaskPanel({
                   onClick={resetForm}
                   type="button"
                 >
-                  Cancel edit
+                  {text("subtask.cancelEdit")}
                 </button>
               ) : null}
             </div>
@@ -674,7 +722,7 @@ export function SubtaskPanel({
                   }),
                 )
               }
-              placeholder="Example: Write the introduction"
+              placeholder={text("subtask.titlePlaceholder")}
               required
               type="text"
               value={form.title}
@@ -691,7 +739,7 @@ export function SubtaskPanel({
                   }),
                 )
               }
-              placeholder="Optional notes for this step"
+              placeholder={text("subtask.notesPlaceholder")}
               rows={3}
               value={
                 form.description
@@ -704,16 +752,16 @@ export function SubtaskPanel({
               type="submit"
             >
               {isSaving
-                ? "Saving..."
+                ? text("common.saving")
                 : editingSubtaskId
-                  ? "Save step"
-                  : "Add step"}
+                  ? text("subtask.saveStep")
+                  : text("subtask.addStep")}
             </button>
           </form>
 
           {isLoading ? (
             <p className="subtask-loading">
-              Loading steps...
+              {text("subtask.loading")}
             </p>
           ) : null}
 
@@ -721,12 +769,11 @@ export function SubtaskPanel({
           subtasks.length === 0 ? (
             <div className="subtask-empty">
               <strong>
-                No steps yet
+                {text("subtask.emptyTitle")}
               </strong>
 
               <p>
-                Add the smallest action
-                you could begin with.
+                {text("subtask.emptyDescription")}
               </p>
             </div>
           ) : null}
@@ -749,8 +796,20 @@ export function SubtaskPanel({
                     <button
                       aria-label={
                         subtask.is_completed
-                          ? `Reopen ${subtask.title}`
-                          : `Complete ${subtask.title}`
+                          ? text(
+                              "subtask.reopenLabel",
+                              {
+                                title:
+                                  subtask.title,
+                              },
+                            )
+                          : text(
+                              "subtask.completeLabel",
+                              {
+                                title:
+                                  subtask.title,
+                              },
+                            )
                       }
                       className="subtask-complete"
                       onClick={() =>
@@ -781,7 +840,13 @@ export function SubtaskPanel({
 
                     <div className="subtask-actions">
                       <button
-                        aria-label={`Move ${subtask.title} up`}
+                        aria-label={text(
+                          "subtask.moveUp",
+                          {
+                            title:
+                              subtask.title,
+                          },
+                        )}
                         disabled={
                           index === 0
                         }
@@ -797,7 +862,13 @@ export function SubtaskPanel({
                       </button>
 
                       <button
-                        aria-label={`Move ${subtask.title} down`}
+                        aria-label={text(
+                          "subtask.moveDown",
+                          {
+                            title:
+                              subtask.title,
+                          },
+                        )}
                         disabled={
                           index ===
                           subtasks.length - 1
@@ -851,7 +922,7 @@ export function SubtaskPanel({
               )}`
             }
           >
-            Start focus for this task
+            {text("subtask.startFocus")}
           </Link>
         </div>
       ) : null}
