@@ -1,71 +1,137 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import {
+  useRouter,
+} from "next/navigation";
 import {
   FormEvent,
   useState,
 } from "react";
 
-export function LoginForm() {
-  const router = useRouter();
+import {
+  authText,
+} from "@/components/i18n/auth-translations";
+import {
+  useLanguage,
+} from "@/components/language/language-provider";
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+export function LoginForm() {
+  const router =
+    useRouter();
+
+  const { locale } =
+    useLanguage();
+
+  const [email, setEmail] =
+    useState("");
+
+  const [password, setPassword] =
+    useState("");
+
+  const [message, setMessage] =
+    useState("");
+
+  const [isLoading, setIsLoading] =
+    useState(false);
+
+
+  const text = (
+    key:
+      Parameters<
+        typeof authText
+      >[1],
+  ) => authText(
+    locale,
+    key,
+  );
+
 
   async function handleSubmit(
-    event: FormEvent<HTMLFormElement>,
+    event:
+      FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
+
     setMessage("");
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const response =
+        await fetch(
+          "/api/auth/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+          },
+        );
 
-      const data = (await response.json()) as {
+      const data: {
         message?: string;
-      };
+      } = await response.json();
 
       if (!response.ok) {
-        setMessage(data.message ?? "Login failed.");
+        setMessage(
+          data.message
+          ?? text(
+            "login.failed",
+          ),
+        );
+
         return;
       }
 
-      router.push("/dashboard");
+      router.push(
+        "/dashboard",
+      );
+
       router.refresh();
     } catch {
       setMessage(
-        "Something went wrong. Please try again.",
+        text(
+          "common.tryAgain",
+        ),
       );
     } finally {
       setIsLoading(false);
     }
   }
 
+
   return (
-    <form className="auth-form" onSubmit={handleSubmit}>
+    <form
+      className="auth-form"
+      onSubmit={
+        handleSubmit
+      }
+    >
       <div className="field-group">
-        <label htmlFor="email">Email address</label>
+        <label htmlFor="email">
+          {text(
+            "login.email",
+          )}
+        </label>
+
         <input
           autoComplete="email"
           id="email"
           name="email"
           onChange={(event) =>
-            setEmail(event.target.value)
+            setEmail(
+              event.target.value,
+            )
           }
-          placeholder="you@example.com"
+          placeholder={text(
+            "login.emailPlaceholder",
+          )}
           required
           type="email"
           value={email}
@@ -73,16 +139,25 @@ export function LoginForm() {
       </div>
 
       <div className="field-group">
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">
+          {text(
+            "login.password",
+          )}
+        </label>
+
         <input
           autoComplete="current-password"
           id="password"
           minLength={8}
           name="password"
           onChange={(event) =>
-            setPassword(event.target.value)
+            setPassword(
+              event.target.value,
+            )
           }
-          placeholder="Enter your password"
+          placeholder={text(
+            "login.passwordPlaceholder",
+          )}
           required
           type="password"
           value={password}
@@ -90,7 +165,10 @@ export function LoginForm() {
       </div>
 
       {message ? (
-        <div className="form-message form-error" role="alert">
+        <div
+          className="form-message form-error"
+          role="alert"
+        >
           {message}
         </div>
       ) : null}
@@ -100,12 +178,25 @@ export function LoginForm() {
         disabled={isLoading}
         type="submit"
       >
-        {isLoading ? "Signing in..." : "Sign in"}
+        {isLoading
+          ? text(
+              "login.submitting",
+            )
+          : text(
+              "login.submit",
+            )}
       </button>
 
       <p className="form-footer">
-        New to Aksess?{" "}
-        <Link href="/register">Create an account</Link>
+        {text(
+          "login.newUser",
+        )}{" "}
+
+        <Link href="/register">
+          {text(
+            "login.createAccount",
+          )}
+        </Link>
       </p>
     </form>
   );

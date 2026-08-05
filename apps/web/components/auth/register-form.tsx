@@ -1,113 +1,198 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import {
+  useRouter,
+} from "next/navigation";
 import {
   FormEvent,
   useState,
 } from "react";
 
-export function RegisterForm() {
-  const router = useRouter();
+import {
+  authText,
+} from "@/components/i18n/auth-translations";
+import {
+  useLanguage,
+} from "@/components/language/language-provider";
 
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] =
+
+export function RegisterForm() {
+  const router =
+    useRouter();
+
+  const { locale } =
+    useLanguage();
+
+  const [fullName, setFullName] =
     useState("");
-  const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [email, setEmail] =
+    useState("");
+
+  const [password, setPassword] =
+    useState("");
+
+  const [
+    confirmPassword,
+    setConfirmPassword,
+  ] = useState("");
+
+  const [message, setMessage] =
+    useState("");
+
+  const [isLoading, setIsLoading] =
+    useState(false);
+
+
+  const text = (
+    key:
+      Parameters<
+        typeof authText
+      >[1],
+  ) => authText(
+    locale,
+    key,
+  );
+
 
   async function handleSubmit(
-    event: FormEvent<HTMLFormElement>,
+    event:
+      FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
+
     setMessage("");
 
-    if (password !== confirmPassword) {
-      setMessage("Passwords do not match.");
+    if (
+      password
+      !== confirmPassword
+    ) {
+      setMessage(
+        text(
+          "register.passwordMismatch",
+        ),
+      );
+
       return;
     }
 
-    if (password.length < 8) {
+    if (
+      password.length < 8
+    ) {
       setMessage(
-        "Password must contain at least 8 characters.",
+        text(
+          "register.passwordLength",
+        ),
       );
+
       return;
     }
 
     setIsLoading(true);
 
     try {
-      const registerResponse = await fetch(
-        "/api/auth/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+      const registerResponse =
+        await fetch(
+          "/api/auth/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify({
+              full_name:
+                fullName,
+              email,
+              password,
+            }),
           },
-          body: JSON.stringify({
-            full_name: fullName,
-            email,
-            password,
-          }),
-        },
-      );
-
-      const registerData =
-        (await registerResponse.json()) as {
-          message?: string;
-        };
-
-      if (!registerResponse.ok) {
-        setMessage(
-          registerData.message ?? "Registration failed.",
         );
+
+      const registerData: {
+        message?: string;
+      } = await registerResponse.json();
+
+      if (
+        !registerResponse.ok
+      ) {
+        setMessage(
+          registerData.message
+          ?? text(
+            "register.failed",
+          ),
+        );
+
         return;
       }
 
-      const loginResponse = await fetch(
-        "/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+      const loginResponse =
+        await fetch(
+          "/api/auth/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify({
+              email,
+              password,
+            }),
           },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        },
-      );
+        );
 
-      const loginData = (await loginResponse.json()) as {
+      const loginData: {
         message?: string;
-      };
+      } = await loginResponse.json();
 
       if (!loginResponse.ok) {
         setMessage(
-          loginData.message ??
-            "Account created. Please sign in.",
+          loginData.message
+          ?? text(
+            "register.createdSignIn",
+          ),
         );
-        router.push("/login");
+
+        router.push(
+          "/login",
+        );
+
         return;
       }
 
-      router.push("/dashboard");
+      router.push(
+        "/dashboard",
+      );
+
       router.refresh();
     } catch {
       setMessage(
-        "Something went wrong. Please try again.",
+        text(
+          "common.tryAgain",
+        ),
       );
     } finally {
       setIsLoading(false);
     }
   }
 
+
   return (
-    <form className="auth-form" onSubmit={handleSubmit}>
+    <form
+      className="auth-form"
+      onSubmit={
+        handleSubmit
+      }
+    >
       <div className="field-group">
-        <label htmlFor="fullName">Full name</label>
+        <label htmlFor="fullName">
+          {text(
+            "register.fullName",
+          )}
+        </label>
+
         <input
           autoComplete="name"
           id="fullName"
@@ -115,9 +200,13 @@ export function RegisterForm() {
           minLength={2}
           name="fullName"
           onChange={(event) =>
-            setFullName(event.target.value)
+            setFullName(
+              event.target.value,
+            )
           }
-          placeholder="Your full name"
+          placeholder={text(
+            "register.fullNamePlaceholder",
+          )}
           required
           type="text"
           value={fullName}
@@ -125,15 +214,24 @@ export function RegisterForm() {
       </div>
 
       <div className="field-group">
-        <label htmlFor="email">Email address</label>
+        <label htmlFor="email">
+          {text(
+            "register.email",
+          )}
+        </label>
+
         <input
           autoComplete="email"
           id="email"
           name="email"
           onChange={(event) =>
-            setEmail(event.target.value)
+            setEmail(
+              event.target.value,
+            )
           }
-          placeholder="you@example.com"
+          placeholder={text(
+            "register.emailPlaceholder",
+          )}
           required
           type="email"
           value={email}
@@ -141,16 +239,25 @@ export function RegisterForm() {
       </div>
 
       <div className="field-group">
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">
+          {text(
+            "register.password",
+          )}
+        </label>
+
         <input
           autoComplete="new-password"
           id="password"
           minLength={8}
           name="password"
           onChange={(event) =>
-            setPassword(event.target.value)
+            setPassword(
+              event.target.value,
+            )
           }
-          placeholder="At least 8 characters"
+          placeholder={text(
+            "register.passwordPlaceholder",
+          )}
           required
           type="password"
           value={password}
@@ -159,25 +266,37 @@ export function RegisterForm() {
 
       <div className="field-group">
         <label htmlFor="confirmPassword">
-          Confirm password
+          {text(
+            "register.confirmPassword",
+          )}
         </label>
+
         <input
           autoComplete="new-password"
           id="confirmPassword"
           minLength={8}
           name="confirmPassword"
           onChange={(event) =>
-            setConfirmPassword(event.target.value)
+            setConfirmPassword(
+              event.target.value,
+            )
           }
-          placeholder="Enter the password again"
+          placeholder={text(
+            "register.confirmPasswordPlaceholder",
+          )}
           required
           type="password"
-          value={confirmPassword}
+          value={
+            confirmPassword
+          }
         />
       </div>
 
       {message ? (
-        <div className="form-message form-error" role="alert">
+        <div
+          className="form-message form-error"
+          role="alert"
+        >
           {message}
         </div>
       ) : null}
@@ -188,13 +307,24 @@ export function RegisterForm() {
         type="submit"
       >
         {isLoading
-          ? "Creating account..."
-          : "Create account"}
+          ? text(
+              "register.submitting",
+            )
+          : text(
+              "register.submit",
+            )}
       </button>
 
       <p className="form-footer">
-        Already have an account?{" "}
-        <Link href="/login">Sign in</Link>
+        {text(
+          "register.existingUser",
+        )}{" "}
+
+        <Link href="/login">
+          {text(
+            "register.signIn",
+          )}
+        </Link>
       </p>
     </form>
   );

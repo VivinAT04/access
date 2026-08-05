@@ -10,22 +10,28 @@ import {
 } from "react";
 
 import {
-  getDirection,
-} from "@/components/language/language-options";
-
-import {
   getDictionary,
   type TranslationKey,
 } from "@/components/i18n/translations";
+
+import {
+  getDirection,
+} from "@/components/language/language-options";
 
 import type {
   LanguagePreference,
 } from "@/lib/types";
 
 
+const STORAGE_KEY =
+  "aksess-language-preference";
+
+
 interface LanguageContextValue {
   preference:
     LanguagePreference | null;
+
+  locale: string;
 
   setPreference: (
     preference:
@@ -47,7 +53,10 @@ interface LanguageContextValue {
 
   t: (
     key: TranslationKey,
-    values?: Record<string, string | number>,
+    values?: Record<
+      string,
+      string | number
+    >,
   ) => string;
 }
 
@@ -72,8 +81,11 @@ function applyLanguagePreference(
         )
       : preference.direction;
 
-  root.lang = preference.locale;
-  root.dir = resolvedDirection;
+  root.lang =
+    preference.locale;
+
+  root.dir =
+    resolvedDirection;
 
   root.dataset.locale =
     preference.locale;
@@ -90,6 +102,34 @@ function applyLanguagePreference(
     String(
       preference.reading_guide,
     );
+}
+
+
+function readCachedPreference():
+  LanguagePreference | null {
+  if (
+    typeof window
+    === "undefined"
+  ) {
+    return null;
+  }
+
+  const stored =
+    window.localStorage.getItem(
+      STORAGE_KEY,
+    );
+
+  if (!stored) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(
+      stored,
+    ) as LanguagePreference;
+  } catch {
+    return null;
+  }
 }
 
 
@@ -119,6 +159,13 @@ export function LanguageProvider({
         applyLanguagePreference(
           nextPreference,
         );
+
+        window.localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(
+            nextPreference,
+          ),
+        );
       },
       [],
     );
@@ -128,6 +175,13 @@ export function LanguageProvider({
     const timeoutId =
       window.setTimeout(
         async () => {
+          const cached =
+            readCachedPreference();
+
+          if (cached) {
+            setPreference(cached);
+          }
+
           try {
             const response =
               await fetch(
@@ -142,12 +196,13 @@ export function LanguageProvider({
               return;
             }
 
-            const data: LanguagePreference =
-              await response.json();
+            const data:
+              LanguagePreference =
+                await response.json();
 
             setPreference(data);
           } catch {
-            // English remains the fallback.
+            // Cached preference or English remains active.
           }
         },
         0,
@@ -217,10 +272,11 @@ export function LanguageProvider({
       ]
       of Object.entries(values)
     ) {
-      result = result.replaceAll(
-        `{${placeholder}}`,
-        String(value),
-      );
+      result =
+        result.replaceAll(
+          `{${placeholder}}`,
+          String(value),
+        );
     }
 
     return result;
@@ -231,6 +287,7 @@ export function LanguageProvider({
     <LanguageContext.Provider
       value={{
         preference,
+        locale,
         setPreference,
         formatDate,
         formatNumber,
