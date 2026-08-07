@@ -7339,3 +7339,14 @@ html[data-theme="dark"] main :where(
     color: #f3f7f5 !important;
   }
 }
+
+
+/* =========================================================
+   Final custom-surface dark mode fix
+   A saved light accessibility surface must not override
+   dark-mode application surfaces.
+   ========================================================= */
+
+html[data-theme="dark"] {
+  --aksess-custom-surface: var(--surface) !important;
+}
