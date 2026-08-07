@@ -8,6 +8,9 @@ import {
   useState,
 } from "react";
 
+import { phase2Text } from "@/components/i18n/phase2-translations";
+import { useLanguage } from "@/components/language/language-provider";
+
 import type {
   CompanionProfile,
   CompanionReward,
@@ -112,6 +115,17 @@ function symbolFor(
 
 
 export function CompanionManager() {
+  const { locale } = useLanguage();
+
+  const t = (
+    key: string,
+    values: Record<string, string | number> = {},
+  ) => phase2Text(
+    locale,
+    key,
+    values,
+  );
+
   const [
     profile,
     setProfile,
@@ -183,7 +197,7 @@ export function CompanionManager() {
           throw new Error(
             getError(
               profileData,
-              "Companion profile could not be loaded.",
+              t("companion.profileLoadFailed"),
             ),
           );
         }
@@ -214,7 +228,7 @@ export function CompanionManager() {
         setError(
           caughtError instanceof Error
             ? caughtError.message
-            : "Companion data could not be loaded.",
+            : t("companion.loadFailed"),
         );
       }
     },
@@ -257,7 +271,7 @@ export function CompanionManager() {
 
     if (!name.trim()) {
       setError(
-        "Enter a name for your companion.",
+        t("companion.nameRequired"),
       );
 
       return;
@@ -292,7 +306,7 @@ export function CompanionManager() {
       setError(
         getError(
           data,
-          "Companion settings could not be saved.",
+          t("companion.saveFailed"),
         ),
       );
 
@@ -306,7 +320,7 @@ export function CompanionManager() {
     );
 
     setMessage(
-      "Your companion has been updated.",
+      t("companion.updated"),
     );
 
     setIsSaving(false);
@@ -318,7 +332,7 @@ export function CompanionManager() {
       <section className="companion-loading-card">
         {error
           ? error
-          : "Preparing your companion..."}
+          : t("companion.loading")}
       </section>
     );
   }
@@ -342,8 +356,15 @@ export function CompanionManager() {
         <div className="companion-character-scene">
           <div
             aria-label={
-              `${profile.companion_name}, ` +
-              `${profile.companion_type} companion`
+              t(
+                "companion.aria",
+                {
+                  name:
+                    profile.companion_name,
+                  type:
+                    profile.companion_type,
+                },
+              )
             }
             className="companion-character companion-character-idle"
             role="img"
@@ -359,17 +380,20 @@ export function CompanionManager() {
             </strong>
 
             <p>
-              We can begin with one small
-              step. There is no penalty
-              for needing a break.
+              {t("companion.speech")}
             </p>
           </div>
         </div>
 
         <div className="companion-progress-panel">
           <span>
-            Level{" "}
-            {profile.current_level}
+            {t(
+              "companion.level",
+              {
+                level:
+                  profile.current_level,
+              },
+            )}
           </span>
 
           <strong>
@@ -386,8 +410,12 @@ export function CompanionManager() {
           </div>
 
           <small>
-            {xpRemaining} XP until the
-            next level
+            {t(
+              "companion.nextLevel",
+              {
+                xp: xpRemaining,
+              },
+            )}
           </small>
         </div>
       </section>
@@ -395,7 +423,7 @@ export function CompanionManager() {
       <section className="companion-stat-grid">
         <article>
           <span>
-            Focus sessions
+            {t("companion.focusSessions")}
           </span>
 
           <strong>
@@ -405,7 +433,7 @@ export function CompanionManager() {
 
         <article>
           <span>
-            Focus minutes
+            {t("companion.focusMinutes")}
           </span>
 
           <strong>
@@ -415,7 +443,7 @@ export function CompanionManager() {
 
         <article>
           <span>
-            Current level
+            {t("companion.currentLevel")}
           </span>
 
           <strong>
@@ -430,16 +458,16 @@ export function CompanionManager() {
           onSubmit={saveProfile}
         >
           <p className="eyebrow">
-            Customise your companion
+            {t("companion.customise")}
           </p>
 
           <h2>
-            Choose who works beside you
+            {t("companion.choose")}
           </h2>
 
           <label>
             <span>
-              Companion name
+              {t("companion.name")}
             </span>
 
             <input
@@ -455,7 +483,7 @@ export function CompanionManager() {
           </label>
 
           <div
-            aria-label="Choose companion"
+            aria-label={t("companion.chooseAria")}
             className="companion-options"
             role="radiogroup"
           >
@@ -486,12 +514,16 @@ export function CompanionManager() {
                   </span>
 
                   <strong>
-                    {option.label}
+                    {t(
+                      `companion.${option.type}`,
+                    )}
                   </strong>
 
                   <small>
                     {
-                      option.description
+                      t(
+                        `companion.${option.type}Description`,
+                      )
                     }
                   </small>
                 </button>
@@ -505,18 +537,18 @@ export function CompanionManager() {
             type="submit"
           >
             {isSaving
-              ? "Saving..."
-              : "Save companion"}
+              ? t("common.saving")
+              : t("companion.save")}
           </button>
         </form>
 
         <section className="companion-support-card">
           <p className="eyebrow">
-            Gentle support
+            {t("companion.support")}
           </p>
 
           <h2>
-            A break is part of progress
+            {t("companion.breakTitle")}
           </h2>
 
           <p>
@@ -529,26 +561,30 @@ export function CompanionManager() {
             className="button button-secondary"
             href="/focus"
           >
-            Focus with{" "}
-            {profile.companion_name}
+            {t(
+              "companion.focusWith",
+              {
+                name:
+                  profile.companion_name,
+              },
+            )}
           </a>
 
           <ul>
             <li>
-              XP is never removed.
+              {t("companion.noXpLoss")}
             </li>
 
             <li>
-              There are no broken streaks.
+              {t("companion.noBrokenStreaks")}
             </li>
 
             <li>
-              Short sessions still count.
+              {t("companion.shortCounts")}
             </li>
 
             <li>
-              Pausing does not create a
-              penalty.
+              {t("companion.pauseNoPenalty")}
             </li>
           </ul>
         </section>
@@ -556,23 +592,21 @@ export function CompanionManager() {
 
       <section className="companion-history-card">
         <p className="eyebrow">
-          Shared focus history
+          {t("companion.history")}
         </p>
 
         <h2>
-          Recent progress
+          {t("companion.recent")}
         </h2>
 
         {rewards.length === 0 ? (
           <div className="companion-empty">
             <strong>
-              No rewarded sessions yet
+              {t("companion.noRewards")}
             </strong>
 
             <p>
-              Complete a focus session
-              and your companion will
-              grow alongside you.
+              {t("companion.noRewardsDescription")}
             </p>
           </div>
         ) : (
@@ -588,15 +622,18 @@ export function CompanionManager() {
                   </span>
 
                   <strong>
-                    {
-                      reward.focus_minutes
-                    }{" "}
-                    focused minutes
+                    {t(
+                      "companion.focusedMinutes",
+                      {
+                        minutes:
+                          reward.focus_minutes,
+                      },
+                    )}
                   </strong>
 
                   <time>
                     {new Intl.DateTimeFormat(
-                      "en-GB",
+                      locale,
                       {
                         dateStyle:
                           "medium",

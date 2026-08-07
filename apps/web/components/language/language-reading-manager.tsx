@@ -6,6 +6,8 @@ import {
   useState,
 } from "react";
 
+import { phase2Text } from "@/components/i18n/phase2-translations";
+
 import {
   findLanguage,
   getDirection,
@@ -81,7 +83,17 @@ export function LanguageReadingManager() {
     setPreference,
     formatDate,
     formatNumber,
+    locale,
   } = useLanguage();
+
+  const t = (
+    key: string,
+    values: Record<string, string | number> = {},
+  ) => phase2Text(
+    locale,
+    key,
+    values,
+  );
 
   const [search, setSearch] =
     useState("");
@@ -173,7 +185,7 @@ export function LanguageReadingManager() {
     setPreference(saved);
 
     setMessage(
-      "Language and reading preferences saved.",
+      t("language.saved"),
     );
 
     setIsSaving(false);
@@ -206,7 +218,7 @@ export function LanguageReadingManager() {
 
     if (!cleaned) {
       setError(
-        "Enter a locale such as en-GB, ta-IN or ar-SA.",
+        t("language.localeRequired"),
       );
 
       return;
@@ -223,7 +235,7 @@ export function LanguageReadingManager() {
   if (!preference) {
     return (
       <section className="language-loading-card">
-        Loading language preferences...
+        {t("language.loading")}
       </section>
     );
   }
@@ -258,7 +270,7 @@ export function LanguageReadingManager() {
       <section className="language-current-card">
         <div>
           <p className="eyebrow">
-            Current language
+            {t("language.current")}
           </p>
 
           <h2>
@@ -290,28 +302,26 @@ export function LanguageReadingManager() {
         <div className="language-section-heading">
           <div>
             <p className="eyebrow">
-              Language selection
+              {t("language.selection")}
             </p>
 
             <h2>
-              Choose your preferred language
+              {t("language.choose")}
             </h2>
 
             <p>
-              Language names are shown in
-              English and in their native
-              form.
+              {t("language.chooseDescription")}
             </p>
           </div>
 
           <input
-            aria-label="Search languages"
+            aria-label={t("language.search")}
             onChange={(event) =>
               setSearch(
                 event.target.value,
               )
             }
-            placeholder="Search languages"
+            placeholder={t("language.search")}
             type="search"
             value={search}
           />
@@ -371,9 +381,7 @@ export function LanguageReadingManager() {
         {filteredLanguages.length
         === 0 ? (
           <div className="language-empty">
-            No matching listed language.
-            You can enter a custom locale
-            below.
+            {t("language.noMatch")}
           </div>
         ) : null}
       </section>
@@ -386,18 +394,15 @@ export function LanguageReadingManager() {
       >
         <div>
           <p className="eyebrow">
-            Other languages
+            {t("language.other")}
           </p>
 
           <h2>
-            Enter a custom locale
+            {t("language.custom")}
           </h2>
 
           <p>
-            Use a standard language code
-            such as <code>en-US</code>,
-            <code>ta-LK</code> or
-            <code>zh-Hant-TW</code>.
+            {t("language.customDescription")}
           </p>
         </div>
 
@@ -408,7 +413,7 @@ export function LanguageReadingManager() {
                 event.target.value,
               )
             }
-            placeholder="Example: en-US"
+            placeholder={t("language.exampleLocale")}
             value={customLocale}
           />
 
@@ -417,30 +422,34 @@ export function LanguageReadingManager() {
             disabled={isSaving}
             type="submit"
           >
-            Use locale
+            {t("language.useLocale")}
           </button>
         </div>
       </form>
 
       <section className="reading-support-grid">
         <ReadingSettingCard
-          description="Control the space between letters."
-          label="Letter spacing"
+          description={t(
+            "language.letterSpacingDescription",
+          )}
+          label={t(
+            "language.letterSpacing",
+          )}
         >
           <div className="reading-option-row">
             {(
               [
                 [
                   "normal",
-                  "Normal",
+                  t("language.normal"),
                 ],
                 [
                   "relaxed",
-                  "Relaxed",
+                  t("language.relaxed"),
                 ],
                 [
                   "wide",
-                  "Wide",
+                  t("language.wide"),
                 ],
               ] as Array<
                 [
@@ -483,8 +492,12 @@ export function LanguageReadingManager() {
         </ReadingSettingCard>
 
         <ReadingSettingCard
-          description="Use a clearer, heavier system font style."
-          label="Dyslexia-friendly text"
+          description={t(
+            "language.dyslexiaDescription",
+          )}
+          label={t(
+            "language.dyslexia",
+          )}
         >
           <button
             aria-pressed={
@@ -508,14 +521,18 @@ export function LanguageReadingManager() {
           >
             {preference
               .dyslexia_friendly
-              ? "Enabled"
-              : "Enable"}
+              ? t("common.enabled")
+              : t("common.enable")}
           </button>
         </ReadingSettingCard>
 
         <ReadingSettingCard
-          description="Show a horizontal guide that follows the pointer."
-          label="Reading guide"
+          description={t(
+            "language.readingGuideDescription",
+          )}
+          label={t(
+            "language.readingGuide",
+          )}
         >
           <button
             aria-pressed={
@@ -539,29 +556,33 @@ export function LanguageReadingManager() {
           >
             {preference
               .reading_guide
-              ? "Enabled"
-              : "Enable"}
+              ? t("common.enabled")
+              : t("common.enable")}
           </button>
         </ReadingSettingCard>
 
         <ReadingSettingCard
-          description="Override automatic text direction when necessary."
-          label="Text direction"
+          description={t(
+            "language.textDirectionDescription",
+          )}
+          label={t(
+            "language.textDirection",
+          )}
         >
           <div className="reading-option-row">
             {(
               [
                 [
                   "auto",
-                  "Automatic",
+                  t("language.auto"),
                 ],
                 [
                   "ltr",
-                  "Left to right",
+                  t("language.ltr"),
                 ],
                 [
                   "rtl",
-                  "Right to left",
+                  t("language.rtl"),
                 ],
               ] as Array<
                 [
@@ -606,7 +627,7 @@ export function LanguageReadingManager() {
 
       <section className="language-preview-card">
         <p className="eyebrow">
-          Locale preview
+          {t("language.preview")}
         </p>
 
         <h2>
@@ -616,7 +637,7 @@ export function LanguageReadingManager() {
         <div className="language-preview-grid">
           <article>
             <span>
-              Date
+              {t("language.date")}
             </span>
 
             <strong>
@@ -632,7 +653,7 @@ export function LanguageReadingManager() {
 
           <article>
             <span>
-              Time
+              {t("language.time")}
             </span>
 
             <strong>
@@ -648,7 +669,7 @@ export function LanguageReadingManager() {
 
           <article>
             <span>
-              Number
+              {t("language.number")}
             </span>
 
             <strong>
@@ -660,7 +681,7 @@ export function LanguageReadingManager() {
 
           <article>
             <span>
-              Percentage
+              {t("language.percentage")}
             </span>
 
             <strong>
@@ -676,11 +697,7 @@ export function LanguageReadingManager() {
         </div>
 
         <p className="language-fallback-note">
-          Pages without a verified
-          translation remain in English,
-          while dates, times, numbers and
-          text direction use your selected
-          locale.
+          {t("language.fallback")}
         </p>
       </section>
 

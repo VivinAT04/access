@@ -7,6 +7,13 @@ import {
 } from "react";
 
 
+import {
+  sensoryText,
+} from "@/components/i18n/sensory-translations";
+import {
+  useLanguage,
+} from "@/components/language/language-provider";
+
 type Soundscape =
   | "none"
   | "rain"
@@ -111,6 +118,23 @@ const soundscapes: Array<{
 
 
 export function SensoryManager() {
+  const {
+    locale,
+  } = useLanguage();
+
+  const text = (
+    key: string,
+    values: Record<
+      string,
+      string | number
+    > = {},
+  ) =>
+    sensoryText(
+      locale,
+      key,
+      values,
+    );
+
   const [settings, setSettings] =
     useState<SensorySettings>(() => {
       if (
@@ -403,16 +427,15 @@ export function SensoryManager() {
         <div className="sensory-section-heading">
           <div>
             <p className="eyebrow">
-              Soundscape library
+              {text("sound.eyebrow")}
             </p>
 
             <h2>
-              Choose a steady background
+              {text("sound.title")}
             </h2>
 
             <p>
-              These sounds are generated locally in your
-              browser and stop when you leave this page.
+              {text("sound.description")}
             </p>
           </div>
 
@@ -428,7 +451,7 @@ export function SensoryManager() {
             }}
             type="button"
           >
-            Stop all sounds
+            {text("sound.stop")}
           </button>
         </div>
 
@@ -463,18 +486,22 @@ export function SensoryManager() {
                   </span>
 
                   <strong>
-                    {soundscape.label}
+                    {text(
+                      `sound.${soundscape.id}.label`,
+                    )}
                   </strong>
 
                   <small>
-                    {soundscape.description}
+                    {text(
+                      `sound.${soundscape.id}.description`,
+                    )}
                   </small>
 
                   <em>
                     {selected
                     && isPlaying
-                      ? "Playing"
-                      : "Play"}
+                      ? text("sound.playing")
+                      : text("sound.play")}
                   </em>
                 </button>
               );
@@ -484,12 +511,16 @@ export function SensoryManager() {
 
         <label className="sensory-volume-control">
           <span>
-            Volume{" "}
-            {Math.round(
-              settings.volume
-              * 100,
+            {text(
+              "sound.volume",
+              {
+                value:
+                  Math.round(
+                    settings.volume
+                    * 100,
+                  ),
+              },
             )}
-            %
           </span>
 
           <input
@@ -513,15 +544,31 @@ export function SensoryManager() {
 
       <section className="sensory-setting-grid">
         <SettingGroup
-          description="Adjust the overall visual intensity."
-          label="Brightness"
+          description={text(
+            "brightness.description",
+          )}
+          label={text(
+            "brightness.label",
+          )}
           options={[
-            ["soft", "Soft"],
+            [
+              "soft",
+              text(
+                "brightness.soft",
+              ),
+            ],
             [
               "balanced",
-              "Balanced",
+              text(
+                "brightness.balanced",
+              ),
             ],
-            ["bright", "Bright"],
+            [
+              "bright",
+              text(
+                "brightness.bright",
+              ),
+            ],
           ]}
           selected={
             settings.brightness
@@ -536,17 +583,30 @@ export function SensoryManager() {
         />
 
         <SettingGroup
-          description="Choose how visually detailed the interface feels."
-          label="Interface style"
+          description={text(
+            "interface.description",
+          )}
+          label={text(
+            "interface.label",
+          )}
           options={[
-            ["calm", "Calm"],
+            [
+              "calm",
+              text(
+                "interface.calm",
+              ),
+            ],
             [
               "standard",
-              "Standard",
+              text(
+                "interface.standard",
+              ),
             ],
             [
               "high-clarity",
-              "High clarity",
+              text(
+                "interface.high-clarity",
+              ),
             ],
           ]}
           selected={
@@ -562,15 +622,31 @@ export function SensoryManager() {
         />
 
         <SettingGroup
-          description="Control how wide reading content appears."
-          label="Reading width"
+          description={text(
+            "width.description",
+          )}
+          label={text(
+            "width.label",
+          )}
           options={[
-            ["narrow", "Narrow"],
+            [
+              "narrow",
+              text(
+                "width.narrow",
+              ),
+            ],
             [
               "comfortable",
-              "Comfortable",
+              text(
+                "width.comfortable",
+              ),
             ],
-            ["wide", "Wide"],
+            [
+              "wide",
+              text(
+                "width.wide",
+              ),
+            ],
           ]}
           selected={
             settings.readingWidth
@@ -585,17 +661,30 @@ export function SensoryManager() {
         />
 
         <SettingGroup
-          description="Increase space between lines of text."
-          label="Line spacing"
+          description={text(
+            "spacing.description",
+          )}
+          label={text(
+            "spacing.label",
+          )}
           options={[
-            ["normal", "Normal"],
+            [
+              "normal",
+              text(
+                "spacing.normal",
+              ),
+            ],
             [
               "relaxed",
-              "Relaxed",
+              text(
+                "spacing.relaxed",
+              ),
             ],
             [
               "spacious",
-              "Spacious",
+              text(
+                "spacing.spacious",
+              ),
             ],
           ]}
           selected={
@@ -614,16 +703,15 @@ export function SensoryManager() {
       <section className="reduced-stimulation-card">
         <div>
           <p className="eyebrow">
-            Reduced stimulation
+            {text("reduced.eyebrow")}
           </p>
 
           <h2>
-            Make the interface quieter
+            {text("reduced.title")}
           </h2>
 
           <p>
-            Removes decorative movement, softens visual
-            emphasis and reduces unnecessary animation.
+            {text("reduced.description")}
           </p>
         </div>
 
@@ -649,31 +737,29 @@ export function SensoryManager() {
         >
           {settings
             .reducedStimulation
-            ? "Reduced stimulation enabled"
-            : "Enable reduced stimulation"}
+            ? text("reduced.enabled")
+            : text("reduced.enable")}
         </button>
       </section>
 
       <section className="sensory-preview">
         <p className="eyebrow">
-          Live reading preview
+          {text("preview.eyebrow")}
         </p>
 
         <h2>
-          A calmer reading experience
+          {text("preview.title")}
         </h2>
 
         <p>
-          You do not need to process everything at once.
-          A short, clear step is enough. Your visual
-          preferences apply across Aksess.
+          {text("preview.description")}
         </p>
 
         <button
           className="button button-primary"
           type="button"
         >
-          Example action
+          {text("preview.action")}
         </button>
       </section>
     </>

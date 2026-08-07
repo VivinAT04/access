@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { phase2Text } from "@/components/i18n/phase2-translations";
+import { useLanguage } from "@/components/language/language-provider";
 import { useAccessibility } from "@/components/accessibility/accessibility-provider";
 import type {
   AccessibilityPreferenceUpdate,
@@ -83,6 +85,11 @@ const fontSizes: Array<{
 
 
 export function AccessibilityForm() {
+  const { locale } = useLanguage();
+
+  const t = (key: string) =>
+    phase2Text(locale, key);
+
   const {
     preferences,
     isLoading,
@@ -130,8 +137,8 @@ export function AccessibilityForm() {
 
     setStatus(
       success
-        ? "Your accessibility preferences have been saved."
-        : "Your preferences could not be saved. Please try again.",
+        ? t("accessibility.saved")
+        : t("accessibility.saveFailed"),
     );
 
     setIsSaving(false);
@@ -161,8 +168,8 @@ export function AccessibilityForm() {
 
     setStatus(
       success
-        ? "Accessibility preferences reset to default."
-        : "The preferences could not be reset.",
+        ? t("accessibility.reset")
+        : t("accessibility.resetFailed"),
     );
 
     setIsSaving(false);
@@ -174,7 +181,7 @@ export function AccessibilityForm() {
         className="accessibility-loading"
         role="status"
       >
-        Loading accessibility preferences...
+        {t("accessibility.loading")}
       </div>
     );
   }
@@ -183,12 +190,16 @@ export function AccessibilityForm() {
     <div className="accessibility-settings-layout">
       <section className="accessibility-controls">
         <div className="settings-section">
-          <p className="eyebrow">Text display</p>
-          <h2>Text size</h2>
+          <p className="eyebrow">
+            {t("accessibility.textDisplay")}
+          </p>
+
+          <h2>
+            {t("accessibility.textSize")}
+          </h2>
 
           <p className="settings-description">
-            Choose a comfortable default text size across
-            Aksess.
+            {t("accessibility.textSizeDescription")}
           </p>
 
           <div
@@ -213,19 +224,27 @@ export function AccessibilityForm() {
                 role="radio"
                 type="button"
               >
-                {option.label}
+                {t(
+                  `accessibility.${option.value === "extra-large"
+                    ? "extraLarge"
+                    : option.value}`,
+                )}
               </button>
             ))}
           </div>
         </div>
 
         <div className="settings-section">
-          <p className="eyebrow">Experience</p>
-          <h2>Interface preferences</h2>
+          <p className="eyebrow">
+            {t("accessibility.experience")}
+          </p>
+
+          <h2>
+            {t("accessibility.interface")}
+          </h2>
 
           <p className="settings-description">
-            Turn on the settings that make Aksess easier and
-            more comfortable to use.
+            {t("accessibility.interfaceDescription")}
           </p>
 
           <div className="accessibility-toggle-list">
@@ -235,8 +254,37 @@ export function AccessibilityForm() {
                 key={option.key}
               >
                 <span>
-                  <strong>{option.title}</strong>
-                  <small>{option.description}</small>
+                  <strong>
+                    {t(
+                      option.key === "high_contrast"
+                        ? "accessibility.highContrast"
+                        : option.key === "reduced_motion"
+                          ? "accessibility.reducedMotion"
+                          : option.key === "dyslexia_friendly_font"
+                            ? "accessibility.dyslexia"
+                            : option.key === "increased_spacing"
+                              ? "accessibility.spacing"
+                              : option.key === "simplified_interface"
+                                ? "accessibility.simplified"
+                                : "accessibility.screenReader",
+                    )}
+                  </strong>
+
+                  <small>
+                    {t(
+                      option.key === "high_contrast"
+                        ? "accessibility.highContrastDescription"
+                        : option.key === "reduced_motion"
+                          ? "accessibility.reducedMotionDescription"
+                          : option.key === "dyslexia_friendly_font"
+                            ? "accessibility.dyslexiaDescription"
+                            : option.key === "increased_spacing"
+                              ? "accessibility.spacingDescription"
+                              : option.key === "simplified_interface"
+                                ? "accessibility.simplifiedDescription"
+                                : "accessibility.screenReaderDescription",
+                    )}
+                  </small>
                 </span>
 
                 <input
@@ -267,8 +315,8 @@ export function AccessibilityForm() {
             type="button"
           >
             {isSaving
-              ? "Saving..."
-              : "Save preferences"}
+              ? t("common.saving")
+              : t("accessibility.save")}
           </button>
 
           <button
@@ -277,7 +325,7 @@ export function AccessibilityForm() {
             onClick={resetPreferences}
             type="button"
           >
-            Reset to default
+            {t("accessibility.resetDefault")}
           </button>
         </div>
 
@@ -292,22 +340,27 @@ export function AccessibilityForm() {
       </section>
 
       <aside className="accessibility-preview">
-        <p className="eyebrow">Live preview</p>
-        <h2>A space that works for you.</h2>
+        <p className="eyebrow">
+          {t("accessibility.preview")}
+        </p>
+
+        <h2>
+          {t("accessibility.previewTitle")}
+        </h2>
 
         <p>
-          Your selected preferences will apply throughout
-          Aksess after you save them.
+          {t("accessibility.previewDescription")}
         </p>
 
         <div className="preview-task">
           <span aria-hidden="true">✓</span>
 
           <div>
-            <strong>Take one manageable step</strong>
+            <strong>
+              {t("accessibility.previewTask")}
+            </strong>
             <small>
-              Break larger activities into clear and
-              comfortable actions.
+              {t("accessibility.previewTaskDescription")}
             </small>
           </div>
         </div>
@@ -316,7 +369,7 @@ export function AccessibilityForm() {
           className="button button-primary"
           type="button"
         >
-          Example action
+          {t("accessibility.example")}
         </button>
       </aside>
     </div>

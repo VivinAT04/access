@@ -7,6 +7,9 @@ import {
   useState,
 } from "react";
 
+import { phase2Text } from "@/components/i18n/phase2-translations";
+import { useLanguage } from "@/components/language/language-provider";
+
 import type {
   DailyInsightPoint,
   ReflectionInsights,
@@ -62,10 +65,11 @@ function getErrorMessage(
 function formatPeriod(
   start: string,
   end: string,
+  locale: string,
 ): string {
   const formatter =
     new Intl.DateTimeFormat(
-      "en-GB",
+      locale,
       {
         day: "numeric",
         month: "short",
@@ -89,9 +93,10 @@ function formatPeriod(
 
 function scoreLabel(
   value: number | null,
+  noData: string,
 ): string {
   return value === null
-    ? "No data"
+    ? noData
     : `${value.toFixed(1)} / 5`;
 }
 
@@ -124,6 +129,17 @@ function moodSymbol(
 
 
 export function InsightsDashboard() {
+  const { locale } = useLanguage();
+
+  const t = (
+    key: string,
+    values: Record<string, string | number> = {},
+  ) => phase2Text(
+    locale,
+    key,
+    values,
+  );
+
   const [
     insights,
     setInsights,
@@ -220,7 +236,7 @@ export function InsightsDashboard() {
   if (isLoading) {
     return (
       <section className="insights-loading-card">
-        Preparing your weekly insights...
+        {t("insights.loading")}
       </section>
     );
   }
@@ -230,7 +246,7 @@ export function InsightsDashboard() {
     return (
       <section className="insights-error-card">
         <strong>
-          Insights could not be loaded
+          {t("insights.loadFailed")}
         </strong>
 
         <p>
@@ -244,7 +260,7 @@ export function InsightsDashboard() {
           }
           type="button"
         >
-          Try again
+          {t("common.tryAgain")}
         </button>
       </section>
     );
@@ -263,49 +279,53 @@ export function InsightsDashboard() {
       <section className="insights-period-card">
         <div>
           <p className="eyebrow">
-            Your recent seven days
+            {t("insights.period")}
           </p>
 
           <h2>
             {formatPeriod(
               summary.period_start,
               summary.period_end,
+              locale,
             )}
           </h2>
         </div>
 
         <p>
-          These insights describe only
-          the information you recorded.
-          They are gentle observations,
-          not medical conclusions.
+          {t("insights.disclaimer")}
         </p>
       </section>
 
       <section className="insights-stat-grid">
         <StatCard
-          label="Focus time"
+          label={t("insights.focusTime")}
           value={
-            `${summary.total_focus_minutes} min`
+            t(
+              "insights.minutes",
+              {
+                value:
+                  summary.total_focus_minutes,
+              },
+            )
           }
         />
 
         <StatCard
-          label="Focus sessions"
+          label={t("insights.focusSessions")}
           value={String(
             summary.total_focus_sessions,
           )}
         />
 
         <StatCard
-          label="Mood check-ins"
+          label={t("insights.moodCheckins")}
           value={String(
             summary.total_mood_checkins,
           )}
         />
 
         <StatCard
-          label="Reflections"
+          label={t("insights.reflections")}
           value={String(
             summary.total_reflections,
           )}
@@ -314,28 +334,31 @@ export function InsightsDashboard() {
 
       <section className="insights-score-grid">
         <ScoreCard
-          label="Average mood"
+          label={t("insights.averageMood")}
           symbol={moodSymbol(
             summary.average_mood,
           )}
           value={scoreLabel(
             summary.average_mood,
+            t("insights.noData"),
           )}
         />
 
         <ScoreCard
-          label="Average energy"
+          label={t("insights.averageEnergy")}
           symbol="⚡"
           value={scoreLabel(
             summary.average_energy,
+            t("insights.noData"),
           )}
         />
 
         <ScoreCard
-          label="Average stress"
+          label={t("insights.averageStress")}
           symbol="◌"
           value={scoreLabel(
             summary.average_stress,
+            t("insights.noData"),
           )}
         />
       </section>
@@ -343,32 +366,50 @@ export function InsightsDashboard() {
       <section className="insights-chart-grid">
         <MetricChart
           days={days}
-          description="Daily average from your mood check-ins."
+          description={t("insights.moodDescription")}
           getValue={(day) =>
             day.mood_average
           }
-          label="Mood"
+          label={t("insights.mood")}
           maximum={5}
+          emptyLabel={t(
+            "insights.noRecordedData",
+          )}
+          trendLabel={t(
+            "insights.trend",
+          )}
         />
 
         <MetricChart
           days={days}
-          description="Daily average from your energy rating."
+          description={t("insights.energyDescription")}
           getValue={(day) =>
             day.energy_average
           }
-          label="Energy"
+          label={t("insights.energy")}
           maximum={5}
+          emptyLabel={t(
+            "insights.noRecordedData",
+          )}
+          trendLabel={t(
+            "insights.trend",
+          )}
         />
 
         <MetricChart
           days={days}
-          description="Daily average from your stress rating."
+          description={t("insights.stressDescription")}
           getValue={(day) =>
             day.stress_average
           }
-          label="Stress"
+          label={t("insights.stress")}
           maximum={5}
+          emptyLabel={t(
+            "insights.noRecordedData",
+          )}
+          trendLabel={t(
+            "insights.trend",
+          )}
         />
 
         <FocusChart
@@ -376,22 +417,32 @@ export function InsightsDashboard() {
           maximum={
             maximumFocusMinutes
           }
+          emptyLabel={t(
+            "insights.noFocus",
+          )}
+          focusLabel={t(
+            "insights.focusTime",
+          )}
+          description={t(
+            "insights.focusDescription",
+          )}
+          trendLabel={t(
+            "insights.trend",
+          )}
         />
       </section>
 
       <section className="insights-suggestions-card">
         <p className="eyebrow">
-          Gentle observations
+          {t("insights.observations")}
         </p>
 
         <h2>
-          Patterns worth noticing
+          {t("insights.patterns")}
         </h2>
 
         <p className="insights-suggestions-intro">
-          You do not need to act on every
-          suggestion. Keep only what feels
-          useful.
+          {t("insights.observationDescription")}
         </p>
 
         <div className="insights-suggestion-list">
@@ -426,11 +477,11 @@ export function InsightsDashboard() {
       <section className="insights-week-table">
         <div>
           <p className="eyebrow">
-            Weekly detail
+            {t("insights.weeklyDetail")}
           </p>
 
           <h2>
-            Day-by-day summary
+            {t("insights.daySummary")}
           </h2>
         </div>
 
@@ -445,7 +496,7 @@ export function InsightsDashboard() {
 
                   <small>
                     {new Intl.DateTimeFormat(
-                      "en-GB",
+                      locale,
                       {
                         day:
                           "numeric",
@@ -475,7 +526,7 @@ export function InsightsDashboard() {
                 </span>
 
                 <span>
-                  Stress{" "}
+                  {t("insights.stress")}{" "}
                   {day.stress_average
                     ?? "—"}
                 </span>
@@ -484,18 +535,25 @@ export function InsightsDashboard() {
                   {
                     day.focus_minutes
                   }{" "}
-                  min
+                  {t(
+                    "insights.minutes",
+                    {
+                      value:
+                        day.focus_minutes,
+                    },
+                  )}
                 </span>
 
                 <span>
-                  {
-                    day.reflections
-                  }{" "}
-                  reflection
-                  {day.reflections
-                  === 1
-                    ? ""
-                    : "s"}
+                  {t(
+                    day.reflections === 1
+                      ? "insights.reflectionSingle"
+                      : "insights.reflectionPlural",
+                    {
+                      value:
+                        day.reflections,
+                    },
+                  )}
                 </span>
               </article>
             ),
@@ -566,6 +624,8 @@ function MetricChart({
   description,
   maximum,
   getValue,
+  trendLabel,
+  emptyLabel,
 }: {
   days: DailyInsightPoint[];
   label: string;
@@ -574,6 +634,8 @@ function MetricChart({
   getValue: (
     day: DailyInsightPoint,
   ) => number | null;
+  trendLabel: string;
+  emptyLabel: string;
 }) {
   const hasData =
     days.some(
@@ -585,7 +647,7 @@ function MetricChart({
     <section className="insights-chart-card">
       <div>
         <p className="eyebrow">
-          Seven-day trend
+          {trendLabel}
         </p>
 
         <h2>
@@ -599,7 +661,7 @@ function MetricChart({
 
       {!hasData ? (
         <div className="insights-empty-chart">
-          No recorded data yet
+          {emptyLabel}
         </div>
       ) : (
         <div className="insights-bars">
@@ -659,9 +721,17 @@ function MetricChart({
 function FocusChart({
   days,
   maximum,
+  trendLabel,
+  focusLabel,
+  description,
+  emptyLabel,
 }: {
   days: DailyInsightPoint[];
   maximum: number;
+  trendLabel: string;
+  focusLabel: string;
+  description: string;
+  emptyLabel: string;
 }) {
   const hasData =
     days.some(
@@ -673,22 +743,21 @@ function FocusChart({
     <section className="insights-chart-card">
       <div>
         <p className="eyebrow">
-          Seven-day trend
+          {trendLabel}
         </p>
 
         <h2>
-          Focus time
+          {focusLabel}
         </h2>
 
         <p>
-          Completed focused minutes for
-          each day.
+          {description}
         </p>
       </div>
 
       {!hasData ? (
         <div className="insights-empty-chart">
-          No completed focus sessions yet
+          {emptyLabel}
         </div>
       ) : (
         <div className="insights-bars">

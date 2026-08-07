@@ -1,5 +1,8 @@
 "use client";
 
+import { phase2Text } from "@/components/i18n/phase2-translations";
+import { useLanguage } from "@/components/language/language-provider";
+
 import {
   type ThemePreference,
   useTheme,
@@ -40,6 +43,17 @@ const options: ThemeOption[] = [
 
 
 export function ThemeSelector() {
+  const { locale } = useLanguage();
+
+  const t = (
+    key: string,
+    values: Record<string, string | number> = {},
+  ) => phase2Text(
+    locale,
+    key,
+    values,
+  );
+
   const {
     theme,
     resolvedTheme,
@@ -50,22 +64,20 @@ export function ThemeSelector() {
     <section className="theme-settings-card">
       <div>
         <p className="eyebrow">
-          Appearance
+          {t("theme.appearance")}
         </p>
 
         <h2>
-          Choose your theme
+          {t("theme.title")}
         </h2>
 
         <p className="theme-settings-description">
-          Your choice is saved on this
-          device and applies across the
-          whole Aksess website.
+          {t("theme.description")}
         </p>
       </div>
 
       <div
-        aria-label="Theme preference"
+        aria-label={t("theme.preference")}
         className="theme-options"
         role="radiogroup"
       >
@@ -102,12 +114,16 @@ export function ThemeSelector() {
 
               <span>
                 <strong>
-                  {option.label}
+                  {t(
+                    `theme.${option.value}`,
+                  )}
                 </strong>
 
                 <small>
                   {
-                    option.description
+                    t(
+                      `theme.${option.value}Description`,
+                    )
                   }
                 </small>
               </span>
@@ -127,13 +143,16 @@ export function ThemeSelector() {
       </div>
 
       <p className="theme-current-value">
-        Current appearance:{" "}
-        <strong>
-          {resolvedTheme ===
-          "dark"
-            ? "Dark"
-            : "Light"}
-        </strong>
+        {t(
+          "theme.current",
+          {
+            value:
+              resolvedTheme ===
+              "dark"
+                ? t("theme.dark")
+                : t("theme.light"),
+          },
+        )}
       </p>
     </section>
   );
