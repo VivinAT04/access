@@ -7350,3 +7350,8 @@ html[data-theme="dark"] main :where(
 html[data-theme="dark"] {
   --aksess-custom-surface: var(--surface) !important;
 }
+
+/* Final dark-mode surface fix */
+html[data-theme="dark"] {
+  --aksess-custom-surface: var(--surface) !important;
+}
