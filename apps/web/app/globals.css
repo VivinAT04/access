@@ -6858,3 +6858,283 @@ html[data-theme="dark"] .button-secondary:hover {
     color: var(--text) !important;
   }
 }
+
+
+/* ==========================================================================
+   FINAL dark-mode contrast normalisation
+   Advanced pages were keeping white cards with pale text on mobile.
+   ========================================================================== */
+
+html[data-theme="dark"] body {
+  background: #0f1714;
+  color: #f4f7f5;
+}
+
+
+/* Generic cards/panels used across advanced pages */
+html[data-theme="dark"]
+:is(
+  .card,
+  .panel,
+  .section-card,
+  .settings-card,
+  .summary-card,
+  .stat-card,
+  .feature-card,
+  .support-card,
+  .preference-card,
+  .voice-card,
+  .wearable-card,
+  .offline-card,
+  .notification-card,
+  .privacy-card,
+  .personalisation-card
+) {
+  background: #18221e !important;
+  color: #f4f7f5 !important;
+  border-color: #405049 !important;
+}
+
+
+/* Headings inside cards */
+html[data-theme="dark"]
+:is(
+  .card,
+  .panel,
+  .section-card,
+  .settings-card,
+  .summary-card,
+  .stat-card,
+  .feature-card,
+  .support-card,
+  .preference-card,
+  .voice-card,
+  .wearable-card,
+  .offline-card,
+  .notification-card,
+  .privacy-card,
+  .personalisation-card
+)
+:is(h1, h2, h3, h4, strong) {
+  color: #f4f7f5 !important;
+}
+
+
+/* Paragraphs, labels and helper text */
+html[data-theme="dark"]
+:is(
+  .card,
+  .panel,
+  .section-card,
+  .settings-card,
+  .summary-card,
+  .stat-card,
+  .feature-card,
+  .support-card,
+  .preference-card,
+  .voice-card,
+  .wearable-card,
+  .offline-card,
+  .notification-card,
+  .privacy-card,
+  .personalisation-card
+)
+:is(
+  p,
+  span,
+  small,
+  label,
+  dt,
+  dd
+) {
+  color: #b9c6c0 !important;
+}
+
+
+/* Eyebrows / section labels should stay mint */
+html[data-theme="dark"]
+:is(
+  .eyebrow,
+  .section-label,
+  .card-label,
+  .feature-number
+) {
+  color: #8fd3c3 !important;
+}
+
+
+/* Prevent white advanced cards */
+html[data-theme="dark"]
+:is(
+  .phase3-section,
+  .phase3-card,
+  .phase3-summary-card,
+  .phase3-stat-card,
+  .phase3-toggle,
+  .notification-summary-card,
+  .offline-summary,
+  .offline-queue-card,
+  .offline-history-card
+) {
+  background: #18221e !important;
+  color: #f4f7f5 !important;
+  border-color: #405049 !important;
+}
+
+
+/* Statistics such as Inbox / Unread / Baseline / Recent signals */
+html[data-theme="dark"]
+:is(
+  .phase3-stat-card,
+  .notification-summary-card,
+  .summary-card,
+  .stat-card
+) strong {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="dark"]
+:is(
+  .phase3-stat-card,
+  .notification-summary-card,
+  .summary-card,
+  .stat-card
+) span {
+  color: #b9c6c0 !important;
+  opacity: 1 !important;
+}
+
+
+/* Form controls on advanced pages */
+html[data-theme="dark"]
+:is(
+  .phase3-page,
+  .settings-page,
+  .voice-page,
+  .privacy-page,
+  .offline-page,
+  .wearables-page,
+  .notifications-page
+)
+:is(
+  input,
+  textarea,
+  select
+) {
+  background: #101815 !important;
+  color: #f4f7f5 !important;
+  border-color: #55665f !important;
+}
+
+html[data-theme="dark"]
+:is(
+  .phase3-page,
+  .settings-page,
+  .voice-page,
+  .privacy-page,
+  .offline-page,
+  .wearables-page,
+  .notifications-page
+)
+:is(input, textarea)::placeholder {
+  color: #8c9a94 !important;
+}
+
+
+/* Voice page specifically */
+html[data-theme="dark"] .voice-settings,
+html[data-theme="dark"] .voice-behaviour,
+html[data-theme="dark"] .guided-support {
+  background: #18221e !important;
+  color: #f4f7f5 !important;
+}
+
+html[data-theme="dark"]
+:is(
+  .voice-settings,
+  .voice-behaviour,
+  .guided-support
+)
+:is(h2, h3, label, p, span) {
+  color: #f4f7f5 !important;
+}
+
+
+/* Wearables page specifically */
+html[data-theme="dark"]
+:is(
+  .wearable-summary,
+  .wearable-stat,
+  .wearable-panel,
+  .heart-rate-card
+) {
+  background: #18221e !important;
+  color: #f4f7f5 !important;
+  border-color: #405049 !important;
+}
+
+
+/* Offline cards */
+html[data-theme="dark"]
+:is(
+  .offline-status-card,
+  .offline-controls,
+  .offline-queue,
+  .sync-history
+) {
+  background: #18221e !important;
+  color: #f4f7f5 !important;
+  border-color: #405049 !important;
+}
+
+
+/* Notification statistic cards */
+html[data-theme="dark"]
+:is(
+  .notification-stat,
+  .notification-stats > *,
+  .notification-summary > *
+) {
+  background: #18221e !important;
+  color: #f4f7f5 !important;
+  border-color: #405049 !important;
+}
+
+
+/* Mobile-specific final protection */
+@media (max-width: 700px) {
+  html[data-theme="dark"]
+  main
+  :is(
+    article,
+    section
+  ) {
+    border-color: #405049;
+  }
+
+  html[data-theme="dark"]
+  main
+  :is(
+    article,
+    section
+  )
+  :is(
+    h1,
+    h2,
+    h3,
+    h4
+  ) {
+    opacity: 1;
+  }
+
+  html[data-theme="dark"]
+  main
+  :is(
+    article,
+    section
+  )
+  p {
+    opacity: 1;
+  }
+}
