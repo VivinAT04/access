@@ -53,6 +53,9 @@ export type TranslationKey =
   | "dashboard.community.title"
   | "dashboard.community.description"
   | "dashboard.community.action"
+  | "dashboard.notifications.title"
+  | "dashboard.notifications.description"
+  | "dashboard.notifications.action"
   | "dashboard.notVerified";
 
 
@@ -195,6 +198,15 @@ const english: TranslationDictionary = {
 
   "dashboard.community.action":
     "Open community",
+
+  "dashboard.notifications.title":
+    "Notifications",
+
+  "dashboard.notifications.description":
+    "Control gentle reminders, browser notifications, quiet hours and your notification inbox.",
+
+  "dashboard.notifications.action":
+    "Open notifications",
 
   "dashboard.account":
     "Account",
@@ -364,6 +376,15 @@ const tamil: TranslationDictionary = {
   "dashboard.community.action":
     "சமூகத்தைத் திற",
 
+  "dashboard.notifications.title":
+    "அறிவிப்புகள்",
+
+  "dashboard.notifications.description":
+    "மென்மையான நினைவூட்டல்கள், உலாவி அறிவிப்புகள், அமைதியான நேரங்கள் மற்றும் அறிவிப்பு பெட்டியை நிர்வகிக்கவும்.",
+
+  "dashboard.notifications.action":
+    "அறிவிப்புகளைத் திற",
+
   "dashboard.account":
     "கணக்கு",
 
@@ -532,6 +553,15 @@ const hindi: TranslationDictionary = {
   "dashboard.community.action":
     "समुदाय खोलें",
 
+  "dashboard.notifications.title":
+    "सूचनाएँ",
+
+  "dashboard.notifications.description":
+    "हल्के रिमाइंडर, ब्राउज़र सूचनाएँ, शांत समय और अपने सूचना इनबॉक्स को नियंत्रित करें।",
+
+  "dashboard.notifications.action":
+    "सूचनाएँ खोलें",
+
   "dashboard.account":
     "खाता",
 
@@ -699,6 +729,15 @@ const arabic: TranslationDictionary = {
 
   "dashboard.community.action":
     "فتح المجتمع",
+
+  "dashboard.notifications.title":
+    "الإشعارات",
+
+  "dashboard.notifications.description":
+    "تحكم في التذكيرات اللطيفة وإشعارات المتصفح وساعات الهدوء وصندوق الإشعارات.",
+
+  "dashboard.notifications.action":
+    "فتح الإشعارات",
 
   "dashboard.account":
     "الحساب",

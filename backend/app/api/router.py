@@ -1,3 +1,6 @@
+from app.notifications.router import (
+    router as notifications_router,
+)
 from app.community.router import (
     router as community_router,
 )
@@ -113,4 +116,9 @@ api_router.include_router(
 
 api_router.include_router(
     community_router
+)
+
+
+api_router.include_router(
+    notifications_router
 )

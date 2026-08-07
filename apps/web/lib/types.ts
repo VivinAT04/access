@@ -565,3 +565,75 @@ export interface CommunityModerationItem {
   report_count: number;
   created_at: string;
 }
+
+
+export type NotificationDigestFrequency =
+  | "instant"
+  | "hourly"
+  | "daily"
+  | "off";
+
+
+export interface NotificationPreference {
+  id: string;
+  user_id: string;
+
+  in_app_enabled: boolean;
+  browser_enabled: boolean;
+
+  task_reminders: boolean;
+  routine_reminders: boolean;
+  focus_reminders: boolean;
+  wellbeing_checkins: boolean;
+  community_activity: boolean;
+  product_updates: boolean;
+
+  quiet_hours_enabled: boolean;
+  quiet_hours_start: string;
+  quiet_hours_end: string;
+
+  digest_frequency:
+    NotificationDigestFrequency;
+
+  max_daily_notifications: number;
+
+  created_at: string;
+  updated_at: string;
+}
+
+
+export interface AksessNotification {
+  id: string;
+
+  notification_type: string;
+
+  title: string;
+  message: string;
+
+  action_url: string | null;
+
+  source_type: string | null;
+  source_id: string | null;
+
+  is_read: boolean;
+  is_dismissed: boolean;
+
+  priority:
+    | "low"
+    | "normal"
+    | "high";
+
+  created_at: string;
+
+  read_at: string | null;
+
+  dismissed_at:
+    string | null;
+}
+
+
+export interface NotificationSummary {
+  total: number;
+  unread: number;
+  dismissed: number;
+}

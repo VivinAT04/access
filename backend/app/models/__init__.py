@@ -1,3 +1,7 @@
+from app.models.notification import (
+    Notification,
+    NotificationPreference,
+)
 from app.models.community import (
     CommunityComment,
     CommunityModerationAction,
@@ -60,4 +64,6 @@ __all__ = [
     "CommunityReaction",
     "CommunityReport",
     "CommunityModerationAction",
+    "Notification",
+    "NotificationPreference",
 ]

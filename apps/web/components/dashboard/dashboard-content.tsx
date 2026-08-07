@@ -175,6 +175,16 @@ const featureCards:
       action:
         "dashboard.community.action",
     },
+    {
+      number: "15",
+      href: "/notifications",
+      title:
+        "dashboard.notifications.title",
+      description:
+        "dashboard.notifications.description",
+      action:
+        "dashboard.notifications.action",
+    },
   ];
 
 
