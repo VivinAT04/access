@@ -770,3 +770,110 @@ export interface VoiceGuide {
   text:
     string;
 }
+
+
+export interface WearablePrivacyStatus {
+  enabled: boolean;
+  explanation: string;
+}
+
+
+export interface WearableDevice {
+  id: string;
+  user_id: string;
+
+  provider: string;
+  device_name: string;
+
+  external_device_id:
+    string | null;
+
+  is_connected: boolean;
+
+  last_synced_at:
+    string | null;
+
+  created_at: string;
+}
+
+
+export interface HeartRateSample {
+  id: string;
+
+  device_id:
+    string | null;
+
+  bpm: number;
+  source: string;
+
+  measured_at: string;
+  created_at: string;
+}
+
+
+export interface HeartRateBaseline {
+  baseline_bpm:
+    number | null;
+
+  sample_count: number;
+
+  threshold_percentage:
+    number;
+
+  ready: boolean;
+}
+
+
+export interface WearableSignal {
+  id: string;
+
+  signal_type: string;
+  severity: string;
+
+  baseline_bpm: number;
+  observed_bpm: number;
+
+  percentage_above_baseline:
+    number;
+
+  created_at: string;
+}
+
+
+export interface WearableDashboard {
+  privacy_enabled:
+    boolean;
+
+  devices:
+    WearableDevice[];
+
+  recent_samples:
+    HeartRateSample[];
+
+  recent_signals:
+    WearableSignal[];
+
+  baseline:
+    HeartRateBaseline;
+}
+
+
+export interface WearableAnalysis {
+  baseline:
+    HeartRateBaseline;
+
+  latest_sample:
+    HeartRateSample | null;
+
+  latest_signal:
+    WearableSignal | null;
+
+  possible_elevated_arousal:
+    boolean;
+
+  explanation:
+    string;
+
+  suggestion:
+    string;
+}

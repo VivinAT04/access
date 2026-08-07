@@ -62,6 +62,9 @@ export type TranslationKey =
   | "dashboard.voice.title"
   | "dashboard.voice.description"
   | "dashboard.voice.action"
+  | "dashboard.wearables.title"
+  | "dashboard.wearables.description"
+  | "dashboard.wearables.action"
   | "dashboard.notVerified";
 
 
@@ -231,6 +234,15 @@ const english: TranslationDictionary = {
 
   "dashboard.voice.action":
     "Open voice guidance",
+
+  "dashboard.wearables.title":
+    "Wearable insights",
+
+  "dashboard.wearables.description":
+    "Connect wearable data and compare heart-rate readings with your recent personal baseline.",
+
+  "dashboard.wearables.action":
+    "Open wearable insights",
 
   "dashboard.account":
     "Account",
@@ -427,6 +439,15 @@ const tamil: TranslationDictionary = {
   "dashboard.voice.action":
     "குரல் வழிகாட்டுதலைத் திற",
 
+  "dashboard.wearables.title":
+    "அணியக்கூடிய சாதனத் தகவல்கள்",
+
+  "dashboard.wearables.description":
+    "இதய துடிப்பு அளவுகளை உங்கள் சமீபத்திய தனிப்பட்ட அடிப்படையுடன் ஒப்பிடுங்கள்.",
+
+  "dashboard.wearables.action":
+    "சாதனத் தகவல்களைத் திற",
+
   "dashboard.account":
     "கணக்கு",
 
@@ -622,6 +643,15 @@ const hindi: TranslationDictionary = {
   "dashboard.voice.action":
     "आवाज़ मार्गदर्शन खोलें",
 
+  "dashboard.wearables.title":
+    "वियरेबल जानकारी",
+
+  "dashboard.wearables.description":
+    "हृदय गति रीडिंग की तुलना अपने हाल के व्यक्तिगत बेसलाइन से करें।",
+
+  "dashboard.wearables.action":
+    "वियरेबल जानकारी खोलें",
+
   "dashboard.account":
     "खाता",
 
@@ -816,6 +846,15 @@ const arabic: TranslationDictionary = {
 
   "dashboard.voice.action":
     "فتح الإرشاد الصوتي",
+
+  "dashboard.wearables.title":
+    "بيانات الأجهزة القابلة للارتداء",
+
+  "dashboard.wearables.description":
+    "قارن قراءات معدل ضربات القلب بخطك الأساسي الشخصي الحديث.",
+
+  "dashboard.wearables.action":
+    "فتح بيانات الأجهزة",
 
   "dashboard.account":
     "الحساب",

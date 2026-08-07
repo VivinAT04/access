@@ -1,3 +1,6 @@
+from app.wearables.router import (
+    router as wearables_router,
+)
 from app.voice.router import (
     router as voice_router,
 )
@@ -137,4 +140,9 @@ api_router.include_router(
 
 api_router.include_router(
     voice_router
+)
+
+
+api_router.include_router(
+    wearables_router
 )

@@ -1,3 +1,9 @@
+from app.models.wearable import (
+    HeartRateBaseline,
+    HeartRateSample,
+    WearableDevice,
+    WearableSignal,
+)
 from app.models.voice_preference import (
     VoicePreference,
 )
@@ -78,4 +84,8 @@ __all__ = [
     "PersonalisationPreference",
     "PersonalisationRecommendation",
     "VoicePreference",
+    "HeartRateBaseline",
+    "HeartRateSample",
+    "WearableDevice",
+    "WearableSignal",
 ]

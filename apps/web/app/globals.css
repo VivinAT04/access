@@ -5685,3 +5685,389 @@ i {
       column;
   }
 }
+
+/* ========================================================================== */
+/* Phase 3.7 — Wearables                                                      */
+/* ========================================================================== */
+
+.wearable-page {
+  width:
+    min(
+      1080px,
+      calc(
+        100% - 2rem
+      )
+    );
+
+  margin:
+    0 auto;
+
+  padding:
+    2rem 0
+    5rem;
+}
+
+.wearable-hero {
+  max-width:
+    850px;
+
+  margin:
+    1rem 0
+    2rem;
+}
+
+.wearable-hero h1 {
+  margin:
+    0.5rem 0
+    1rem;
+
+  font-size:
+    clamp(
+      2rem,
+      5vw,
+      3.5rem
+    );
+
+  line-height:
+    1.05;
+}
+
+.wearable-hero p {
+  line-height:
+    1.7;
+}
+
+.wearable-privacy-card,
+.wearable-analysis-card,
+.wearable-chart-card,
+.wearable-devices-card,
+.wearable-signals-card,
+.wearable-data-card,
+.wearable-form-card {
+  margin:
+    1.5rem 0;
+
+  padding:
+    1.5rem;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    1.2rem;
+
+  background:
+    var(
+      --aksess-custom-surface,
+      var(--surface)
+    );
+}
+
+.wearable-privacy-card {
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  gap:
+    1.25rem;
+}
+
+.wearable-summary-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap:
+    1rem;
+
+  margin:
+    1.5rem 0;
+}
+
+.wearable-summary-grid article {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    0.35rem;
+
+  padding:
+    1.2rem;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    1rem;
+
+  background:
+    var(
+      --aksess-custom-surface,
+      var(--surface)
+    );
+}
+
+.wearable-summary-grid strong {
+  font-size:
+    2rem;
+}
+
+.wearable-analysis-alert {
+  border-width:
+    2px;
+}
+
+.wearable-support-actions {
+  display:
+    flex;
+
+  flex-wrap:
+    wrap;
+
+  gap:
+    0.7rem;
+
+  margin-top:
+    1rem;
+}
+
+.wearable-input-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap:
+    1rem;
+}
+
+.wearable-form-card {
+  margin:
+    0;
+}
+
+.wearable-form-card label {
+  display:
+    grid;
+
+  gap:
+    0.45rem;
+
+  margin:
+    1rem 0;
+
+  font-weight:
+    700;
+}
+
+.wearable-form-card input {
+  width:
+    100%;
+
+  padding:
+    0.8rem;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    0.8rem;
+
+  background:
+    var(--background);
+
+  color:
+    inherit;
+
+  font:
+    inherit;
+}
+
+.wearable-bar-chart {
+  display:
+    flex;
+
+  align-items:
+    flex-end;
+
+  gap:
+    0.5rem;
+
+  min-height:
+    260px;
+
+  overflow-x:
+    auto;
+
+  padding:
+    1rem 0;
+}
+
+.wearable-bar-column {
+  display:
+    grid;
+
+  grid-template-rows:
+    auto 1fr auto;
+
+  align-items:
+    end;
+
+  justify-items:
+    center;
+
+  gap:
+    0.35rem;
+
+  min-width:
+    44px;
+
+  height:
+    220px;
+}
+
+.wearable-bar {
+  width:
+    24px;
+
+  min-height:
+    15%;
+
+  border-radius:
+    999px 999px 0 0;
+
+  background:
+    currentColor;
+
+  opacity:
+    0.6;
+}
+
+.wearable-device-list {
+  display:
+    grid;
+
+  gap:
+    0.75rem;
+}
+
+.wearable-device-list article {
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  gap:
+    1rem;
+
+  padding:
+    1rem;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    0.9rem;
+
+  background:
+    var(--background);
+}
+
+.wearable-device-list article > div {
+  display:
+    grid;
+
+  gap:
+    0.25rem;
+}
+
+.wearable-signal-item {
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    flex-start;
+
+  gap:
+    1rem;
+
+  padding:
+    1rem 0;
+
+  border-bottom:
+    1px solid
+    var(--border);
+}
+
+.wearable-signal-item:last-child {
+  border-bottom:
+    0;
+}
+
+.wearable-signal-item p {
+  margin:
+    0.35rem 0
+    0;
+}
+
+
+@media (
+  max-width: 720px
+) {
+  .wearable-page {
+    width:
+      min(
+        100% - 1rem,
+        1080px
+      );
+  }
+
+  .wearable-summary-grid,
+  .wearable-input-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  .wearable-privacy-card,
+  .wearable-signal-item {
+    flex-direction:
+      column;
+
+    align-items:
+      stretch;
+  }
+}

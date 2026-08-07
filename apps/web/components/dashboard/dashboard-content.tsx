@@ -205,6 +205,16 @@ const featureCards:
       action:
         "dashboard.voice.action",
     },
+    {
+      number: "18",
+      href: "/wearables",
+      title:
+        "dashboard.wearables.title",
+      description:
+        "dashboard.wearables.description",
+      action:
+        "dashboard.wearables.action",
+    },
   ];
 
 

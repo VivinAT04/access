@@ -37,6 +37,10 @@ from app.models import (  # noqa: F401
     PersonalisationPreference,
     PersonalisationRecommendation,
     VoicePreference,
+    HeartRateBaseline,
+    HeartRateSample,
+    WearableDevice,
+    WearableSignal,
 )
 
 
