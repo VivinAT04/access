@@ -706,3 +706,67 @@ export interface PersonalisationRecommendationSet {
   recommendations:
     PersonalisationRecommendation[];
 }
+
+
+export interface VoicePreference {
+  id: string;
+
+  user_id: string;
+
+  voice_name:
+    string | null;
+
+  language:
+    string;
+
+  speech_rate:
+    number;
+
+  speech_pitch:
+    number;
+
+  speech_volume:
+    number;
+
+  auto_read_guidance:
+    boolean;
+
+  announce_timer_events:
+    boolean;
+
+  guided_breathing_enabled:
+    boolean;
+
+  companion_voice_enabled:
+    boolean;
+
+  created_at:
+    string;
+
+  updated_at:
+    string;
+}
+
+
+export interface VoicePrivacyStatus {
+  enabled:
+    boolean;
+
+  explanation:
+    string;
+}
+
+
+export interface VoiceGuide {
+  id:
+    string;
+
+  title:
+    string;
+
+  category:
+    string;
+
+  text:
+    string;
+}

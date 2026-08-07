@@ -59,6 +59,9 @@ export type TranslationKey =
   | "dashboard.personalisation.title"
   | "dashboard.personalisation.description"
   | "dashboard.personalisation.action"
+  | "dashboard.voice.title"
+  | "dashboard.voice.description"
+  | "dashboard.voice.action"
   | "dashboard.notVerified";
 
 
@@ -219,6 +222,15 @@ const english: TranslationDictionary = {
 
   "dashboard.personalisation.action":
     "Open personalisation",
+
+  "dashboard.voice.title":
+    "Voice guidance",
+
+  "dashboard.voice.description":
+    "Listen to focus, grounding, breathing and calming guidance instead of reading.",
+
+  "dashboard.voice.action":
+    "Open voice guidance",
 
   "dashboard.account":
     "Account",
@@ -406,6 +418,15 @@ const tamil: TranslationDictionary = {
   "dashboard.personalisation.action":
     "தனிப்பயனாக்கத்தைத் திற",
 
+  "dashboard.voice.title":
+    "குரல் வழிகாட்டுதல்",
+
+  "dashboard.voice.description":
+    "கவனம், மூச்சுப்பயிற்சி, அமைதி மற்றும் நிலைநிறுத்தும் வழிகாட்டுதல்களை குரலில் கேளுங்கள்.",
+
+  "dashboard.voice.action":
+    "குரல் வழிகாட்டுதலைத் திற",
+
   "dashboard.account":
     "கணக்கு",
 
@@ -592,6 +613,15 @@ const hindi: TranslationDictionary = {
   "dashboard.personalisation.action":
     "अनुकूलन खोलें",
 
+  "dashboard.voice.title":
+    "आवाज़ मार्गदर्शन",
+
+  "dashboard.voice.description":
+    "फोकस, श्वास, ग्राउंडिंग और शांत समर्थन को पढ़ने के बजाय सुनें।",
+
+  "dashboard.voice.action":
+    "आवाज़ मार्गदर्शन खोलें",
+
   "dashboard.account":
     "खाता",
 
@@ -777,6 +807,15 @@ const arabic: TranslationDictionary = {
 
   "dashboard.personalisation.action":
     "فتح التخصيص",
+
+  "dashboard.voice.title":
+    "الإرشاد الصوتي",
+
+  "dashboard.voice.description":
+    "استمع إلى إرشادات التركيز والتنفس والتهدئة بدلاً من قراءتها.",
+
+  "dashboard.voice.action":
+    "فتح الإرشاد الصوتي",
 
   "dashboard.account":
     "الحساب",

@@ -1,3 +1,6 @@
+from app.models.voice_preference import (
+    VoicePreference,
+)
 from app.models.personalisation import (
     PersonalisationEvent,
     PersonalisationPreference,
@@ -74,4 +77,5 @@ __all__ = [
     "PersonalisationEvent",
     "PersonalisationPreference",
     "PersonalisationRecommendation",
+    "VoicePreference",
 ]

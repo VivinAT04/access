@@ -195,6 +195,16 @@ const featureCards:
       action:
         "dashboard.personalisation.action",
     },
+    {
+      number: "17",
+      href: "/voice",
+      title:
+        "dashboard.voice.title",
+      description:
+        "dashboard.voice.description",
+      action:
+        "dashboard.voice.action",
+    },
   ];
 
 

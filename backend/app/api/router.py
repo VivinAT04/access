@@ -1,3 +1,6 @@
+from app.voice.router import (
+    router as voice_router,
+)
 from app.personalisation.router import (
     router as personalisation_router,
 )
@@ -129,4 +132,9 @@ api_router.include_router(
 
 api_router.include_router(
     personalisation_router
+)
+
+
+api_router.include_router(
+    voice_router
 )
