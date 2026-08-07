@@ -6313,3 +6313,208 @@ i {
       column;
   }
 }
+
+
+/* ==========================================================================
+   Mobile form polish
+   ========================================================================== */
+
+/* Keep form fields consistent with the Aksess theme. */
+.field-group input {
+  min-height: 58px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0 18px;
+
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.field-group input::placeholder {
+  color: var(--muted);
+  opacity: 0.72;
+}
+
+.field-group input:focus,
+.field-group input:focus-visible {
+  border-color: #6d5dfc;
+  outline: none;
+  box-shadow:
+    0 0 0 4px
+    rgba(109, 93, 252, 0.14);
+}
+
+
+/* --------------------------------------------------------------------------
+   Safari / iPhone autofill
+   Prevent the yellow autofill background from taking over the design.
+   -------------------------------------------------------------------------- */
+
+.field-group input:-webkit-autofill,
+.field-group input:-webkit-autofill:hover,
+.field-group input:-webkit-autofill:focus,
+.field-group input:-webkit-autofill:active {
+  -webkit-text-fill-color:
+    var(--text) !important;
+
+  caret-color:
+    var(--text);
+
+  -webkit-box-shadow:
+    0 0 0 1000px
+    var(--surface)
+    inset !important;
+
+  box-shadow:
+    0 0 0 1000px
+    var(--surface)
+    inset !important;
+
+  transition:
+    background-color 9999s ease-out 0s;
+}
+
+
+/* Better secondary button contrast in both themes. */
+.button-secondary {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+html[data-theme="dark"]
+.button-secondary {
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   Mobile auth layout
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 700px) {
+  .auth-page {
+    display: block;
+    min-height: 100vh;
+  }
+
+  /*
+   On phones, don't show the large desktop marketing panel.
+   The form becomes the main focus.
+  */
+  .auth-side-panel {
+    display: none;
+  }
+
+  .auth-form-panel {
+    display: block;
+    min-height: 100vh;
+
+    padding:
+      max(46px, env(safe-area-inset-top))
+      22px
+      max(50px, env(safe-area-inset-bottom));
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .auth-card h2 {
+    font-size:
+      clamp(2.6rem, 12vw, 4rem);
+
+    line-height: 0.98;
+  }
+
+  .auth-description {
+    margin:
+      18px 0
+      34px;
+
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .auth-form {
+    gap: 24px;
+  }
+
+  .field-group {
+    gap: 10px;
+  }
+
+  .field-group label {
+    font-size: 1rem;
+  }
+
+  .field-group input {
+    min-height: 60px;
+    font-size: 16px;
+  }
+
+  /*
+   16px prevents iOS Safari automatically zooming
+   when a form field receives focus.
+  */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  .auth-form .button-large {
+    min-height: 60px;
+    margin-top: 4px;
+    font-size: 1rem;
+  }
+
+  .form-footer {
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+}
+
+
+/* Slightly refine the landing page for narrow phones. */
+@media (max-width: 480px) {
+  .home-page {
+    padding:
+      24px
+      20px
+      48px;
+  }
+
+  .home-header {
+    gap: 12px;
+  }
+
+  .home-header .logo {
+    font-size: 1.15rem;
+  }
+
+  .hero-section {
+    padding-top: 70px;
+  }
+
+  .hero-content h1 {
+    font-size:
+      clamp(3.2rem, 14vw, 4.6rem);
+
+    line-height: 0.97;
+  }
+
+  .hero-description {
+    margin: 24px 0;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+}
