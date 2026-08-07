@@ -1,3 +1,11 @@
+import {
+  OfflineStatus,
+} from "@/components/offline/offline-status";
+
+import {
+  ServiceWorkerRegister,
+} from "@/components/offline/service-worker-register";
+
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
@@ -34,6 +42,9 @@ export default function RootLayout({
       </head>
 
       <body>
+        <ServiceWorkerRegister />
+        <OfflineStatus />
+
         <ThemeProvider>
           <AccessibilityProvider>
             <LanguageProvider>

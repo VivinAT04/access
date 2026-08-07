@@ -65,6 +65,9 @@ export type TranslationKey =
   | "dashboard.wearables.title"
   | "dashboard.wearables.description"
   | "dashboard.wearables.action"
+  | "dashboard.offline.title"
+  | "dashboard.offline.description"
+  | "dashboard.offline.action"
   | "dashboard.notVerified";
 
 
@@ -243,6 +246,15 @@ const english: TranslationDictionary = {
 
   "dashboard.wearables.action":
     "Open wearable insights",
+
+  "dashboard.offline.title":
+    "Offline mode",
+
+  "dashboard.offline.description":
+    "Store supported changes locally and synchronise them when your connection returns.",
+
+  "dashboard.offline.action":
+    "Open offline mode",
 
   "dashboard.account":
     "Account",
@@ -448,6 +460,15 @@ const tamil: TranslationDictionary = {
   "dashboard.wearables.action":
     "சாதனத் தகவல்களைத் திற",
 
+  "dashboard.offline.title":
+    "இணையமில்லா பயன்முறை",
+
+  "dashboard.offline.description":
+    "ஆதரிக்கப்படும் மாற்றங்களை சாதனத்தில் சேமித்து இணையம் திரும்பியதும் ஒத்திசைக்கவும்.",
+
+  "dashboard.offline.action":
+    "இணையமில்லா பயன்முறையைத் திற",
+
   "dashboard.account":
     "கணக்கு",
 
@@ -652,6 +673,15 @@ const hindi: TranslationDictionary = {
   "dashboard.wearables.action":
     "वियरेबल जानकारी खोलें",
 
+  "dashboard.offline.title":
+    "ऑफ़लाइन मोड",
+
+  "dashboard.offline.description":
+    "समर्थित बदलावों को स्थानीय रूप से सहेजें और कनेक्शन लौटने पर सिंक करें।",
+
+  "dashboard.offline.action":
+    "ऑफ़लाइन मोड खोलें",
+
   "dashboard.account":
     "खाता",
 
@@ -855,6 +885,15 @@ const arabic: TranslationDictionary = {
 
   "dashboard.wearables.action":
     "فتح بيانات الأجهزة",
+
+  "dashboard.offline.title":
+    "وضع عدم الاتصال",
+
+  "dashboard.offline.description":
+    "احفظ التغييرات المدعومة محليًا وقم بمزامنتها عند عودة الاتصال.",
+
+  "dashboard.offline.action":
+    "فتح وضع عدم الاتصال",
 
   "dashboard.account":
     "الحساب",

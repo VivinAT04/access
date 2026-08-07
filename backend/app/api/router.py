@@ -1,3 +1,6 @@
+from app.offline_sync.router import (
+    router as offline_sync_router,
+)
 from app.wearables.router import (
     router as wearables_router,
 )
@@ -145,4 +148,9 @@ api_router.include_router(
 
 api_router.include_router(
     wearables_router
+)
+
+
+api_router.include_router(
+    offline_sync_router
 )

@@ -215,6 +215,16 @@ const featureCards:
       action:
         "dashboard.wearables.action",
     },
+    {
+      number: "19",
+      href: "/offline",
+      title:
+        "dashboard.offline.title",
+      description:
+        "dashboard.offline.description",
+      action:
+        "dashboard.offline.action",
+    },
   ];
 
 

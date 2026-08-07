@@ -877,3 +877,84 @@ export interface WearableAnalysis {
   suggestion:
     string;
 }
+
+
+export interface OfflineQueueItem {
+  id: string;
+
+  client_operation_id: string;
+
+  resource_type: string;
+
+  operation:
+    | "create"
+    | "update"
+    | "delete";
+
+  resource_id:
+    string | null;
+
+  payload:
+    Record<
+      string,
+      unknown
+    >;
+
+  client_created_at:
+    string;
+
+  retry_count:
+    number;
+
+  status:
+    | "pending"
+    | "syncing"
+    | "failed";
+}
+
+
+export interface OfflineSyncRecord {
+  id: string;
+
+  client_operation_id:
+    string;
+
+  resource_type:
+    string;
+
+  operation:
+    string;
+
+  resource_id:
+    string | null;
+
+  payload:
+    Record<
+      string,
+      unknown
+    >;
+
+  status:
+    string;
+
+  retry_count:
+    number;
+
+  conflict_reason:
+    string | null;
+
+  client_created_at:
+    string;
+
+  synced_at:
+    string;
+}
+
+
+export interface OfflineSyncStatus {
+  total_synced:
+    number;
+
+  recent_records:
+    OfflineSyncRecord[];
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Aksess",
+  "short_name": "Aksess",
+  "description": "Accessible productivity and wellbeing support.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": []
+}

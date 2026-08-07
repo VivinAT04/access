@@ -1,3 +1,6 @@
+from app.models.offline_sync import (
+    OfflineSyncRecord,
+)
 from app.models.wearable import (
     HeartRateBaseline,
     HeartRateSample,
@@ -88,4 +91,5 @@ __all__ = [
     "HeartRateSample",
     "WearableDevice",
     "WearableSignal",
+    "OfflineSyncRecord",
 ]
