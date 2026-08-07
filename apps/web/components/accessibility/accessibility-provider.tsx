@@ -26,6 +26,8 @@ interface AccessibilityContextValue {
 
 const defaultPreferences: AccessibilityPreferenceUpdate = {
   font_size: "medium",
+  accent_colour: "#6d5dfc",
+  surface_colour: "#ffffff",
   high_contrast: false,
   reduced_motion: false,
   dyslexia_friendly_font: false,
@@ -73,6 +75,18 @@ function applyPreferences(
 
   root.dataset.fontSize = preferences.font_size;
 
+  root.style.setProperty(
+    "--aksess-accent",
+    preferences.accent_colour
+      ?? "#6d5dfc",
+  );
+
+  root.style.setProperty(
+    "--aksess-custom-surface",
+    preferences.surface_colour
+      ?? "#ffffff",
+  );
+
   root.classList.toggle(
     "accessibility-high-contrast",
     preferences.high_contrast,
@@ -115,7 +129,12 @@ function extractPreferences(
 ): AccessibilityPreferenceUpdate {
   return {
     font_size: data.font_size,
-    high_contrast: data.high_contrast,
+    accent_colour:
+      data.accent_colour,
+    surface_colour:
+      data.surface_colour,
+    high_contrast:
+      data.high_contrast,
     reduced_motion: data.reduced_motion,
     dyslexia_friendly_font:
       data.dyslexia_friendly_font,

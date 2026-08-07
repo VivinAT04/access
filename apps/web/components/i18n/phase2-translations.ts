@@ -118,6 +118,17 @@ const en: Dictionary = {
   "accessibility.reset": "Accessibility preferences reset to default.",
   "accessibility.resetFailed": "The preferences could not be reset.",
 
+  "accessibility.colours": "Colours",
+  "accessibility.customColours": "Custom colours",
+  "accessibility.customColoursDescription":
+    "Choose accent and surface colours that make Aksess feel comfortable to you.",
+  "accessibility.accentColour": "Accent colour",
+  "accessibility.surfaceColour": "Surface colour",
+  "accessibility.paletteCalm": "Calm",
+  "accessibility.paletteForest": "Forest",
+  "accessibility.paletteOcean": "Ocean",
+  "accessibility.paletteWarm": "Warm",
+
   "accessibility.textDisplay": "Text display",
   "accessibility.textSize": "Text size",
   "accessibility.textSizeDescription":
@@ -344,6 +355,17 @@ const ta: Dictionary = {
   "accessibility.saveFailed": "விருப்பங்களைச் சேமிக்க முடியவில்லை.",
   "accessibility.reset": "அணுகல்தன்மை விருப்பங்கள் இயல்புநிலைக்கு மீட்டமைக்கப்பட்டன.",
   "accessibility.resetFailed": "விருப்பங்களை மீட்டமைக்க முடியவில்லை.",
+  "accessibility.colours": "நிறங்கள்",
+  "accessibility.customColours": "தனிப்பயன் நிறங்கள்",
+  "accessibility.customColoursDescription":
+    "Aksess உங்களுக்கு வசதியாக உணர உதவும் முக்கிய நிறம் மற்றும் மேற்பரப்பு நிறத்தைத் தேர்ந்தெடுக்கவும்.",
+  "accessibility.accentColour": "முக்கிய நிறம்",
+  "accessibility.surfaceColour": "மேற்பரப்பு நிறம்",
+  "accessibility.paletteCalm": "அமைதி",
+  "accessibility.paletteForest": "காடு",
+  "accessibility.paletteOcean": "கடல்",
+  "accessibility.paletteWarm": "வெப்பமான",
+
   "accessibility.textDisplay": "உரை காட்சி",
   "accessibility.textSize": "உரை அளவு",
   "accessibility.textSizeDescription":
@@ -526,6 +548,17 @@ const hi: Dictionary = {
   "accessibility.saveFailed": "प्राथमिकताएं सहेजी नहीं जा सकीं।",
   "accessibility.reset": "प्राथमिकताएं डिफ़ॉल्ट पर रीसेट की गईं।",
   "accessibility.resetFailed": "प्राथमिकताएं रीसेट नहीं हो सकीं।",
+  "accessibility.colours": "रंग",
+  "accessibility.customColours": "कस्टम रंग",
+  "accessibility.customColoursDescription":
+    "ऐसे मुख्य और सतह रंग चुनें जिनसे Aksess आपके लिए अधिक आरामदायक लगे।",
+  "accessibility.accentColour": "मुख्य रंग",
+  "accessibility.surfaceColour": "सतह का रंग",
+  "accessibility.paletteCalm": "शांत",
+  "accessibility.paletteForest": "जंगल",
+  "accessibility.paletteOcean": "समुद्र",
+  "accessibility.paletteWarm": "गर्म",
+
   "accessibility.textDisplay": "टेक्स्ट प्रदर्शन",
   "accessibility.textSize": "टेक्स्ट आकार",
   "accessibility.textSizeDescription": "Aksess के लिए आरामदायक टेक्स्ट आकार चुनें।",
@@ -699,6 +732,17 @@ const ar: Dictionary = {
   "accessibility.saveFailed": "تعذر حفظ التفضيلات.",
   "accessibility.reset": "تمت إعادة التفضيلات إلى الوضع الافتراضي.",
   "accessibility.resetFailed": "تعذر إعادة ضبط التفضيلات.",
+  "accessibility.colours": "الألوان",
+  "accessibility.customColours": "ألوان مخصصة",
+  "accessibility.customColoursDescription":
+    "اختر لونًا رئيسيًا ولون سطح يجعل Aksess أكثر راحة بالنسبة لك.",
+  "accessibility.accentColour": "اللون الرئيسي",
+  "accessibility.surfaceColour": "لون السطح",
+  "accessibility.paletteCalm": "هادئ",
+  "accessibility.paletteForest": "غابة",
+  "accessibility.paletteOcean": "محيط",
+  "accessibility.paletteWarm": "دافئ",
+
   "accessibility.textDisplay": "عرض النص",
   "accessibility.textSize": "حجم النص",
   "accessibility.textSizeDescription": "اختر حجم نص مريحًا في Aksess.",

@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 
 from app.insights.schemas import (
     DailyInsightPoint,
+    InsightSuggestion,
     InsightSummary,
     ReflectionInsightsResponse,
 )
@@ -47,8 +48,10 @@ def day_key(
 def build_suggestions(
     days: list[DailyInsightPoint],
     summary: InsightSummary,
-) -> list[str]:
-    suggestions: list[str] = []
+) -> list[InsightSuggestion]:
+    suggestions: list[
+        InsightSuggestion
+    ] = []
 
     if (
         summary.total_focus_sessions == 0
@@ -56,14 +59,11 @@ def build_suggestions(
         and summary.total_reflections == 0
     ):
         return [
-            (
-                "There is no pressure to create a full week "
-                "of data. One short check-in or focus session "
-                "is enough to begin noticing patterns."
+            InsightSuggestion(
+                code="insight.no_data_start",
             ),
-            (
-                "Try recording how you feel once today. "
-                "Small entries still count."
+            InsightSuggestion(
+                code="insight.try_checkin",
             ),
         ]
 
@@ -72,21 +72,18 @@ def build_suggestions(
         and summary.average_stress >= 4
     ):
         suggestions.append(
-            (
-                "Your recent check-ins show higher stress. "
-                "A shorter focus session or grounding break "
-                "may feel more manageable."
+            InsightSuggestion(
+                code="insight.high_stress",
             )
         )
+
     elif (
         summary.average_stress is not None
         and summary.average_stress <= 2
     ):
         suggestions.append(
-            (
-                "Your recorded stress has generally been "
-                "lower this week. Notice which routines or "
-                "environments may have supported that."
+            InsightSuggestion(
+                code="insight.low_stress",
             )
         )
 
@@ -95,32 +92,40 @@ def build_suggestions(
         and summary.average_energy <= 2.5
     ):
         suggestions.append(
-            (
-                "Your recorded energy has been lower this "
-                "week. Consider smaller tasks and more "
-                "frequent pauses."
+            InsightSuggestion(
+                code="insight.low_energy",
             )
         )
+
     elif (
         summary.average_energy is not None
         and summary.average_energy >= 4
     ):
         suggestions.append(
-            (
-                "Your recorded energy has been relatively "
-                "strong. This may be a useful time for one "
-                "important but realistic task."
+            InsightSuggestion(
+                code="insight.high_energy",
             )
         )
 
-    if summary.most_focused_day is not None:
+    if (
+        summary.most_focused_day
+        is not None
+    ):
         suggestions.append(
-            (
-                f"{summary.most_focused_day} was your most "
-                f"focused day with "
-                f"{summary.most_focused_minutes} minutes. "
-                "You could gently compare what made that "
-                "day feel workable."
+            InsightSuggestion(
+                code=(
+                    "insight."
+                    "most_focused_day"
+                ),
+                values={
+                    "day":
+                        summary
+                        .most_focused_day,
+
+                    "minutes":
+                        summary
+                        .most_focused_minutes,
+                },
             )
         )
 
@@ -131,96 +136,145 @@ def build_suggestions(
     )
 
     if (
-        summary.total_focus_minutes > 0
+        summary.total_focus_minutes
+        > 0
         and active_focus_days >= 4
     ):
         suggestions.append(
-            (
-                "You completed focused work on several days "
-                "this week. Consistency can include short "
-                "sessions and does not require a perfect "
-                "streak."
+            InsightSuggestion(
+                code=(
+                    "insight."
+                    "consistent_focus"
+                ),
             )
         )
 
     if (
         summary.total_reflections == 0
         and (
-            summary.total_focus_sessions > 0
-            or summary.total_mood_checkins > 0
+            summary.total_focus_sessions
+            > 0
+            or summary.total_mood_checkins
+            > 0
         )
     ):
         suggestions.append(
-            (
-                "You have activity recorded but no reflection "
-                "this week. One sentence about what helped "
-                "would be enough."
+            InsightSuggestion(
+                code=(
+                    "insight."
+                    "no_reflection"
+                ),
             )
         )
-    elif summary.total_reflections >= 4:
+
+    elif (
+        summary.total_reflections
+        >= 4
+    ):
         suggestions.append(
-            (
-                "You reflected on several days this week. "
-                "That gives you a useful record without "
-                "requiring long-form journaling."
+            InsightSuggestion(
+                code=(
+                    "insight."
+                    "regular_reflection"
+                ),
             )
         )
 
     mood_days = [
         day
         for day in days
-        if day.mood_average is not None
+        if (
+            day.mood_average
+            is not None
+        )
     ]
 
     if len(mood_days) >= 4:
         midpoint = max(
             1,
-            len(mood_days) // 2,
+            len(mood_days)
+            // 2,
         )
 
         earlier_values = [
             day.mood_average
-            for day in mood_days[:midpoint]
-            if day.mood_average is not None
+            for day
+            in mood_days[
+                :midpoint
+            ]
+            if (
+                day.mood_average
+                is not None
+            )
         ]
 
         later_values = [
             day.mood_average
-            for day in mood_days[midpoint:]
-            if day.mood_average is not None
+            for day
+            in mood_days[
+                midpoint:
+            ]
+            if (
+                day.mood_average
+                is not None
+            )
         ]
 
-        if earlier_values and later_values:
-            earlier = sum(
-                earlier_values
-            ) / len(earlier_values)
+        if (
+            earlier_values
+            and later_values
+        ):
+            earlier = (
+                sum(
+                    earlier_values
+                )
+                / len(
+                    earlier_values
+                )
+            )
 
-            later = sum(
-                later_values
-            ) / len(later_values)
+            later = (
+                sum(
+                    later_values
+                )
+                / len(
+                    later_values
+                )
+            )
 
-            if later >= earlier + 0.6:
+            if (
+                later
+                >= earlier + 0.6
+            ):
                 suggestions.append(
-                    (
-                        "Your recorded mood was higher later "
-                        "in the week than earlier in the week."
+                    InsightSuggestion(
+                        code=(
+                            "insight."
+                            "mood_improved"
+                        ),
                     )
                 )
-            elif later <= earlier - 0.6:
+
+            elif (
+                later
+                <= earlier - 0.6
+            ):
                 suggestions.append(
-                    (
-                        "Your recorded mood was lower later "
-                        "in the week. Consider keeping the "
-                        "next steps lighter and more flexible."
+                    InsightSuggestion(
+                        code=(
+                            "insight."
+                            "mood_lower"
+                        ),
                     )
                 )
 
     if not suggestions:
         suggestions.append(
-            (
-                "Your week shows a mixture of experiences. "
-                "Keep observing gently rather than trying to "
-                "make every day look the same."
+            InsightSuggestion(
+                code=(
+                    "insight."
+                    "mixed_week"
+                ),
             )
         )
 

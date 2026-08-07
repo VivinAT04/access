@@ -44,6 +44,8 @@ export interface AccessibilityPreferences {
   id: string;
   user_id: string;
   font_size: FontSize;
+  accent_colour: string;
+  surface_colour: string;
   high_contrast: boolean;
   reduced_motion: boolean;
   dyslexia_friendly_font: boolean;

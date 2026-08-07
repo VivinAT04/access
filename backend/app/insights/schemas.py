@@ -34,11 +34,23 @@ class InsightSummary(BaseModel):
     most_focused_minutes: int = 0
 
 
+class InsightSuggestion(BaseModel):
+    code: str
+
+    values: dict[
+        str,
+        str | int | float,
+    ] = Field(
+        default_factory=dict,
+    )
+
+
 class ReflectionInsightsResponse(BaseModel):
     days: list[DailyInsightPoint]
-
     summary: InsightSummary
 
-    suggestions: list[str] = Field(
+    suggestions: list[
+        InsightSuggestion
+    ] = Field(
         default_factory=list,
     )
