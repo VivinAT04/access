@@ -7138,3 +7138,204 @@ html[data-theme="dark"]
     opacity: 1;
   }
 }
+
+
+/* ==========================================================================
+   UNIVERSAL DARK MODE SURFACE FIX
+   Keep every application surface readable in dark mode.
+   ========================================================================== */
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] main {
+  background: #0f1714 !important;
+  color: #f3f7f5 !important;
+}
+
+
+/*
+ * Catch cards/panels across ALL features without needing
+ * individual page-specific selectors.
+ */
+html[data-theme="dark"] main :where(
+  [class*="card"],
+  [class*="panel"],
+  [class*="tile"],
+  [class*="stat"],
+  [class*="summary"],
+  [class*="surface"],
+  [class*="settings"],
+  [class*="controls"],
+  [class*="preference"],
+  [class*="history"],
+  [class*="queue"],
+  [class*="status"],
+  [class*="comparison"],
+  [class*="behaviour"],
+  [class*="support"]
+) {
+  background-color: #18221e !important;
+  border-color: #405049 !important;
+  color: #f3f7f5 !important;
+}
+
+
+/* Main readable headings */
+html[data-theme="dark"] main :where(
+  [class*="card"],
+  [class*="panel"],
+  [class*="tile"],
+  [class*="stat"],
+  [class*="summary"],
+  [class*="surface"],
+  [class*="settings"],
+  [class*="controls"],
+  [class*="preference"],
+  [class*="history"],
+  [class*="queue"],
+  [class*="status"],
+  [class*="comparison"],
+  [class*="behaviour"],
+  [class*="support"]
+) :where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  strong,
+  dt,
+  dd
+) {
+  color: #f3f7f5 !important;
+  opacity: 1 !important;
+}
+
+
+/* Secondary content */
+html[data-theme="dark"] main :where(
+  [class*="card"],
+  [class*="panel"],
+  [class*="tile"],
+  [class*="stat"],
+  [class*="summary"],
+  [class*="surface"],
+  [class*="settings"],
+  [class*="controls"],
+  [class*="preference"],
+  [class*="history"],
+  [class*="queue"],
+  [class*="status"],
+  [class*="comparison"],
+  [class*="behaviour"],
+  [class*="support"]
+) :where(
+  p,
+  small,
+  label
+) {
+  color: #b9c6c0 !important;
+  opacity: 1 !important;
+}
+
+
+/*
+ * Plain spans frequently contain labels/counters.
+ * Keep them visible unless they are button content.
+ */
+html[data-theme="dark"] main :where(
+  [class*="card"],
+  [class*="panel"],
+  [class*="tile"],
+  [class*="stat"],
+  [class*="summary"],
+  [class*="surface"],
+  [class*="settings"],
+  [class*="controls"],
+  [class*="preference"],
+  [class*="history"],
+  [class*="queue"],
+  [class*="status"],
+  [class*="comparison"],
+  [class*="behaviour"],
+  [class*="support"]
+) span:not(button span) {
+  color: #b9c6c0;
+}
+
+
+/* Preserve the mint Aksess section labels. */
+html[data-theme="dark"] main :where(
+  .eyebrow,
+  [class*="eyebrow"],
+  [class*="section-label"],
+  [class*="card-label"],
+  [class*="feature-number"]
+) {
+  color: #8fd3c3 !important;
+  opacity: 1 !important;
+}
+
+
+/* Inputs/selects/textareas */
+html[data-theme="dark"] main :where(
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select
+) {
+  background: #101815 !important;
+  color: #f3f7f5 !important;
+  border-color: #55665f !important;
+  -webkit-text-fill-color: #f3f7f5;
+}
+
+html[data-theme="dark"] main input::placeholder,
+html[data-theme="dark"] main textarea::placeholder {
+  color: #87968f !important;
+  opacity: 1;
+}
+
+
+/* Checkboxes / toggles */
+html[data-theme="dark"] main input[type="checkbox"],
+html[data-theme="dark"] main input[type="radio"] {
+  accent-color: #6d5dfc;
+}
+
+
+/* Secondary / neutral buttons */
+html[data-theme="dark"] main :where(
+  .button-secondary,
+  [class*="secondary"]
+) {
+  background: #24302b !important;
+  color: #f3f7f5 !important;
+  border-color: #60736b !important;
+}
+
+
+/*
+ * Explicitly prevent white surfaces remaining on the
+ * advanced feature pages visible in iPhone Safari.
+ */
+@media (max-width: 800px) {
+  html[data-theme="dark"] main :where(
+    [class*="card"],
+    [class*="panel"],
+    [class*="tile"],
+    [class*="stat"],
+    [class*="summary"],
+    [class*="surface"],
+    [class*="settings"],
+    [class*="controls"],
+    [class*="preference"],
+    [class*="history"],
+    [class*="queue"],
+    [class*="status"],
+    [class*="comparison"],
+    [class*="behaviour"],
+    [class*="support"]
+  ) {
+    background-color: #18221e !important;
+    color: #f3f7f5 !important;
+  }
+}
