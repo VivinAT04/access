@@ -6518,3 +6518,343 @@ html[data-theme="dark"]
     line-height: 1.65;
   }
 }
+
+
+/* ==========================================================================
+   Dark mode mobile contrast fix
+   ========================================================================== */
+
+html[data-theme="dark"] {
+  --background: #0f1714;
+  --surface: #18221e;
+  --surface-soft: #202c27;
+  --surface-raised: #24302b;
+
+  --text: #f2f7f5;
+  --muted: #b5c2bd;
+
+  --border: #3b4a44;
+  --border-strong: #60736b;
+}
+
+
+/* --------------------------------------------------------------------------
+   Phase 3 cards
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .phase3-section,
+html[data-theme="dark"] .phase3-card,
+html[data-theme="dark"] .phase3-safety-banner,
+html[data-theme="dark"] .phase3-toggle,
+html[data-theme="dark"] .phase3-stat-card,
+html[data-theme="dark"] .phase3-summary-card {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   Notifications
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .notification-summary-card,
+html[data-theme="dark"] .notification-card,
+html[data-theme="dark"] .notification-preference-card,
+html[data-theme="dark"] .notification-item {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .notification-summary-card span,
+html[data-theme="dark"] .notification-summary-card small,
+html[data-theme="dark"] .notification-card p,
+html[data-theme="dark"] .notification-item p {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .notification-summary-card strong,
+html[data-theme="dark"] .notification-card strong,
+html[data-theme="dark"] .notification-item strong {
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   Offline / sync page
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .offline-card,
+html[data-theme="dark"] .offline-panel,
+html[data-theme="dark"] .offline-summary,
+html[data-theme="dark"] .offline-queue-card,
+html[data-theme="dark"] .offline-history-card,
+html[data-theme="dark"] .sync-card,
+html[data-theme="dark"] .sync-history-card {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .offline-card h2,
+html[data-theme="dark"] .offline-card h3,
+html[data-theme="dark"] .offline-panel h2,
+html[data-theme="dark"] .offline-panel h3,
+html[data-theme="dark"] .offline-summary h2,
+html[data-theme="dark"] .offline-summary h3,
+html[data-theme="dark"] .offline-queue-card h2,
+html[data-theme="dark"] .offline-queue-card h3,
+html[data-theme="dark"] .offline-history-card h2,
+html[data-theme="dark"] .offline-history-card h3 {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .offline-card p,
+html[data-theme="dark"] .offline-panel p,
+html[data-theme="dark"] .offline-summary p,
+html[data-theme="dark"] .offline-queue-card p,
+html[data-theme="dark"] .offline-history-card p {
+  color: var(--muted);
+}
+
+
+/* --------------------------------------------------------------------------
+   Generic white cards that may still appear on advanced pages
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .phase3-page article,
+html[data-theme="dark"] .phase3-page section,
+html[data-theme="dark"] .phase3-page .card {
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .phase3-page article {
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   Never allow white text on white surfaces in dark mode
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .phase3-page
+:is(
+  .phase3-section,
+  .phase3-card,
+  .notification-summary-card,
+  .notification-card,
+  .offline-card,
+  .offline-panel,
+  .offline-summary,
+  .offline-queue-card,
+  .offline-history-card
+) {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .button-secondary {
+  background: var(--surface-raised);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .button-secondary:hover {
+  background: var(--surface-soft);
+}
+
+
+/* --------------------------------------------------------------------------
+   Mobile
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 700px) {
+  html[data-theme="dark"] .phase3-section,
+  html[data-theme="dark"] .phase3-card,
+  html[data-theme="dark"] .notification-summary-card,
+  html[data-theme="dark"] .notification-card,
+  html[data-theme="dark"] .offline-card,
+  html[data-theme="dark"] .offline-panel,
+  html[data-theme="dark"] .offline-summary,
+  html[data-theme="dark"] .offline-queue-card,
+  html[data-theme="dark"] .offline-history-card {
+    background: var(--surface) !important;
+    color: var(--text) !important;
+  }
+}
+
+
+/* ==========================================================================
+   Dark mode mobile contrast fix
+   ========================================================================== */
+
+html[data-theme="dark"] {
+  --background: #0f1714;
+  --surface: #18221e;
+  --surface-soft: #202c27;
+  --surface-raised: #24302b;
+
+  --text: #f2f7f5;
+  --muted: #b5c2bd;
+
+  --border: #3b4a44;
+  --border-strong: #60736b;
+}
+
+
+/* --------------------------------------------------------------------------
+   Phase 3 cards
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .phase3-section,
+html[data-theme="dark"] .phase3-card,
+html[data-theme="dark"] .phase3-safety-banner,
+html[data-theme="dark"] .phase3-toggle,
+html[data-theme="dark"] .phase3-stat-card,
+html[data-theme="dark"] .phase3-summary-card {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   Notifications
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .notification-summary-card,
+html[data-theme="dark"] .notification-card,
+html[data-theme="dark"] .notification-preference-card,
+html[data-theme="dark"] .notification-item {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .notification-summary-card span,
+html[data-theme="dark"] .notification-summary-card small,
+html[data-theme="dark"] .notification-card p,
+html[data-theme="dark"] .notification-item p {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .notification-summary-card strong,
+html[data-theme="dark"] .notification-card strong,
+html[data-theme="dark"] .notification-item strong {
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   Offline / sync page
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .offline-card,
+html[data-theme="dark"] .offline-panel,
+html[data-theme="dark"] .offline-summary,
+html[data-theme="dark"] .offline-queue-card,
+html[data-theme="dark"] .offline-history-card,
+html[data-theme="dark"] .sync-card,
+html[data-theme="dark"] .sync-history-card {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .offline-card h2,
+html[data-theme="dark"] .offline-card h3,
+html[data-theme="dark"] .offline-panel h2,
+html[data-theme="dark"] .offline-panel h3,
+html[data-theme="dark"] .offline-summary h2,
+html[data-theme="dark"] .offline-summary h3,
+html[data-theme="dark"] .offline-queue-card h2,
+html[data-theme="dark"] .offline-queue-card h3,
+html[data-theme="dark"] .offline-history-card h2,
+html[data-theme="dark"] .offline-history-card h3 {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .offline-card p,
+html[data-theme="dark"] .offline-panel p,
+html[data-theme="dark"] .offline-summary p,
+html[data-theme="dark"] .offline-queue-card p,
+html[data-theme="dark"] .offline-history-card p {
+  color: var(--muted);
+}
+
+
+/* --------------------------------------------------------------------------
+   Generic white cards that may still appear on advanced pages
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .phase3-page article,
+html[data-theme="dark"] .phase3-page section,
+html[data-theme="dark"] .phase3-page .card {
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .phase3-page article {
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   Never allow white text on white surfaces in dark mode
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .phase3-page
+:is(
+  .phase3-section,
+  .phase3-card,
+  .notification-summary-card,
+  .notification-card,
+  .offline-card,
+  .offline-panel,
+  .offline-summary,
+  .offline-queue-card,
+  .offline-history-card
+) {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .button-secondary {
+  background: var(--surface-raised);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .button-secondary:hover {
+  background: var(--surface-soft);
+}
+
+
+/* --------------------------------------------------------------------------
+   Mobile
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 700px) {
+  html[data-theme="dark"] .phase3-section,
+  html[data-theme="dark"] .phase3-card,
+  html[data-theme="dark"] .notification-summary-card,
+  html[data-theme="dark"] .notification-card,
+  html[data-theme="dark"] .offline-card,
+  html[data-theme="dark"] .offline-panel,
+  html[data-theme="dark"] .offline-summary,
+  html[data-theme="dark"] .offline-queue-card,
+  html[data-theme="dark"] .offline-history-card {
+    background: var(--surface) !important;
+    color: var(--text) !important;
+  }
+}
