@@ -1,3 +1,9 @@
+from app.privacy.router import (
+    router as privacy_router,
+)
+from app.support_resources.router import (
+    router as support_resources_router,
+)
 from app.language_preferences.router import (
     router as language_preferences_router,
 )
@@ -91,4 +97,12 @@ api_router.include_router(
 
 api_router.include_router(
     language_preferences_router
+)
+
+api_router.include_router(
+    privacy_router
+)
+
+api_router.include_router(
+    support_resources_router
 )

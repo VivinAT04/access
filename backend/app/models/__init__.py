@@ -26,6 +26,9 @@ from app.models.reflection import Reflection
 from app.models.subtask import Subtask
 from app.models.task import Task
 from app.models.user import User
+from app.models.privacy_preference import (
+    PrivacyPreference,
+)
 
 __all__ = [
     "LanguagePreference",
@@ -44,4 +47,5 @@ __all__ = [
     "Subtask",
     "Task",
     "User",
+    "PrivacyPreference",
 ]

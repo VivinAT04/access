@@ -59,6 +59,8 @@ export interface AccessibilityPreferences {
 export type AccessibilityPreferenceUpdate = Pick<
   AccessibilityPreferences,
   | "font_size"
+  | "accent_colour"
+  | "surface_colour"
   | "high_contrast"
   | "reduced_motion"
   | "dyslexia_friendly_font"
@@ -397,4 +399,90 @@ export interface LanguagePreference {
   reading_guide: boolean;
   created_at: string;
   updated_at: string;
+}
+
+
+export interface SupportResource {
+  id: string;
+  title: string;
+  category:
+    | "anxiety"
+    | "focus"
+    | "sleep"
+    | "stress"
+    | "low-mood"
+    | "sensory"
+    | "crisis";
+  summary: string;
+  content: string[];
+  professional_support_recommended:
+    boolean;
+}
+
+
+export interface ExpertSupportEntry {
+  id: string;
+  title: string;
+  profession: string;
+  description: string;
+  suitable_for: string[];
+  route: string;
+  urgent: boolean;
+}
+
+
+export interface SafeguardingGuide {
+  title: string;
+  principles: string[];
+  urgent_message: string;
+}
+
+
+export interface PrivacyPreference {
+  id: string;
+  user_id: string;
+
+  adaptive_personalisation:
+    boolean;
+
+  wellbeing_analytics:
+    boolean;
+
+  community_profile_visible:
+    boolean;
+
+  wearable_data_enabled:
+    boolean;
+
+  voice_processing_enabled:
+    boolean;
+
+  research_data_sharing:
+    boolean;
+
+  created_at: string;
+  updated_at: string;
+}
+
+
+export interface PrivacyDataCategory {
+  key: string;
+  title: string;
+  description: string;
+  purpose: string;
+}
+
+
+export interface PrivacySummary {
+  categories:
+    PrivacyDataCategory[];
+
+  storage_statement:
+    string;
+
+  personalisation_statement:
+    string;
+
+  sharing_statement:
+    string;
 }

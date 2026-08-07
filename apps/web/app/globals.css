@@ -3655,3 +3655,337 @@ i {
       1fr;
   }
 }
+
+/* ========================================================================== */
+/* Phase 3 advanced product pages                                              */
+/* ========================================================================== */
+
+.phase3-page {
+  width:
+    min(
+      1180px,
+      calc(
+        100% - 2rem
+      )
+    );
+
+  margin:
+    0 auto;
+
+  padding:
+    2rem 0
+    5rem;
+}
+
+.phase3-header {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    1rem;
+
+  margin-bottom:
+    2.5rem;
+}
+
+.phase3-hero {
+  max-width:
+    850px;
+
+  margin-bottom:
+    2.5rem;
+}
+
+.phase3-hero h1 {
+  margin:
+    0.4rem 0
+    1rem;
+
+  font-size:
+    clamp(
+      2rem,
+      5vw,
+      3.8rem
+    );
+
+  line-height:
+    1.05;
+}
+
+.phase3-hero > p {
+  max-width:
+    720px;
+
+  font-size:
+    1.08rem;
+
+  line-height:
+    1.75;
+}
+
+.phase3-section {
+  margin:
+    3rem 0;
+
+  padding:
+    1.5rem;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    1.4rem;
+
+  background:
+    var(
+      --aksess-custom-surface,
+      var(--surface)
+    );
+}
+
+.phase3-section > h2 {
+  margin:
+    0.35rem 0
+    0.9rem;
+
+  font-size:
+    clamp(
+      1.5rem,
+      3vw,
+      2.2rem
+    );
+}
+
+.phase3-card-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(
+        250px,
+        1fr
+      )
+    );
+
+  gap:
+    1rem;
+
+  margin-top:
+    1.5rem;
+}
+
+.phase3-card {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    0.8rem;
+
+  padding:
+    1.25rem;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    1.1rem;
+
+  background:
+    var(--background);
+}
+
+.phase3-card h3,
+.phase3-card p,
+.phase3-card ul {
+  margin:
+    0;
+}
+
+.phase3-card ul {
+  padding-left:
+    1.3rem;
+}
+
+[dir="rtl"]
+.phase3-card ul {
+  padding-left:
+    0;
+
+  padding-right:
+    1.3rem;
+}
+
+.phase3-card li {
+  margin:
+    0.45rem 0;
+
+  line-height:
+    1.55;
+}
+
+.phase3-safety-banner {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    0.35rem;
+
+  margin-top:
+    1.4rem;
+
+  padding:
+    1rem
+    1.2rem;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    1rem;
+
+  background:
+    var(--surface-soft);
+}
+
+.phase3-safeguarding ul {
+  display:
+    grid;
+
+  gap:
+    0.75rem;
+
+  padding-left:
+    1.4rem;
+}
+
+.phase3-toggle-list {
+  display:
+    grid;
+
+  gap:
+    0.8rem;
+
+  margin-top:
+    1.5rem;
+}
+
+.phase3-toggle {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    1.5rem;
+
+  padding:
+    1rem
+    1.1rem;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    1rem;
+}
+
+.phase3-toggle > span {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    0.35rem;
+}
+
+.phase3-toggle small {
+  line-height:
+    1.5;
+
+  opacity:
+    0.8;
+}
+
+.phase3-toggle input {
+  width:
+    1.3rem;
+
+  height:
+    1.3rem;
+
+  flex-shrink:
+    0;
+}
+
+.phase3-policy-copy {
+  display:
+    grid;
+
+  gap:
+    1rem;
+
+  margin-top:
+    1.4rem;
+}
+
+.phase3-policy-copy p {
+  margin:
+    0;
+
+  line-height:
+    1.7;
+}
+
+@media (
+  max-width: 700px
+) {
+  .phase3-page {
+    width:
+      min(
+        100% - 1rem,
+        1180px
+      );
+  }
+
+  .phase3-header {
+    align-items:
+      flex-start;
+
+    flex-direction:
+      column;
+  }
+
+  .phase3-section {
+    padding:
+      1rem;
+  }
+
+  .phase3-toggle {
+    align-items:
+      flex-start;
+  }
+}
