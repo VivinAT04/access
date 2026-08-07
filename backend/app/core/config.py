@@ -10,7 +10,7 @@ class Settings(BaseSettings):
 
     database_url: str = "sqlite:///./aksess.db"
 
-    secret_key: str = "change-this-secret"
+    secret_key: str = "development-only-secret-key-change-before-production"
     access_token_expire_minutes: int = 30
     refresh_token_expire_days: int = 7
 
