@@ -26,6 +26,11 @@ from app.models import (  # noqa: F401
     Task,
     User,
     PrivacyPreference,
+    CommunityPost,
+    CommunityComment,
+    CommunityReaction,
+    CommunityReport,
+    CommunityModerationAction,
 )
 
 

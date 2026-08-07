@@ -1,3 +1,10 @@
+from app.models.community import (
+    CommunityComment,
+    CommunityModerationAction,
+    CommunityPost,
+    CommunityReaction,
+    CommunityReport,
+)
 from app.models.language_preference import (
     LanguagePreference,
 )
@@ -48,4 +55,9 @@ __all__ = [
     "Task",
     "User",
     "PrivacyPreference",
+    "CommunityPost",
+    "CommunityComment",
+    "CommunityReaction",
+    "CommunityReport",
+    "CommunityModerationAction",
 ]

@@ -165,6 +165,16 @@ const featureCards:
       action:
         "dashboard.language.action",
     },
+    {
+      number: "14",
+      href: "/community",
+      title:
+        "dashboard.community.title",
+      description:
+        "dashboard.community.description",
+      action:
+        "dashboard.community.action",
+    },
   ];
 
 

@@ -486,3 +486,82 @@ export interface PrivacySummary {
   sharing_statement:
     string;
 }
+
+
+export type CommunityCategory =
+  | "general"
+  | "focus"
+  | "study"
+  | "work"
+  | "wellbeing"
+  | "sensory"
+  | "routines"
+  | "wins";
+
+
+export interface CommunityAuthor {
+  display_name: string;
+  is_anonymous: boolean;
+  is_current_user: boolean;
+}
+
+
+export interface CommunityComment {
+  id: string;
+  post_id: string;
+  parent_comment_id:
+    string | null;
+  body: string;
+  author: CommunityAuthor;
+  moderation_status:
+    | "published"
+    | "pending_review"
+    | "hidden";
+  support_count: number;
+  viewer_supported: boolean;
+  created_at: string;
+}
+
+
+export interface CommunityPost {
+  id: string;
+  title: string;
+  body: string;
+  category: CommunityCategory;
+  author: CommunityAuthor;
+  moderation_status:
+    | "published"
+    | "pending_review"
+    | "hidden";
+  moderation_reason:
+    string | null;
+  support_count: number;
+  viewer_supported: boolean;
+  comment_count: number;
+  comments:
+    CommunityComment[];
+  created_at: string;
+}
+
+
+export interface CommunityGuidelines {
+  title: string;
+  rules: string[];
+  safety_message: string;
+  moderation_message: string;
+}
+
+
+export interface CommunityModerationItem {
+  content_type:
+    | "post"
+    | "comment";
+  content_id: string;
+  title: string | null;
+  body: string;
+  moderation_status: string;
+  moderation_reason:
+    string | null;
+  report_count: number;
+  created_at: string;
+}

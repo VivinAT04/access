@@ -1,3 +1,6 @@
+from app.community.router import (
+    router as community_router,
+)
 from app.privacy.router import (
     router as privacy_router,
 )
@@ -105,4 +108,9 @@ api_router.include_router(
 
 api_router.include_router(
     support_resources_router
+)
+
+
+api_router.include_router(
+    community_router
 )

@@ -50,6 +50,9 @@ export type TranslationKey =
   | "dashboard.active"
   | "dashboard.inactive"
   | "dashboard.verified"
+  | "dashboard.community.title"
+  | "dashboard.community.description"
+  | "dashboard.community.action"
   | "dashboard.notVerified";
 
 
@@ -183,6 +186,15 @@ const english: TranslationDictionary = {
 
   "dashboard.language.action":
     "Open language settings",
+
+  "dashboard.community.title":
+    "Peer community",
+
+  "dashboard.community.description":
+    "Share experiences, supportive strategies and small wins in a moderated community.",
+
+  "dashboard.community.action":
+    "Open community",
 
   "dashboard.account":
     "Account",
@@ -343,6 +355,15 @@ const tamil: TranslationDictionary = {
   "dashboard.language.action":
     "மொழி அமைப்புகளைத் திற",
 
+  "dashboard.community.title":
+    "சக சமூக ஆதரவு",
+
+  "dashboard.community.description":
+    "மிதமாக கண்காணிக்கப்படும் சமூகத்தில் அனுபவங்கள், உதவும் முறைகள் மற்றும் சிறிய வெற்றிகளைப் பகிருங்கள்.",
+
+  "dashboard.community.action":
+    "சமூகத்தைத் திற",
+
   "dashboard.account":
     "கணக்கு",
 
@@ -502,6 +523,15 @@ const hindi: TranslationDictionary = {
   "dashboard.language.action":
     "भाषा सेटिंग्स खोलें",
 
+  "dashboard.community.title":
+    "सहयोगी समुदाय",
+
+  "dashboard.community.description":
+    "एक मॉडरेटेड समुदाय में अनुभव, सहायक तरीके और छोटी सफलताएँ साझा करें।",
+
+  "dashboard.community.action":
+    "समुदाय खोलें",
+
   "dashboard.account":
     "खाता",
 
@@ -660,6 +690,15 @@ const arabic: TranslationDictionary = {
 
   "dashboard.language.action":
     "افتح إعدادات اللغة",
+
+  "dashboard.community.title":
+    "مجتمع الدعم",
+
+  "dashboard.community.description":
+    "شارك التجارب والاستراتيجيات الداعمة والإنجازات الصغيرة في مجتمع خاضع للإشراف.",
+
+  "dashboard.community.action":
+    "فتح المجتمع",
 
   "dashboard.account":
     "الحساب",
