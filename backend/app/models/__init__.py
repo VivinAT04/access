@@ -1,3 +1,8 @@
+from app.models.personalisation import (
+    PersonalisationEvent,
+    PersonalisationPreference,
+    PersonalisationRecommendation,
+)
 from app.models.notification import (
     Notification,
     NotificationPreference,
@@ -66,4 +71,7 @@ __all__ = [
     "CommunityModerationAction",
     "Notification",
     "NotificationPreference",
+    "PersonalisationEvent",
+    "PersonalisationPreference",
+    "PersonalisationRecommendation",
 ]

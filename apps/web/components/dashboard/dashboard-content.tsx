@@ -185,6 +185,16 @@ const featureCards:
       action:
         "dashboard.notifications.action",
     },
+    {
+      number: "16",
+      href: "/personalisation",
+      title:
+        "dashboard.personalisation.title",
+      description:
+        "dashboard.personalisation.description",
+      action:
+        "dashboard.personalisation.action",
+    },
   ];
 
 

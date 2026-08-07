@@ -1,3 +1,6 @@
+from app.personalisation.router import (
+    router as personalisation_router,
+)
 from app.notifications.router import (
     router as notifications_router,
 )
@@ -121,4 +124,9 @@ api_router.include_router(
 
 api_router.include_router(
     notifications_router
+)
+
+
+api_router.include_router(
+    personalisation_router
 )

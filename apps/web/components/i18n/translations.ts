@@ -56,6 +56,9 @@ export type TranslationKey =
   | "dashboard.notifications.title"
   | "dashboard.notifications.description"
   | "dashboard.notifications.action"
+  | "dashboard.personalisation.title"
+  | "dashboard.personalisation.description"
+  | "dashboard.personalisation.action"
   | "dashboard.notVerified";
 
 
@@ -207,6 +210,15 @@ const english: TranslationDictionary = {
 
   "dashboard.notifications.action":
     "Open notifications",
+
+  "dashboard.personalisation.title":
+    "Adaptive personalisation",
+
+  "dashboard.personalisation.description":
+    "Choose how Aksess adapts suggestions using preferences you explicitly control.",
+
+  "dashboard.personalisation.action":
+    "Open personalisation",
 
   "dashboard.account":
     "Account",
@@ -385,6 +397,15 @@ const tamil: TranslationDictionary = {
   "dashboard.notifications.action":
     "அறிவிப்புகளைத் திற",
 
+  "dashboard.personalisation.title":
+    "தனிப்பயன் உதவி",
+
+  "dashboard.personalisation.description":
+    "நீங்கள் தேர்வு செய்யும் விருப்பங்களின் அடிப்படையில் Aksess பரிந்துரைகளை மாற்ற அனுமதிக்கவும்.",
+
+  "dashboard.personalisation.action":
+    "தனிப்பயனாக்கத்தைத் திற",
+
   "dashboard.account":
     "கணக்கு",
 
@@ -562,6 +583,15 @@ const hindi: TranslationDictionary = {
   "dashboard.notifications.action":
     "सूचनाएँ खोलें",
 
+  "dashboard.personalisation.title":
+    "अनुकूलित सुझाव",
+
+  "dashboard.personalisation.description":
+    "आपकी चुनी हुई प्राथमिकताओं के आधार पर Aksess सुझावों को अनुकूलित कर सकता है।",
+
+  "dashboard.personalisation.action":
+    "अनुकूलन खोलें",
+
   "dashboard.account":
     "खाता",
 
@@ -738,6 +768,15 @@ const arabic: TranslationDictionary = {
 
   "dashboard.notifications.action":
     "فتح الإشعارات",
+
+  "dashboard.personalisation.title":
+    "التخصيص التكيفي",
+
+  "dashboard.personalisation.description":
+    "اسمح لـ Aksess بتخصيص الاقتراحات باستخدام التفضيلات التي تختارها بنفسك.",
+
+  "dashboard.personalisation.action":
+    "فتح التخصيص",
 
   "dashboard.account":
     "الحساب",

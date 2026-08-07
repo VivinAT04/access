@@ -637,3 +637,72 @@ export interface NotificationSummary {
   unread: number;
   dismissed: number;
 }
+
+
+export interface PersonalisationPreference {
+  id: string;
+  user_id: string;
+
+  preferred_focus_minutes: number;
+
+  preferred_support_style:
+    | "balanced"
+    | "focus-first"
+    | "calm-first"
+    | "routine-first";
+
+  preferred_energy_level:
+    | "low"
+    | "balanced"
+    | "high";
+
+  preferred_prompt_style:
+    | "gentle"
+    | "concise"
+    | "structured";
+
+  created_at: string;
+  updated_at: string;
+}
+
+
+export interface PersonalisationRecommendation {
+  id: string;
+
+  recommendation_type: string;
+
+  title: string;
+  message: string;
+  reason: string;
+
+  action_url: string | null;
+
+  feedback:
+    | "helpful"
+    | "not-helpful"
+    | null;
+
+  created_at: string;
+}
+
+
+export interface PersonalisationProfile {
+  adaptive_personalisation_enabled: boolean;
+
+  preferred_focus_minutes: number;
+  preferred_support_style: string;
+  preferred_energy_level: string;
+  preferred_prompt_style: string;
+
+  explanation: string;
+}
+
+
+export interface PersonalisationRecommendationSet {
+  enabled: boolean;
+
+  explanation: string;
+
+  recommendations:
+    PersonalisationRecommendation[];
+}

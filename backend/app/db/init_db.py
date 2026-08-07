@@ -33,6 +33,9 @@ from app.models import (  # noqa: F401
     CommunityModerationAction,
     Notification,
     NotificationPreference,
+    PersonalisationEvent,
+    PersonalisationPreference,
+    PersonalisationRecommendation,
 )
 
 
