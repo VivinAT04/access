@@ -2,6 +2,7 @@ alembic==1.18.5
 annotated-doc==0.0.4
 annotated-types==0.7.0
 anyio==4.14.2
+-e git+https://github.com/VivinAT04/access.git@4d17f4dd24851ec103745b498f78559930755cb5#egg=app&subdirectory=backend
 argon2-cffi==25.1.0
 argon2-cffi-bindings==25.1.0
 bcrypt==5.0.0
@@ -31,6 +32,8 @@ mdurl==0.1.2
 packaging==26.2
 passlib==1.7.4
 pluggy==1.6.0
+psycopg==3.3.4
+psycopg-binary==3.3.4
 psycopg2-binary==2.9.12
 pwdlib==0.3.0
 pyasn1==0.6.4
