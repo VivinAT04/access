@@ -1,6 +1,3 @@
-import Script from "next/script";
-
-
 const themeCode = `
 (function () {
   try {
@@ -56,11 +53,11 @@ const themeCode = `
 
 export function ThemeScript() {
   return (
-    <Script
+    <script
       id="aksess-theme-script"
-      strategy="beforeInteractive"
-    >
-      {themeCode}
-    </Script>
+      dangerouslySetInnerHTML={{
+        __html: themeCode,
+      }}
+    />
   );
 }

@@ -187,19 +187,22 @@ export function TaskManager() {
     locale,
   } = useLanguage();
 
-  const text = (
-    key:
-      Parameters<
-        typeof taskText
-      >[1],
-    values: Record<
-      string,
-      string | number
-    > = {},
-  ) => taskText(
-    locale,
-    key,
-    values,
+  const text = useCallback(
+    (
+      key:
+        Parameters<
+          typeof taskText
+        >[1],
+      values: Record<
+        string,
+        string | number
+      > = {},
+    ) => taskText(
+      locale,
+      key,
+      values,
+    ),
+    [locale],
   );
 
   const [tasks, setTasks] =
@@ -326,6 +329,7 @@ export function TaskManager() {
     [
       priorityFilter,
       statusFilter,
+      text,
     ],
   );
 

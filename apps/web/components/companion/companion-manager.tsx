@@ -117,13 +117,19 @@ function symbolFor(
 export function CompanionManager() {
   const { locale } = useLanguage();
 
-  const t = (
-    key: string,
-    values: Record<string, string | number> = {},
-  ) => phase2Text(
-    locale,
-    key,
-    values,
+  const t = useCallback(
+    (
+      key: string,
+      values: Record<
+        string,
+        string | number
+      > = {},
+    ) => phase2Text(
+      locale,
+      key,
+      values,
+    ),
+    [locale],
   );
 
   const [
@@ -232,7 +238,7 @@ export function CompanionManager() {
         );
       }
     },
-    [],
+    [t],
   );
 
 

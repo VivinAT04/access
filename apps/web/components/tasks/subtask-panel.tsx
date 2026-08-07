@@ -104,19 +104,22 @@ export function SubtaskPanel({
     locale,
   } = useLanguage();
 
-  const text = (
-    key:
-      Parameters<
-        typeof taskText
-      >[1],
-    values: Record<
-      string,
-      string | number
-    > = {},
-  ) => taskText(
-    locale,
-    key,
-    values,
+  const text = useCallback(
+    (
+      key:
+        Parameters<
+          typeof taskText
+        >[1],
+      values: Record<
+        string,
+        string | number
+      > = {},
+    ) => taskText(
+      locale,
+      key,
+      values,
+    ),
+    [locale],
   );
 
   const [isOpen, setIsOpen] =
@@ -225,7 +228,10 @@ export function SubtaskPanel({
         setIsLoading(false);
       }
     },
-    [task.id],
+    [
+      task.id,
+      text,
+    ],
   );
 
 
@@ -272,7 +278,7 @@ export function SubtaskPanel({
     },
     [
       progress,
-      locale,
+      text,
     ],
   );
 

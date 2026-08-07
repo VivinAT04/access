@@ -442,6 +442,62 @@ export function AnxietyTools() {
   }, [loadData]);
 
 
+  const saveSession = useCallback(
+    async (
+      exerciseType:
+        AnxietyExerciseType,
+      durationSeconds: number,
+    ) => {
+      setError("");
+
+      try {
+        const response = await fetch(
+          "/api/anxiety-sessions",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify({
+              exercise_type:
+                exerciseType,
+              duration_seconds:
+                durationSeconds,
+              completed: true,
+            }),
+          },
+        );
+
+        const data =
+          await readJson(response);
+
+        if (!response.ok) {
+          throw new Error(
+            getMessage(
+              data,
+              "The calm session could not be saved.",
+            ),
+          );
+        }
+
+        setMessage(
+          "Calm session completed."
+        );
+
+        await loadData();
+      } catch (caughtError) {
+        setError(
+          caughtError instanceof Error
+            ? caughtError.message
+            : "The calm session could not be saved.",
+        );
+      }
+    },
+    [loadData],
+  );
+
+
   useEffect(() => {
     if (!isBreathingActive) {
       return;
@@ -530,69 +586,10 @@ export function AnxietyTools() {
     cycles,
     isBreathingActive,
     phaseIndex,
+    saveSession,
     selectedExercise,
     totalCycleSeconds,
   ]);
-
-
-  useEffect(() => {
-    return () => {
-      stopSound();
-    };
-  }, []);
-
-
-  async function saveSession(
-    exerciseType:
-      AnxietyExerciseType,
-    durationSeconds: number,
-  ) {
-    setError("");
-
-    try {
-      const response = await fetch(
-        "/api/anxiety-sessions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            exercise_type:
-              exerciseType,
-            duration_seconds:
-              durationSeconds,
-            completed: true,
-          }),
-        },
-      );
-
-      const data =
-        await readJson(response);
-
-      if (!response.ok) {
-        throw new Error(
-          getMessage(
-            data,
-            "The calm session could not be saved.",
-          ),
-        );
-      }
-
-      setMessage(
-        "Calm session completed."
-      );
-
-      await loadData();
-    } catch (caughtError) {
-      setError(
-        caughtError instanceof Error
-          ? caughtError.message
-          : "The calm session could not be saved.",
-      );
-    }
-  }
 
 
   function chooseExercise(
@@ -695,6 +692,8 @@ export function AnxietyTools() {
       null
     ) {
       setGroundingStartedAt(
+        // Timestamp is captured from a user interaction.
+        // eslint-disable-next-line react-hooks/purity
         Date.now()
       );
     }
@@ -769,6 +768,13 @@ export function AnxietyTools() {
   }
 
 
+  useEffect(() => {
+    return () => {
+      stopSound();
+    };
+  }, []);
+
+
   function startSound(
     sound: SoundType,
   ) {
@@ -812,6 +818,8 @@ export function AnxietyTools() {
       index += 1
     ) {
       const noise =
+        // Random samples generate the ambient sound buffer.
+        // eslint-disable-next-line react-hooks/purity
         Math.random() * 2 - 1;
 
       if (

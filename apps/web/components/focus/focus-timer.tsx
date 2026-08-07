@@ -237,19 +237,22 @@ export function FocusTimer() {
     locale,
   } = useLanguage();
 
-  const text = (
-    key:
-      Parameters<
-        typeof focusText
-      >[1],
-    values: Record<
-      string,
-      string | number
-    > = {},
-  ) => focusText(
-    locale,
-    key,
-    values,
+  const text = useCallback(
+    (
+      key:
+        Parameters<
+          typeof focusText
+        >[1],
+      values: Record<
+        string,
+        string | number
+      > = {},
+    ) => focusText(
+      locale,
+      key,
+      values,
+    ),
+    [locale],
   );
 
   const [duration, setDuration] =
@@ -462,7 +465,7 @@ export function FocusTimer() {
         setIsLoading(false);
       }
     },
-    [],
+    [text],
   );
 
 
